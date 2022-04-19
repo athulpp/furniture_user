@@ -1,0 +1,29 @@
+import 'package:flutter/material.dart';
+import 'package:userapp/model/product.dart';
+import 'package:userapp/product_overview/components/body.dart';
+
+class DetailScreen extends StatelessWidget {
+  
+  const DetailScreen({Key? key, }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.brown.shade200,
+      appBar: buildAppBar(context),
+      body: Body(
+   
+      ),
+    );
+  }
+
+  AppBar buildAppBar(BuildContext context) {
+    return AppBar(
+      backgroundColor: Colors.black,
+      actions: [
+        IconButton(onPressed: () {}, icon: Icon(Icons.search)),
+        IconButton(onPressed: () {}, icon: Icon(Icons.shopping_bag))
+      ],
+    );
+  }
+}
