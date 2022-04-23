@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:userapp/model/product.dart';
-import 'package:userapp/screens/login/login_screen.dart';
+// import 'package:userapp/model/product.dart';
+// import 'package:userapp/screens/login/login_screen.dart';
 import 'package:userapp/screens/my_order/my_order.dart';
 import 'package:userapp/screens/payment_method/payment_method.dart';
 import 'package:userapp/screens/settings/settings.dart';

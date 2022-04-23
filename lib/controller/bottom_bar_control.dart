@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:userapp/controller/controller.dart';
-import 'package:userapp/model/product.dart';
+
 import 'package:userapp/profile/profile_screen.dart';
 import 'package:userapp/screens/Homescreen.dart';
-import 'package:userapp/screens/login/first_page.dart';
+
 import 'package:userapp/screens/login/welcome/welcome_screen.dart';
 import 'package:userapp/screens/orders/carts_screen.dart';
-import 'package:userapp/screens/orders/orders.dart';
+
 import 'package:userapp/screens/search/search_screen.dart';
-import 'package:userapp/screens/user/user_screen.dart';
+
 
 import 'package:userapp/screens/wishlist/wishlist_builder.dart';
 
@@ -89,16 +89,7 @@ class BottomNavigation extends StatelessWidget {
                       ),
                       activeIcon: Icon(Icons.home, color: Colors.white),
                       label: ''),
-                  // BottomNavigationBarItem(
-                  //     icon: Icon(
-                  //       Icons.search,
-                  //       color: Colors.grey,
-                  //     ),
-                  //     activeIcon: Icon(
-                  //       Icons.search,
-                  //       color: Colors.white,
-                  //     ),
-                  //     label: ''),
+      
                   BottomNavigationBarItem(
                       icon: Icon(
                         Icons.bookmark_border,

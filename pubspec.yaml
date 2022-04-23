@@ -30,9 +30,12 @@ dependencies:
   flutter:
     sdk: flutter
   get: ^4.6.1
-  bottom_navy_bar: ^6.0.0
   flutter_rating_bar: ^4.0.0
   flutter_svg: ^1.0.3
+  cloud_firestore: ^3.1.11
+  firebase_auth: ^3.3.12
+  firebase_core: ^1.14.0
+  fluttertoast: ^8.0.9
 
 
 

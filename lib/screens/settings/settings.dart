@@ -97,62 +97,62 @@ class SettingsScreen extends StatelessWidget {
           SizedBox(
             height: 50,
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 20, right: 20),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Text(
-                  'Help Center',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                )
-              ],
-            ),
-          ),
-          SizedBox(
-            height: 5,
-          ),
-          InkWell(
-            onTap: () {
-              // Get.to(() => ());
-            },
-            child: Padding(
-              padding: const EdgeInsets.only(left: 20, right: 20),
-              child: Card(
-                color: Colors.grey,
-                shadowColor: Colors.grey,
-                child: Container(
-                  padding: EdgeInsets.all(15),
-                  width: 400,
-                  height: 50,
-                  color: Colors.grey.shade100,
-                  child: Text('FAQ'),
-                ),
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 15,
-          ),
-          InkWell(
-            onTap: () {
-              // Get.to(() => ());
-            },
-            child: Padding(
-              padding: const EdgeInsets.only(left: 20, right: 20),
-              child: Card(
-                color: Colors.grey,
-                shadowColor: Colors.grey,
-                child: Container(
-                  padding: EdgeInsets.all(15),
-                  width: 400,
-                  height: 50,
-                  color: Colors.grey.shade100,
-                  child: Text('Contact Us'),
-                ),
-              ),
-            ),
-          ),
+          // Padding(
+          //   padding: const EdgeInsets.only(left: 20, right: 20),
+          //   child: Row(
+          //     mainAxisAlignment: MainAxisAlignment.start,
+          //     children: [
+          //       Text(
+          //         'Help Center',
+          //         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+          //       )
+          //     ],
+          //   ),
+          // ),
+          // SizedBox(
+          //   height: 5,
+          // ),
+          // InkWell(
+          //   onTap: () {
+          //     // Get.to(() => ());
+          //   },
+          //   child: Padding(
+          //     padding: const EdgeInsets.only(left: 20, right: 20),
+          //     child: Card(
+          //       color: Colors.grey,
+          //       shadowColor: Colors.grey,
+          //       child: Container(
+          //         padding: EdgeInsets.all(15),
+          //         width: 400,
+          //         height: 50,
+          //         color: Colors.grey.shade100,
+          //         child: Text('FAQ'),
+          //       ),
+          //     ),
+          //   ),
+          // ),
+          // SizedBox(
+          //   height: 15,
+          // ),
+          // InkWell(
+          //   onTap: () {
+          //     // Get.to(() => ());
+          //   },
+          //   child: Padding(
+          //     padding: const EdgeInsets.only(left: 20, right: 20),
+          //     child: Card(
+          //       color: Colors.grey,
+          //       shadowColor: Colors.grey,
+          //       child: Container(
+          //         padding: EdgeInsets.all(15),
+          //         width: 400,
+          //         height: 50,
+          //         color: Colors.grey.shade100,
+          //         child: Text('Contact Us'),
+          //       ),
+          //     ),
+          //   ),
+          // ),
           SizedBox(
             height: 15,
           ),
