@@ -122,18 +122,19 @@ class LoginBody extends StatelessWidget {
   }
 
   void signIn(context, String email, String password) async {
-    // if (_formKey.currentState!.validate()) {
-    {
-      try {
-        UserCredential userCredential = await auth.signInWithEmailAndPassword(
-            email: email, password: password);
-        print(userCredential.user?.uid);
+    if (_formKey.currentState!.validate()) {
+      {
+        try {
+          UserCredential userCredential = await auth.signInWithEmailAndPassword(
+              email: email, password: password);
+          print(userCredential.user?.uid);
 
-        Fluttertoast.showToast(msg: "Login Successful");
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => BottomNavigation()));
-      } catch (e) {
-        return print(e);
+          Fluttertoast.showToast(msg: "Login Successful");
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => BottomNavigation()));
+        } catch (e) {
+          return print(e);
+        }
       }
     }
     // }

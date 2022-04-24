@@ -34,7 +34,7 @@ class ChairsList extends StatelessWidget {
                   width: double.infinity,
                   child: Image.network(
                     productImage,
-                    fit: BoxFit.cover,
+                    fit: BoxFit.contain,
                   ),
                 ),
                 Positioned(

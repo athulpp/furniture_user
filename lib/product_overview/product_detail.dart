@@ -4,7 +4,19 @@ import 'package:userapp/product_overview/components/body.dart';
 
 class DetailScreen extends StatelessWidget {
   
-  const DetailScreen({Key? key, }) : super(key: key);
+   DetailScreen({Key? key, required this.productId,
+      required this.productName,
+      required this.productDesc,
+      required this.productQuantity,
+      required this.productPrice,
+      required this.productImage }) : super(key: key);
+  final productId;
+  String productName;
+  String productDesc;
+  String productPrice;
+  String productQuantity;
+  String productImage;
+      
 
   @override
   Widget build(BuildContext context) {

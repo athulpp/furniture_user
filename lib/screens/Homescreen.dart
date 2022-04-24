@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -8,10 +9,11 @@ import 'package:userapp/product_overview/product_detail.dart';
 import '../product_overview/product_overview.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({
+  HomeScreen({
     Key? key,
   }) : super(key: key);
-
+  final Stream<QuerySnapshot> _productStream =
+      FirebaseFirestore.instance.collection('products').snapshots();
   @override
   Widget build(BuildContext context) {
     List<String> imgList = [
@@ -67,114 +69,51 @@ class HomeScreen extends StatelessWidget {
         backgroundColor: Colors.black,
         // appBar: ,
         body: Column(children: [
-          // Container(
-          //     child: CarouselSlider(
-          //   options: CarouselOptions(
-          //     aspectRatio: 3.5,
-          //     viewportFraction: 1,
-          //     enlargeCenterPage: true,
-          //     enableInfiniteScroll: false,
-          //     initialPage: 2,
-          //     autoPlay: true,
-          //   ),
-          //   items: imageSliders,
-          // )),
-
-          // Stack(children: [
-          //   // Container(
-
-          //   // ),
-          //   Container(
-          //     decoration: BoxDecoration(
-          //         gradient: LinearGradient(
-          //             begin: Alignment.topRight,
-          //             end: Alignment.bottomLeft,
-          //             colors: [Colors.blue, Colors.red])),
-          //     child: Center(
-          //       child: Text(
-          //         'Hello Welcome to Furniture Arena!',
-          //         style: TextStyle(
-          //             fontSize: 20.0,
-          //             fontWeight: FontWeight.bold,
-          //             color: Colors.white),
-          //       ),
-          //     ),
-          //   )
-          // ]
-          //     // Container(
-          //     //   height: 270,
-          //   decoration: BoxDecoration(
-          //       image: DecorationImage(
-          //           image: NetworkImage(
-          //               'https://digitalsynopsis.com/wp-content/uploads/2019/08/beautiful-illustrations-design-inspiration-38.png'))),
-          // ),
-          //   Positioned(
-          //       top: 250,
-          //       child: Container(
-          //         color: Colors.red,
-          //       ))
-          // ],
-
           Expanded(
               child: Container(
-            color: Colors.grey.shade100,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-              // child: InkWell(
-              //   onTap: () {
-              //     Get.to(() => ProductOverView());
-              //   },
-              child: GridView.builder(
-                itemCount: 5,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 10,
-                  crossAxisSpacing: 10,
-                  childAspectRatio: 1 / 1.1,
-                ),
-                itemBuilder: (context, index) => InkWell(
-                  onTap: () {
-                    Get.to(() => DetailScreen());
-                  },
-                  child: ChairsList(
-                    productName: 'Table',
-                    productImage:
-                        'https://www.woodenstreet.com/images/furniture/deal-1.jpg?v1',
-                    productPrice: '100',
-                  ),
-                ),
-              ),
-            ),
-          )),
-        ])
-
-        // Column(
-        //   children: [
-        //     Row(
-        //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        //       children: [
-        //         ChairsList(
-        //             productName: 'lamp',
-        //             productImage:
-        //                 'https://cloudfront-us-east-2.images.arcpublishing.com/reuters/F6INOOMSRRL5XOOQDRPZUWPWBA.jpg',
-        //             onTap: () {
-        //               Navigator.of(context).pushReplacement(MaterialPageRoute(
-        //                   builder: (BuildContext context) => ProductOverView()));
-        //             },
-        //             productPrice: '455'),
-        //         ChairsList(
-        //             productName: 'cheir',
-        //             productImage:
-        //                 'https://cloudfront-us-east-2.images.arcpublishing.com/reuters/F6INOOMSRRL5XOOQDRPZUWPWBA.jpg',
-        //             onTap: () {
-        //               Navigator.of(context).pushReplacement(MaterialPageRoute(
-        //                   builder: (BuildContext context) => ProductOverView()));
-        //             },
-        //             productPrice: '455'),
-        //       ],
-        //     )
-        //   ],
-        // ),
-        );
+                  color: Colors.grey.shade100,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 20),
+                    child: StreamBuilder<QuerySnapshot>(
+                        stream: _productStream,
+                        builder: (BuildContext context,
+                            AsyncSnapshot<QuerySnapshot> snapshot) {
+                          if (snapshot.hasError) {
+                            print("Something went wrong");
+                          }
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return Text('Loading');
+                          }
+                          return GridView.builder(
+                              itemCount: snapshot.data!.docs.length,
+                              gridDelegate:
+                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                mainAxisSpacing: 10,
+                                crossAxisSpacing: 10,
+                                childAspectRatio: 1 / 1.1,
+                              ),
+                              itemBuilder: (context, index) {
+                                final DocumentSnapshot documentSnapshot =
+                                    snapshot.data!.docs[index];
+                                return InkWell(
+                                  onTap: () {
+                                    Get.to(() => DetailScreen());
+                                  },
+                                  child: ChairsList(
+                                    productName:
+                                        documentSnapshot['productname'],
+                                    productImage:
+                                        documentSnapshot['productimage'],
+                                    productPrice:
+                                        documentSnapshot['productprice'],
+                                  ),
+                                );
+                              });
+                        }),
+                  )))
+        ]));
   }
 }
