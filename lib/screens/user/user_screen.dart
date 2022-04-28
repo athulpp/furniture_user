@@ -8,8 +8,9 @@ import 'package:userapp/screens/settings/settings.dart';
 import 'package:userapp/screens/shipping_address/shipping_address.dart';
 
 class UserProfileScreen extends StatelessWidget {
- 
-  const UserProfileScreen({Key? key,}) : super(key: key);
+  const UserProfileScreen({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -35,21 +36,21 @@ class UserProfileScreen extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 10, right: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    width: 30,
-                  ),
-                  CircleAvatar(
-                    backgroundImage: AssetImage('assests/images/icon (2).png'),
-                    radius: 50,
-                  ),
-                ],
-              ),
-            ),
+            // Padding(
+            //   padding: const EdgeInsets.only(left: 10, right: 10),
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.center,
+            //     children: [
+            //       SizedBox(
+            //         width: 30,
+            //       ),
+            //       CircleAvatar(
+            //         backgroundImage: AssetImage('assests/images/icon (2).png'),
+            //         radius: 50,
+            //       ),
+            //     ],
+            //   ),
+            // ),
             SizedBox(
               height: 10,
             ),

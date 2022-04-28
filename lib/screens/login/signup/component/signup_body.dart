@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'package:userapp/constants/material_button.dart';
 
 import 'package:userapp/controller/controller.dart';
+import 'package:userapp/screens/login/login_screen/login..dart';
 
 import 'package:userapp/screens/login/login_screen/login_body.dart';
 import 'package:userapp/screens/login/signup/component/background_signup.dart';
@@ -143,6 +145,8 @@ class SignupBody extends StatelessWidget {
                     try {
                       controller.signUp(controller.emailEditingController.text,
                           controller.passwordEditingController.text);
+                     
+                      RefreshIndicatorState();
                     } catch (e) {
                       print(e);
                     }

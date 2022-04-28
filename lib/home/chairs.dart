@@ -19,8 +19,8 @@ class ChairsList extends StatelessWidget {
         children: [
           Container(
             margin: EdgeInsets.only(right: 10),
-            height: 220,
-            width: 160,
+            height: 200,
+            width: 350,
             decoration: BoxDecoration(
               color: Colors.brown.shade100,
               borderRadius: BorderRadius.circular(10),
@@ -59,62 +59,9 @@ class ChairsList extends StatelessWidget {
                             productName,
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
-
-                          // //
-                          // Stack(
-                          //   children: <Widget>[
-                          //     // Stroked text as border.
-                          //     Text(
-                          //       productPrice,
-                          //       style: TextStyle(
-                          //         fontSize: 40,
-                          //         foreground: Paint()
-                          //           ..style = PaintingStyle.stroke
-                          //           ..strokeWidth = 6
-                          //           ..color = Colors.blue,
-                          //       ),
-                          //     ),
-                          //     // Solid text as fill.
-                          //     Text(
-                          //       productPrice,
-                          //       style: TextStyle(
-                          //         fontSize: 40,
-                          //         color: Colors.grey[300],
-                          //       ),
-                          //     ),
-                          //   ],
-                          // ),
-
                           SizedBox(
                             height: 10,
                           ),
-                          // Text(
-                          //   productName,
-                          //   style: TextStyle(
-                          //       inherit: true,
-                          //       fontSize: 26.0,
-                          //       color: Colors.pink,
-                          //       shadows: [
-                          //         Shadow(
-                          //             // bottomLeft
-                          //             offset: Offset(-1.5, -1.5),
-                          //             color: Colors.white),
-                          //         Shadow(
-                          //             // bottomRight
-                          //             offset: Offset(1.5, -1.5),
-                          //             color: Colors.white),
-                          //         Shadow(
-                          //             // topRight
-                          //             offset: Offset(1.5, 1.5),
-                          //             color: Colors.white),
-                          //         Shadow(
-                          //             // topLeft
-                          //             offset: Offset(-1.5, 1.5),
-                          //             color: Colors.white),
-                          //       ]),
-                          // )
-
-                          // Text(productPrice)
                         ],
                       ),
                     ),

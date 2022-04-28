@@ -1,10 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:userapp/model/product.dart';
 import 'package:userapp/model/usermodel.dart';
+import 'package:userapp/screens/login/login_screen/login..dart';
 
 Controller controller = Get.put(Controller());
 
@@ -53,11 +55,10 @@ class Controller extends GetxController {
   @override
   String? errorMessage;
   final auth = FirebaseAuth.instance;
-
+  final fireStore = FirebaseFirestore.instance;
   // signup function
 
   signUp(String email, String password) async {
-    
     try {
       await auth
           .createUserWithEmailAndPassword(email: email, password: password)
@@ -110,5 +111,57 @@ class Controller extends GetxController {
         .set(userModel.toJson());
 
     Fluttertoast.showToast(msg: "Account Created Sucessfully");
+  }
+
+  final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
+// get all the products
+  CollectionReference _collectionRef =
+      FirebaseFirestore.instance.collection('collection');
+  String productId = '';
+  List<Product> productData = [];
+
+  Future<void> getProducts() async {
+    QuerySnapshot querySnapshot = await _collectionRef.get();
+
+    // Get data from docs and convert map to List
+    final allData = querySnapshot.docs.map((doc) => doc.data()).toList();
+    print(allData);
+  }
+
+  ///search screen control
+  List<QueryDocumentSnapshot<Map<String, dynamic>>> searchResults = [];
+  Future<List<QueryDocumentSnapshot<Map<String, dynamic>>>> searchProducts(
+      String query) async {
+    print('search');
+    try {
+      final data = await fireStore
+          .collection('products')
+          .where('productname', isGreaterThanOrEqualTo: query)
+          .get();
+
+      // searchResults =
+      //     value.docs.map((e) => Product.fromJson(e.data())).toList();
+
+      // });
+      searchResults.addAll(data.docs);
+      update(['search']);
+      print(data.docs);
+    } catch (e) {
+      print(e);
+    }
+    return searchResults;
+  }
+
+  logOut() async {
+    await FirebaseAuth.instance.signOut();
+
+    Get.to(() => Login());
+  }
+
+  Future queryData(String queryString) async {
+    return FirebaseFirestore.instance
+        .collection('products')
+        .where('productname', isGreaterThanOrEqualTo: queryString)
+        .get();
   }
 }

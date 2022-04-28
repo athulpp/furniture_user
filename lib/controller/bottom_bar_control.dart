@@ -7,15 +7,16 @@ import 'package:userapp/screens/Homescreen.dart';
 
 import 'package:userapp/screens/login/welcome/welcome_screen.dart';
 import 'package:userapp/screens/orders/carts_screen.dart';
+import 'package:userapp/screens/search/search.dart';
 
 import 'package:userapp/screens/search/search_screen.dart';
-
 
 import 'package:userapp/screens/wishlist/wishlist_builder.dart';
 
 final data_control = Get.put(Controller());
+
 class BottomNavigation extends StatelessWidget {
-   BottomNavigation({
+  BottomNavigation({
     Key? key,
   }) : super(key: key);
   List<String> title = ['Home', 'Wish List', 'Cart', 'Profile'];
@@ -31,14 +32,16 @@ class BottomNavigation extends StatelessWidget {
     ];
     return SafeArea(
         child: Scaffold(
-   appBar: AppBar(
+      appBar: AppBar(
         leading: IconButton(
             onPressed: () {
               Get.to(() => SeachScreen());
+
+              // Get.to(() => SearchIt());
             },
             icon: Icon(Icons.search_rounded)),
         centerTitle: true,
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.brown,
         title: GetBuilder<Controller>(
           id: 'indexchange',
           builder: (controller) {
@@ -68,7 +71,7 @@ class BottomNavigation extends StatelessWidget {
       bottomNavigationBar: Theme(
         data: Theme.of(context).copyWith(
             // sets the background color of the `BottomNavigationBar`
-            canvasColor: Colors.black,
+            canvasColor: Colors.brown,
             // sets the active color of the `BottomNavigationBar` if `Brightness` is light
             primaryColor: Colors.red,
             textTheme: Theme.of(context)
@@ -89,7 +92,6 @@ class BottomNavigation extends StatelessWidget {
                       ),
                       activeIcon: Icon(Icons.home, color: Colors.white),
                       label: ''),
-      
                   BottomNavigationBarItem(
                       icon: Icon(
                         Icons.bookmark_border,

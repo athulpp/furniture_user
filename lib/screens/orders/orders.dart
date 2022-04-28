@@ -35,7 +35,7 @@ class OrdersScreen extends StatelessWidget {
                 height: 50,
                 child: ListTile(
                   onTap: () {
-                    Get.to(() => ProductOverView());
+                    // Get.to(() => ProductOverView());
                   },
                   contentPadding: EdgeInsets.symmetric(horizontal: 0.0),
                   leading: Image.network(

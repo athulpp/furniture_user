@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:userapp/constants/material_button.dart';
 import 'package:userapp/controller/bottom_bar_control.dart';
 import 'package:userapp/screens/login/login_screen/login_background.dart';
+import 'package:userapp/screens/login/signup/signup.dart';
 
 class LoginBody extends StatelessWidget {
   LoginBody({
@@ -111,7 +112,7 @@ class LoginBody extends StatelessWidget {
               ),
               GestureDetector(
                   onTap: () {
-                    // Get.to(() => SignUp());
+                    Get.to(() => SignUp());
                   },
                   child: Text("Sign Up"))
             ],
@@ -132,8 +133,8 @@ class LoginBody extends StatelessWidget {
           Fluttertoast.showToast(msg: "Login Successful");
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => BottomNavigation()));
-        } catch (e) {
-          return print(e);
+        } on FirebaseAuthException catch (error) {
+          Fluttertoast.showToast(msg: error.message.toString());
         }
       }
     }

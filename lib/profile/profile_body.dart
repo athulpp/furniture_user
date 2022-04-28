@@ -1,6 +1,9 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:userapp/controller/controller.dart';
+
 import 'package:userapp/screens/my_order/my_order.dart';
 import 'package:userapp/screens/settings/settings.dart';
 
@@ -17,21 +20,22 @@ class ProfileBody extends StatelessWidget {
           fit: StackFit.expand,
           clipBehavior: Clip.hardEdge,
           children: [
-            CircleAvatar(
-              backgroundImage: NetworkImage(
-                  'https://image.shutterstock.com/image-photo/closeup-photo-amazing-short-hairdo-260nw-1617540484.jpg'),
-            ),
-            Positioned(
-              right: -12,
-              bottom: 0,
-              child: SizedBox(
-                height: 46,
-                width: 46,
-                child: TextButton(
-                    onPressed: () {},
-                    child: SvgPicture.asset('assests/images/1298735.svg')),
-              ),
-            ),
+
+            // CircleAvatar(
+            //   backgroundImage: NetworkImage(
+            //       'https://image.shutterstock.com/image-photo/closeup-photo-amazing-short-hairdo-260nw-1617540484.jpg'),
+            // ),
+            // Positioned(
+            //   right: -12,
+            //   bottom: 0,
+            //   child: SizedBox(
+            //     height: 46,
+            //     width: 46,
+            //     child: TextButton(
+            //         onPressed: () {},
+            //         child: SvgPicture.asset('assests/images/1298735.svg')),
+            //   ),
+            // ),
           ],
         ),
       ),
@@ -68,7 +72,9 @@ class ProfileBody extends StatelessWidget {
       ),
       ProfileMenu(
         text: 'Log out',
-        press: () {},
+        press: () {
+          controller.logOut();
+        },
         icon: 'assests/images/sign-out-3298.svg',
       )
     ]);

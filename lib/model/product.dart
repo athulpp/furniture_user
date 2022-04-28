@@ -6,14 +6,14 @@ class Product {
   String? id;
   final String prdouctPrice;
   final String productQuantity;
-  final   productImage;
+  final productImage;
   Product(
       {required this.productName,
       required this.ProductDescripition,
       this.id,
       required this.prdouctPrice,
       required this.productQuantity,
-     this.productImage});
+      this.productImage});
   // Map<String, dynamic> toJson() => {
   //       'productname': productName,
   //       'productdes': ProductDescripition,
@@ -25,11 +25,10 @@ class Product {
   static Product fromJson(Map<String, dynamic> json) {
     return Product(
         productName: json['productname'],
-        ProductDescripition: json['prdouctPrice'],
+        ProductDescripition: json['productdesc'],
         id: json['id'],
         prdouctPrice: json['productprice'],
         productQuantity: json['productquantity'],
         productImage: json['productimage']);
   }
 }
-
