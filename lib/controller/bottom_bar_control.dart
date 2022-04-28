@@ -35,9 +35,13 @@ class BottomNavigation extends StatelessWidget {
       appBar: AppBar(
         leading: IconButton(
             onPressed: () {
-              Get.to(() => SeachScreen());
+              // Get.to(() => SeachScreen());
 
-              // Get.to(() => SearchIt());
+              // Get.to(() => ProductSearch());
+              showSearch(
+                context: context,
+                delegate: ProductSearch(),
+              );
             },
             icon: Icon(Icons.search_rounded)),
         centerTitle: true,

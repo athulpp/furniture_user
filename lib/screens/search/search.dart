@@ -37,52 +37,133 @@
 //     throw UnimplementedError();
 //   }
 // }
+// import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:flutter/material.dart';
+// import 'package:get/get.dart';
+// import 'package:userapp/controller/controller.dart';
+
+// class SearchIt extends StatelessWidget {
+//   SearchIt({Key? key}) : super(key: key);
+//   TextEditingController seachController = TextEditingController();
+//   DocumentSnapshot? snapshot;
+//   @override
+//   Widget build(BuildContext context) {
+//     Widget searchData() {
+//       return ListView.builder(
+//           scrollDirection: Axis.vertical,
+//           shrinkWrap: true,
+//           itemBuilder: (context, index) {
+//             return ListTile(
+//                 title: Text(
+//               snapshot![index].data()!['productname'],
+//             ));
+//           });
+//     }
+
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: TextFormField(
+//           controller: seachController,
+//         ),
+//       ),
+//       body: Column(
+//         children: [
+//           GetBuilder<Controller>(
+//             init: Controller(),
+//             builder: (value) {
+//               return IconButton(
+//                   onPressed: () {
+//                     value.queryData(seachController.text).then((value) {
+//                       snapshot = value;
+//                     });
+//                   },
+//                   icon: Icon(Icons.search));
+//             },
+//           ),
+//           searchData()
+//         ],
+//       ),
+//     );
+//   }
+// }
+
+// new search implementation
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:userapp/controller/controller.dart';
+import 'package:userapp/product_overview/product_detail.dart';
 
-class SearchIt extends StatelessWidget {
-  SearchIt({Key? key}) : super(key: key);
-  TextEditingController seachController = TextEditingController();
-  DocumentSnapshot? snapshot;
+class ProductSearch extends SearchDelegate {
+  CollectionReference _firebaseFireStore =
+      FirebaseFirestore.instance.collection('products');
   @override
-  Widget build(BuildContext context) {
-    Widget searchData() {
-      return ListView.builder(
-          scrollDirection: Axis.vertical,
-          shrinkWrap: true,
-          itemBuilder: (context, index) {
-            return ListTile(
-                title: Text(
-              snapshot![index].data()!['productname'],
-            ));
-          });
-    }
+  List<Widget>? buildActions(BuildContext context) {
+    return [
+      IconButton(
+          onPressed: () {
+            query = '';
+          },
+          icon: Icon(Icons.close))
+    ];
+  }
 
-    return Scaffold(
-      appBar: AppBar(
-        title: TextFormField(
-          controller: seachController,
-        ),
-      ),
-      body: Column(
-        children: [
-          GetBuilder<Controller>(
-            init: Controller(),
-            builder: (value) {
-              return IconButton(
-                  onPressed: () {
-                    value.queryData(seachController.text).then((value) {
-                      snapshot = value;
-                    });
-                  },
-                  icon: Icon(Icons.search));
-            },
-          ),
-          searchData()
-        ],
-      ),
+  @override
+  Widget? buildLeading(BuildContext context) {
+    return IconButton(
+        onPressed: () {
+          Navigator.of(context).pop();
+        },
+        icon: Icon(Icons.arrow_back));
+  }
+
+  @override
+  Widget buildResults(BuildContext context) {
+    return StreamBuilder<QuerySnapshot>(
+        stream: _firebaseFireStore.snapshots().asBroadcastStream(),
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (!snapshot.hasData) {
+            print('snapshot data here $snapshot');
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          } else {
+            print(snapshot.data);
+            return ListView(
+              children: [
+                ...snapshot.data!.docs
+                    .where((QueryDocumentSnapshot<Object?> element) =>
+                        element['productname']
+                            .toString()
+                            .toLowerCase()
+                            .contains(query.toLowerCase()))
+                    .map((QueryDocumentSnapshot<Object?> data) {
+                  final String productname = data.get('productname');
+                  final String image = data.get('productimage');
+                  return ListTile(
+                    onTap: () {
+                      Get.to(() => DetailScreen(
+                          productId: data.id,
+                          productName: data['productname'],
+                          productDesc: data['productdes'],
+                          productPrice: data['productprice'],
+                          productImage: data['productimage']));
+                    },
+                    leading: Image.network(image),
+                    title: Text(productname),
+                  );
+                })
+              ],
+            );
+          }
+        });
+  }
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    return Center(
+      child: Text('Search anything here'),
     );
   }
 }

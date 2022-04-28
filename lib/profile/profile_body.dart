@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -20,6 +19,19 @@ class ProfileBody extends StatelessWidget {
           fit: StackFit.expand,
           clipBehavior: Clip.hardEdge,
           children: [
+            Container(
+                width: 200,
+                height: 200,
+                child: Image.asset(
+                  'assests/images/main_bottom.png',
+                  width: double.infinity,
+                  height: 100.0,
+                )),
+            Positioned(
+                right: 1,
+                left: 1,
+                top: 20,
+                child: Image.asset('assests/images/Group.png'))
 
             // CircleAvatar(
             //   backgroundImage: NetworkImage(
