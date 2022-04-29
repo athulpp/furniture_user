@@ -99,6 +99,22 @@ class ProductSearch extends SearchDelegate {
   CollectionReference _firebaseFireStore =
       FirebaseFirestore.instance.collection('products');
   @override
+  @override
+  ThemeData appBarTheme(BuildContext context) {
+    return ThemeData(
+      appBarTheme: const AppBarTheme(
+        color: Colors.brown, // affects AppBar's background color
+        // hintColor: Colors.grey, // affects the initial 'Search' text
+        textTheme: const TextTheme(
+            headline6: TextStyle(
+                // headline 6 affects the query text
+                color: Colors.white,
+                fontSize: 16.0,
+                fontWeight: FontWeight.bold)),
+      ),
+    );
+  }
+
   List<Widget>? buildActions(BuildContext context) {
     return [
       IconButton(
@@ -144,11 +160,13 @@ class ProductSearch extends SearchDelegate {
                   return ListTile(
                     onTap: () {
                       Get.to(() => DetailScreen(
-                          productId: data.id,
-                          productName: data['productname'],
-                          productDesc: data['productdes'],
-                          productPrice: data['productprice'],
-                          productImage: data['productimage']));
+                            productId: data.id,
+                            productName: data['productname'],
+                            productDesc: data['productdes'],
+                            productPrice: data['productprice'],
+                            productImage: data['productimage'],
+                            productQuantity: data['productquantity'],
+                          ));
                     },
                     leading: Image.network(image),
                     title: Text(productname),

@@ -47,7 +47,7 @@ class _SingleProductWidgetState extends State<SingleProductWidget> {
                   width: double.infinity,
                   height: 200,
                   decoration: BoxDecoration(
-                    color: Colors.brown.shade200,
+                    color: Colors.transparent,
                     image: DecorationImage(
                       fit: BoxFit.scaleDown,
                       scale: 2,
@@ -81,7 +81,7 @@ class _SingleProductWidgetState extends State<SingleProductWidget> {
                     style: TextStyle(color: Colors.black),
                   ),
                   SizedBox(
-                    height: 5,
+                    height: 10,
                   ),
                   Row(
                     children: [

@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:userapp/constants/material_button.dart';
 import 'package:userapp/controller/bottom_bar_control.dart';
+import 'package:userapp/controller/cart_controller.dart';
+import 'package:userapp/model/cart.dart';
 import 'package:userapp/product_overview/components/product_descripition.dart';
 import 'package:userapp/product_overview/components/product_with_iamge.dart';
 import 'package:userapp/product_overview/product_rating.dart';
 import 'package:userapp/screens/orders/carts_screen.dart';
 import 'package:userapp/screens/orders/orders.dart';
 import 'package:userapp/screens/wishlist/wishlist_builder.dart';
+import 'package:uuid/uuid.dart';
 // import 'package:userapp/model/product.dart';
 // import 'package:userapp/product_overview/components/body.dart';
 // import 'package:userapp/product_overview/components/product_with_iamge.dart';
@@ -20,15 +23,17 @@ class DetailScreen extends StatelessWidget {
       required this.productName,
       required this.productDesc,
       required this.productPrice,
-      required this.productImage})
+      required this.productImage,
+      required this.productQuantity})
       : super(key: key);
   final productId;
   String productName;
   String productDesc;
   String productPrice;
+  String productQuantity;
 
   String productImage;
-
+  var uuid = Uuid();
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -150,13 +155,18 @@ class DetailScreen extends StatelessWidget {
         buttonColor: Colors.brown,
         text: 'Add to cart'.toUpperCase(),
         onPressed: () {
-          Navigator(
-            onGenerateRoute: (settings) {
-              Widget page = BottomNavigation();
-              if (settings.name == 'CartScreen') page = CartScreen();
-              return MaterialPageRoute(builder: (_) => page);
-            },
-          );
+          // try{if(uuid==Null){
+
+          // }}catch(e){}
+          cartController.addToCart(Cart(
+              productId: uuid.v4(),
+              productName: productName,
+              productPrice: productPrice,
+              ProductQuantity: productQuantity,
+              productImage: productImage));
+          // Get.to((BottomNavigation(
+          //   currentIndex: 2,
+          // )));
         },
       ),
     );

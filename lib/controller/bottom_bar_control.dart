@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:userapp/controller/controller.dart';
@@ -17,11 +18,25 @@ final data_control = Get.put(Controller());
 
 class BottomNavigation extends StatelessWidget {
   BottomNavigation({
+    this.currentIndex,
     Key? key,
   }) : super(key: key);
+
+  int? currentIndex;
   List<String> title = ['Home', 'Wish List', 'Cart', 'Profile'];
+  init() {
+    print("current Index");
+    if (currentIndex != null) {
+      data_control.selectedIndex = currentIndex!;
+    }
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
+    init();
+   
     List<Widget> _widgetOption = [
       HomeScreen(),
       // SeachScreen(),
@@ -30,8 +45,7 @@ class BottomNavigation extends StatelessWidget {
       // OrdersScreen(),
       ProfileScreen()
     ];
-    return SafeArea(
-        child: Scaffold(
+    return Scaffold(
       appBar: AppBar(
         leading: IconButton(
             onPressed: () {
@@ -54,11 +68,6 @@ class BottomNavigation extends StatelessWidget {
         ),
         automaticallyImplyLeading: false,
         actions: [
-          // IconButton(
-          //     onPressed: () {
-          //       Get.to(FirstScreen());
-          //     },
-          //     icon: Icon(Icons.login_sharp)),
           IconButton(
               onPressed: () {
                 Get.to(() => WelcomeScreen());
@@ -123,6 +132,6 @@ class BottomNavigation extends StatelessWidget {
               );
             }),
       ),
-    ));
+    );
   }
 }

@@ -111,6 +111,7 @@ class SignupBody extends StatelessWidget {
                     ),
                     TextFormContainer(
                       child: TextFormField(
+                        obscureText: true,
                         controller: controller.passwordEditingController,
                         onSaved: (value) {
                           controller.passwordEditingController.text = value!;
@@ -143,10 +144,15 @@ class SignupBody extends StatelessWidget {
                   //     context, _emailController.text, _passwordController.text));
                   if (_formKey.currentState!.validate()) {
                     try {
-                      controller.signUp(controller.emailEditingController.text,
-                          controller.passwordEditingController.text);
-                     
-                      RefreshIndicatorState();
+                      controller.signUp(
+                          controller.emailEditingController.text.trim(),
+                          controller.passwordEditingController.text.trim());
+                      controller.firstNameEditingController.clear();
+                      controller.secondNameEditingController.clear();
+                      controller.emailEditingController.clear();
+                      controller.passwordEditingController.clear();
+
+                      Get.to((Login()));
                     } catch (e) {
                       print(e);
                     }

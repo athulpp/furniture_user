@@ -17,6 +17,7 @@ class Controller extends GetxController {
     update(["indexchange"]);
   }
 
+
   // final quantity = 0.obs;
   // void increment() => quantity.value++;
   // void decrement() => quantity.value--;
@@ -164,4 +165,10 @@ class Controller extends GetxController {
         .where('productname', isGreaterThanOrEqualTo: queryString)
         .get();
   }
+
+
+
+
+
+
 }

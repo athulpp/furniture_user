@@ -33,95 +33,6 @@ class HomeScreen extends StatelessWidget {
                             ConnectionState.waiting) {
                           return Text('Loading');
                         }
-                        // return GridView.builder(
-                        //     itemCount: snapshot.data!.docs.length,
-                        //     gridDelegate:
-                        //         const SliverGridDelegateWithFixedCrossAxisCount(
-                        //       crossAxisCount: 2,
-                        //       mainAxisSpacing: 10,
-                        //       crossAxisSpacing: 10,
-                        //       childAspectRatio: 1 / 1.1,
-                        //     ),
-                        //     itemBuilder: ((context, index) {
-                        //       final DocumentSnapshot documentSnapshot =
-                        //           snapshot.data!.docs[index];
-
-                        //       return GridTile(
-                        //         child: InkWell(
-                        //           onTap: () {
-                        //             Get.to(() => DetailScreen(
-                        //                   // productId: documentSnapshot.id,
-                        //                   productName:
-                        //                       documentSnapshot['productname'],
-                        //                   productDesc:
-                        //                       documentSnapshot['productdes'],
-                        //                   productPrice: documentSnapshot[
-                        //                       'productprice'],
-                        //                   productImage: documentSnapshot[
-                        //                       'productiamge'],
-                        //                 ));
-                        //           },
-                        //           child: ChairsList(
-                        //             productName:
-                        //                 documentSnapshot['productname'],
-                        //             productImage:
-                        //                 documentSnapshot['productimage'],
-                        //             productPrice:
-                        //                 documentSnapshot['productprice'],
-                        //           ),
-                        //         ),
-
-                        //         // return InkWell(
-                        //         //   onTap: () {
-                        //         //     Get.to(() => DetailScreen(productId:documentSnapshot.id ,
-                        //         //     productName: documentSnapshot['productname'],
-                        //         //     productDesc: documentSnapshot['productdes'],
-                        //         //     productPrice: documentSnapshot['productprice'],
-                        //         //     productImage: documentSnapshot['productiamge'],));
-                        //         //   },
-                        //       );
-                        //     }));
-
-                        // return ListView.builder(
-                        //     itemCount: snapshot.data!.docs.length,
-                        //     itemBuilder: ((context, index) {
-                        //       final DocumentSnapshot documentSnapshot =
-                        //           snapshot.data!.docs[index];
-                        //       return ListTile(
-                        //         onTap: () {
-                        //           Get.to(() => DetailScreen(
-                        //                 productId: documentSnapshot.id,
-                        //                 productName:
-                        //                     documentSnapshot['productname'],
-                        //                 productDesc:
-                        //                     documentSnapshot['productdes'],
-                        //                 productPrice:
-                        //                     documentSnapshot['productprice'],
-                        //                 productImage:
-                        //                     documentSnapshot['productimage'],
-                        //               ));
-                        //         },
-                        //         // title: ChairsList(
-                        //         //   productName: documentSnapshot['productname'],
-                        //         //   productImage:
-                        //         //       documentSnapshot['productimage'],
-                        //         //   productPrice:
-                        //         //       documentSnapshot['productprice'],
-                        //         // ),
-                        //         title: SingleProductWidget(
-                        //           productName: documentSnapshot['productname'],
-                        //           productModel: documentSnapshot['productdes'],
-                        //           productPrice:
-                        //               documentSnapshot['productprice'],
-                        //           productImage:
-                        //               documentSnapshot['productimage'],
-                        //           onPressed: () {},
-                        //         ),
-                        //       );
-                        //     }
-                        //     )
-                        //     );
-
                         return GridView.builder(
                             shrinkWrap: true,
                             primary: true,
@@ -151,6 +62,8 @@ class HomeScreen extends StatelessWidget {
                                             documentSnapshot['productprice'],
                                         productImage:
                                             documentSnapshot['productimage'],
+                                        productQuantity:
+                                            documentSnapshot['productquantity'],
                                       ));
                                 },
                               );
