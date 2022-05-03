@@ -1,8 +1,27 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class WishListContent extends StatelessWidget {
-  const WishListContent({Key? key}) : super(key: key);
 
+class WishListContent extends StatelessWidget {
+  WishListContent(
+      {Key? key,
+      required this.productId,
+      required this.productName,
+      required this.productDesc,
+      required this.productPrice,
+      required this.productImage,
+      required this.productQuantity,
+      required this.onPressed})
+      : super(key: key);
+  String productId;
+  String productName;
+  String productDesc;
+  String productPrice;
+  String productQuantity;
+  final VoidCallback onPressed;
+
+  String productImage;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -16,16 +35,15 @@ class WishListContent extends StatelessWidget {
             color: Colors.grey.shade300,
             borderRadius: BorderRadius.circular(5),
             elevation: 3,
-            child: InkWell(
-              onTap: () {},
+            child: GestureDetector(
+              onTap: onPressed,
               child: Container(
                 padding: EdgeInsets.all(16),
                 child: Row(
                   children: [
                     Container(
                       height: 80,
-                      child: Image.network(
-                          'https://digitalsynopsis.com/wp-content/uploads/2019/08/beautiful-illustrations-design-inspiration-38.png'),
+                      child: Image.network(productImage),
                     ),
                     SizedBox(
                       width: 10,
@@ -35,7 +53,7 @@ class WishListContent extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'title',
+                            productName,
                             style: TextStyle(
                                 fontSize: 16, fontWeight: FontWeight.bold),
                           ),
@@ -43,7 +61,7 @@ class WishListContent extends StatelessWidget {
                             height: 20,
                           ),
                           Text(
-                            '245',
+                            productPrice,
                             style: TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 18),
                           )
@@ -56,7 +74,30 @@ class WishListContent extends StatelessWidget {
             ),
           ),
         ),
-        positionedRemove()
+        Positioned(
+          top: 20,
+          right: 15,
+          child: Container(
+            height: 30,
+            width: 30,
+            child: MaterialButton(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(5),
+              ),
+              padding: EdgeInsets.all(0),
+              color: Colors.red,
+              child: Icon(Icons.clear),
+              onPressed: (() {
+                FirebaseFirestore.instance
+                    .collection('FavCollections')
+                    .doc(FirebaseAuth.instance.currentUser!.uid)
+                    .collection('Fav')
+                    .doc(productId)
+                    .delete();
+              }),
+            ),
+          ),
+        )
       ],
     );
   }

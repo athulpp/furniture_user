@@ -1,15 +1,18 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:userapp/constants/material_button.dart';
+
+import 'package:userapp/controller/add%20_to_fav.dart';
 import 'package:userapp/controller/bottom_bar_control.dart';
 import 'package:userapp/controller/cart_controller.dart';
 import 'package:userapp/model/cart.dart';
+
+import 'package:userapp/model/favorite.dart';
 import 'package:userapp/product_overview/components/product_descripition.dart';
-import 'package:userapp/product_overview/components/product_with_iamge.dart';
+
 import 'package:userapp/product_overview/product_rating.dart';
-import 'package:userapp/screens/orders/carts_screen.dart';
-import 'package:userapp/screens/orders/orders.dart';
-import 'package:userapp/screens/wishlist/wishlist_builder.dart';
+import 'package:userapp/screens/login/login_screen/login..dart';
+
 import 'package:uuid/uuid.dart';
 // import 'package:userapp/model/product.dart';
 // import 'package:userapp/product_overview/components/body.dart';
@@ -151,35 +154,96 @@ class DetailScreen extends StatelessWidget {
           ],
         ),
       ),
-      bottomSheet: CustomButton(
-        buttonColor: Colors.brown,
-        text: 'Add to cart'.toUpperCase(),
-        onPressed: () {
-          // try{if(uuid==Null){
-
-          // }}catch(e){}
-          cartController.addToCart(Cart(
-              productId: uuid.v4(),
-              productName: productName,
-              productPrice: productPrice,
-              ProductQuantity: productQuantity,
-              productImage: productImage));
-          // Get.to((BottomNavigation(
-          //   currentIndex: 2,
-          // )));
-        },
+      // bottomSheet: CustomButton(
+      //   buttonColor: Colors.brown,
+      //   text: 'Add to cart'.toUpperCase(),
+      //   onPressed: () {
+      //     if (cartController.isAlreadyAvailable) {
+      //       Get.to(() {
+      //         BottomNavigation(
+      //           currentIndex: 2,
+      //         );
+      //       });
+      //     } else {
+      //       cartController.addToCart(Cart(
+      //           productId: uuid.v4(),
+      //           productName: productName,
+      //           productPrice: productPrice,
+      //           ProductQuantity: productQuantity,
+      //           productImage: productImage));
+      //       Get.to((BottomNavigation(
+      //         currentIndex: 2,
+      //       )));
+      //     }
+      //   },
+      // ),
+      bottomNavigationBar: SizedBox(
+        height: size.height / 14,
+        width: size.width,
+        child: Row(
+          children: [
+            Expanded(
+              child: CustomButton(size, () {
+                if (FirebaseAuth.instance.currentUser!.uid == null) {
+                  Get.to(() => Login());
+                } else
+                  cartController.addToCart(Cart(
+                      productId: productId,
+                      productName: productName,
+                      productPrice: productPrice,
+                      ProductQuantity: 1.toString(),
+                      productImage: productImage));
+                Get.to((BottomNavigation(
+                  currentIndex: 2,
+                )));
+              }, Colors.redAccent, "Add to Cart"),
+            ),
+            Expanded(
+              child: CustomButton(size, () {
+                favController.addToFavourite(Favorite(
+                    productId: productId,
+                    productName: productName,
+                    productImage: productImage,
+                    productDes: productDesc,
+                    productPrice: productPrice,
+                    ProductQuantity: productQuantity));
+                Get.to(() => BottomNavigation(
+                      currentIndex: 1,
+                    ));
+              }, Colors.white, "Add to Favorite"),
+            )
+          ],
+        ),
       ),
     );
   }
 
   AppBar buildAppBar(BuildContext context) {
     return AppBar(
-      backgroundColor: Colors.brown,
+      backgroundColor: Colors.brown.shade200,
       elevation: 0,
       actions: [
         IconButton(onPressed: () {}, icon: Icon(Icons.search)),
         IconButton(onPressed: () {}, icon: Icon(Icons.shopping_bag))
       ],
+    );
+  }
+
+  Widget CustomButton(
+      Size size, VoidCallback function, Color color, String title) {
+    return GestureDetector(
+      onTap: () => function(),
+      child: Container(
+        alignment: Alignment.center,
+        color: color,
+        child: Text(
+          title,
+          style: TextStyle(
+              fontSize: 18,
+              color: color == Colors.redAccent ? Colors.white : Colors.black,
+              fontWeight: FontWeight.w500),
+        ),
+      ),
     );
   }
 }

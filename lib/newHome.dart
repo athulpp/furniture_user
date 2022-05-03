@@ -29,10 +29,10 @@ class _SingleProductWidgetState extends State<SingleProductWidget> {
       onTap: widget.onPressed,
       // },
       child: Container(
-        height: 50,
+        height: 60,
         margin: EdgeInsets.all(10.0),
         decoration: BoxDecoration(
-          color: Colors.brown.shade100,
+          color: Colors.grey.shade300,
           borderRadius: BorderRadius.circular(5),
         ),
         child: Column(
@@ -41,11 +41,11 @@ class _SingleProductWidgetState extends State<SingleProductWidget> {
           children: [
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.only(left: 5, right: 5),
+                padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
                 child: Container(
                   alignment: Alignment.topRight,
                   width: double.infinity,
-                  height: 200,
+                  height: 100,
                   decoration: BoxDecoration(
                     color: Colors.transparent,
                     image: DecorationImage(
@@ -60,7 +60,7 @@ class _SingleProductWidgetState extends State<SingleProductWidget> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10),
+              padding: EdgeInsets.symmetric(horizontal: 5),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -70,26 +70,26 @@ class _SingleProductWidgetState extends State<SingleProductWidget> {
                   Text(
                     widget.productName,
                     overflow: TextOverflow.ellipsis,
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                   ),
                   SizedBox(
                     height: 10,
                   ),
-                  Text(
-                    widget.productModel,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(color: Colors.black),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
+                  // Text(
+                  //   widget.productModel,
+                  //   overflow: TextOverflow.ellipsis,
+                  //   style: TextStyle(color: Colors.black),
+                  // ),
+                  // SizedBox(
+                  //   height: 10,
+                  // ),
                   Row(
                     children: [
                       Text(
                         "\₹ ${widget.productPrice}",
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 22),
+                            fontWeight: FontWeight.bold, fontSize: 18),
                       ),
                       SizedBox(
                         width: 15,

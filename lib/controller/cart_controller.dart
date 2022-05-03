@@ -6,18 +6,56 @@ import 'package:userapp/model/cart.dart';
 CartController cartController = CartController();
 
 class CartController extends GetxController {
+  FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+  late Cart cart;
+  bool isLoading = true, isAlreadyAvailable = false;
+
+
   Future<String> addToCart(Cart item) async {
+    isLoading = true;
+    update();
     String res = 'Some error occured';
     try {
       DocumentReference<Map<String, dynamic>> cartUser = FirebaseFirestore
           .instance
           .collection('cartCollection')
           .doc(FirebaseAuth.instance.currentUser!.uid);
-      await cartUser.collection('cart').doc(item.productId).set(item.toJson());
+      await cartUser
+          .collection('cart')
+          .doc(item.productId)
+          .set(item.toJson())
+          .then((value) {
+        // checkIfAlreadyInCart();
+      });
       res = 'success';
     } catch (err) {
       print('...........$err');
     }
     return res;
   }
+
+  Future<String> checkIfAlreadyInCart() async {
+    String res = 'some error';
+    try {
+      await firebaseFirestore
+          .collection('cartCollection')
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .collection('cart')
+          .where('id', isEqualTo: cart.productId)
+          .get()
+          .then((value) {
+        if (value.docs.isNotEmpty) {
+          isAlreadyAvailable = true;
+        }
+        isLoading = false;
+        update();
+      });
+    } catch (e) {
+      print(e);
+    }
+    return res;
+  }
+
+
+  
 }

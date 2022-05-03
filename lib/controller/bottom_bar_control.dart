@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:userapp/controller/controller.dart';
+import 'package:userapp/home/home.dart';
 
 import 'package:userapp/profile/profile_screen.dart';
 import 'package:userapp/screens/Homescreen.dart';
@@ -31,14 +32,13 @@ class BottomNavigation extends StatelessWidget {
     }
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     init();
-   
+
     List<Widget> _widgetOption = [
       HomeScreen(),
+      // HomeScreens(),
       // SeachScreen(),
       WishList(),
       CartScreen(),
