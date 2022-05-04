@@ -2,15 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:userapp/model/cart.dart';
-// import 'package:userapp/screens/shipping_address/add_new_address.dart';
-import 'package:userapp/shipping%20address/address.dart';
-// import 'package:userapp/controller/cart_controller.dart';
-// import 'package:userapp/controller/controller.dart';
-// import 'package:userapp/model/product.dart';
-// import 'package:userapp/screens/orders/counter.dart';
+import 'package:userapp/controller/cart_controller.dart';
 
-// import 'package:userapp/shipping%20address/address_new.dart';
+import 'package:userapp/model/cart.dart';
+
+import 'package:userapp/shipping%20address/address.dart';
 
 class CartScreen extends StatelessWidget {
   final _cartStream = FirebaseFirestore.instance
@@ -33,12 +29,10 @@ class CartScreen extends StatelessWidget {
               return Center(child: Image.asset('assests/images/Group.png'));
             }
             List<Cart>? cartList = convetToCart(snapshot.data!.docs);
+
             return Scaffold(
               backgroundColor: Colors.grey.shade100,
-              body:
-
-                  // sum(cartList);
-                  Padding(
+              body: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Card(
                   elevation: 5,
@@ -93,16 +87,57 @@ class CartScreen extends StatelessWidget {
                                                       .headline6),
                                               Spacer(),
                                               IconButton(
-                                                onPressed: () {},
+                                                onPressed: () {
+                                                  if (int.parse(
+                                                          documentSnapshot[
+                                                              'quantity']) >
+                                                      1) {
+                                                    int x = int.parse(
+                                                        documentSnapshot[
+                                                            'quantity']);
+                                                    x = x - 1;
+                                                    cartController.quantity(Cart(
+                                                        cartId:
+                                                            documentSnapshot[
+                                                                'id'],
+                                                        ProductQuantity:
+                                                            x.toString(),
+                                                        productImage:
+                                                            documentSnapshot[
+                                                                'image'],
+                                                        productName:
+                                                            documentSnapshot[
+                                                                'name'],
+                                                        productPrice:
+                                                            documentSnapshot[
+                                                                'price']));
+                                                  }
+                                                },
                                                 icon: Icon(Icons.remove_circle),
                                               ),
                                               Text(
                                                   documentSnapshot['quantity']),
                                               IconButton(
                                                 onPressed: () {
-                                                  increment(adding) {
-                                                    adding++;
-                                                  }
+                                                  int x = int.parse(
+                                                      documentSnapshot[
+                                                          'quantity']);
+                                                  x = x + 1;
+                                                  print('$x ghfdfhgf');
+                                                  cartController.quantity(Cart(
+                                                      cartId: documentSnapshot[
+                                                          'id'],
+                                                      ProductQuantity:
+                                                          x.toString(),
+                                                      productImage:
+                                                          documentSnapshot[
+                                                              'image'],
+                                                      productName:
+                                                          documentSnapshot[
+                                                              'name'],
+                                                      productPrice:
+                                                          documentSnapshot[
+                                                              'price']));
                                                 },
                                                 icon: Icon(Icons.add_circle),
                                               ),
@@ -156,32 +191,6 @@ class CartScreen extends StatelessWidget {
                       }),
                 ),
               ),
-
-              // bottomNavigationBar: BottomAppBar(
-              //   color: Colors.grey,
-              //   child: Container(
-              //     color: Colors.grey,
-              //     height: 70,
-              //     child: Row(
-              //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              //       children: [
-              //         ElevatedButton(
-              //           style: ElevatedButton.styleFrom(primary: Colors.grey.shade200),
-              //           onPressed: () {
-              //             Get.to(() => AddressScreen());
-              //           },
-              //           child: Text(
-              //             'Checkout',
-              //             style: Theme.of(context)
-              //                 .textTheme
-              //                 .headline6!
-              //                 .copyWith(color: Colors.black),
-              //           ),
-              //         ),
-              //       ],
-              //     ),
-              //   ),
-              // ),
               bottomNavigationBar: SizedBox(
                   child: Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -215,29 +224,33 @@ class CartScreen extends StatelessWidget {
 sum(List<Cart> cartList) {
   double sumProd = 0.0;
   for (var cart in cartList) {
-    sumProd =
-        int.parse(cart.ProductQuantity!) * double.parse(cart.productPrice!);
+    sumProd +=
+        int.parse(cart.ProductQuantity) * double.parse(cart.productPrice);
+
     print(sumProd);
+
+    // print(cartList);
   }
+  print(sumProd);
   return sumProd;
 }
 
 quantity(List<Cart> cartList) {
   double quantity = 0;
   for (var cart in cartList) {
-    quantity = double.parse(cart.ProductQuantity!);
+    quantity = double.parse(cart.ProductQuantity);
   }
   return quantity;
 }
 
-increment(List<Cart> adding) {
-  int incement = 1;
-  for (var add in adding) {
-    incement = int.parse(add.ProductQuantity!);
-    incement++;
-    quantity(adding);
-  }
-}
+// increment(List<Cart> adding) {
+//   int incement = 1;
+//   for (var add in adding) {
+//     incement = int.parse(add.ProductQuantity!);
+//     incement++;
+//     quantity(adding);
+//   }
+// }
 
 class CartProductCard extends StatelessWidget {
   CartProductCard({

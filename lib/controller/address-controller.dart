@@ -47,4 +47,14 @@ class AddressControl extends GetxController {
     }
     return res;
   }
+
+  Future<String> deleteAddress(Address address) async {
+    String res = 'error';
+    DocumentReference<Map<String, dynamic>> user_address = FirebaseFirestore
+        .instance
+        .collection('AddressCollection')
+        .doc(FirebaseAuth.instance.currentUser!.uid);
+    await user_address.collection('address').doc(address.id).delete();
+    return res;
+  }
 }

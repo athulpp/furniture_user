@@ -59,7 +59,7 @@ class BottomNavigation extends StatelessWidget {
             },
             icon: Icon(Icons.search_rounded)),
         centerTitle: true,
-        backgroundColor: Colors.brown,
+        backgroundColor: Colors.black,
         title: GetBuilder<Controller>(
           id: 'indexchange',
           builder: (controller) {
@@ -84,7 +84,7 @@ class BottomNavigation extends StatelessWidget {
       bottomNavigationBar: Theme(
         data: Theme.of(context).copyWith(
             // sets the background color of the `BottomNavigationBar`
-            canvasColor: Colors.brown,
+            canvasColor: Colors.black,
             // sets the active color of the `BottomNavigationBar` if `Brightness` is light
             primaryColor: Colors.red,
             textTheme: Theme.of(context)

@@ -1,27 +1,27 @@
 class Cart {
-  final productId;
-  String? productName;
-  String? productPrice;
-  String? ProductQuantity;
-  String? productImage;
+  final cartId;
+  String productName;
+  String productPrice;
+  String ProductQuantity;
+  String productImage;
 
   Cart(
-      {this.productId,
-      this.productName,
-      this.productPrice,
-      this.ProductQuantity,
-      this.productImage});
+      {this.cartId,
+      required this.productName,
+      required this.productPrice,
+      required this.ProductQuantity,
+      required this.productImage});
 
   Map<String, dynamic> toJson() => {
-        'id': productId,
+        'id': cartId,
         "name": productName,
         "price": productPrice,
         "quantity": ProductQuantity,
         "image": productImage
       };
-  static Cart fromJson( dynamic json) {
+  static Cart fromJson(dynamic json) {
     return Cart(
-        productId: json['id'],
+        cartId: json['id'],
         productName: json['name'],
         productPrice: json['price'],
         ProductQuantity: json['quantity'],

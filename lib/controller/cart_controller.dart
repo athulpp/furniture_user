@@ -10,10 +10,9 @@ class CartController extends GetxController {
   late Cart cart;
   bool isLoading = true, isAlreadyAvailable = false;
 
-
   Future<String> addToCart(Cart item) async {
-    isLoading = true;
-    update();
+    // isLoading = true;
+    // update();
     String res = 'Some error occured';
     try {
       DocumentReference<Map<String, dynamic>> cartUser = FirebaseFirestore
@@ -22,7 +21,7 @@ class CartController extends GetxController {
           .doc(FirebaseAuth.instance.currentUser!.uid);
       await cartUser
           .collection('cart')
-          .doc(item.productId)
+          .doc(item.cartId)
           .set(item.toJson())
           .then((value) {
         // checkIfAlreadyInCart();
@@ -41,7 +40,7 @@ class CartController extends GetxController {
           .collection('cartCollection')
           .doc(FirebaseAuth.instance.currentUser!.uid)
           .collection('cart')
-          .where('id', isEqualTo: cart.productId)
+          .where('id', isEqualTo: cart.cartId)
           .get()
           .then((value) {
         if (value.docs.isNotEmpty) {
@@ -56,6 +55,25 @@ class CartController extends GetxController {
     return res;
   }
 
-
-  
+  Future<String> quantity(Cart cart) async {
+    print(cart.ProductQuantity);
+    String res = 'Some error occured';
+    try {
+      DocumentReference<Map<String, dynamic>> cartUser = FirebaseFirestore
+          .instance
+          .collection('cartCollection')
+          .doc(FirebaseAuth.instance.currentUser!.uid);
+      await cartUser
+          .collection('cart')
+          .doc(cart.cartId)
+          .update(cart.toJson())
+          .then((value) {
+        // checkIfAlreadyInCart();
+      });
+      res = 'success';
+    } catch (err) {
+      print('...........$err');
+    }
+    return res;
+  }
 }

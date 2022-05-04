@@ -11,11 +11,11 @@ class ConfirmationScreen extends StatelessWidget {
     final Size size = Get.size;
 
     return Container(
-      color: Colors.blueAccent,
+      color: Colors.black,
       child: SafeArea(
         child: Scaffold(
           appBar: AppBar(
-            backgroundColor: Colors.blueAccent,
+            backgroundColor: Colors.black,
             title: const Text("Confirmation"),
           ),
           body: SizedBox(
@@ -41,7 +41,7 @@ class ConfirmationScreen extends StatelessWidget {
             child: Container(
               height: size.height / 12,
               width: size.width / 1.2,
-              color: Colors.blueAccent,
+              color: Colors.black,
               alignment: Alignment.center,
               child: const Text(
                 "Pay Now",

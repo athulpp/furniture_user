@@ -8,6 +8,7 @@ import 'package:userapp/controller/controller.dart';
 import 'package:userapp/model/address.dart';
 import 'package:userapp/screens/checkout/confirmation_screen.dart';
 import 'package:userapp/shipping%20address/address_controller.dart';
+import 'package:userapp/shipping%20address/all_address.dart';
 import 'package:uuid/uuid.dart';
 
 // import 'package:userapp/constants/const.dart';
@@ -44,7 +45,7 @@ class AddAdressScreen extends StatelessWidget {
             actions: [
               IconButton(
                   onPressed: () {
-                    Get.to(() => EditAddressScreen());
+                    Get.to(() => AllAddressScreen());
                   },
                   icon: Icon(Icons.login))
             ],
@@ -164,137 +165,149 @@ class EditAddressScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = Get.size;
 
-    return Container(
-      color: Colors.black,
-      child: SafeArea(
-        child: Scaffold(
-          appBar: AppBar(
-            backgroundColor: Colors.black,
-            title: const Text("Address"),
-          ),
-          body: SizedBox(
-            height: size.height,
-            width: size.width,
-            child: Column(
-              children: [
-                SizedBox(
-                  height: size.height / 30,
-                ),
-                StreamBuilder<QuerySnapshot>(
-                    stream: _addressStream,
-                    builder: (BuildContext context,
-                        AsyncSnapshot<QuerySnapshot> snapshot) {
-                      if (snapshot.hasError) {
-                        print("Something went wrong");
-                      }
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return Text('Loading');
-                      }
-                      return ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: snapshot.data!.docs.length,
-                          itemBuilder: (context, index) {
-                            final DocumentSnapshot documentSnapshot =
-                                snapshot.data!.docs[index];
-                            return Material(
-                              elevation: 5,
-                              color: Colors.white,
-                              child: Container(
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: 20,
-                                  horizontal: 15,
-                                ),
-                                width: size.width / 1.1,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Text(
-                                          documentSnapshot['name'],
-                                          style: TextStyle(
-                                              fontSize: 22,
-                                              fontWeight: FontWeight.w500),
-                                        ),
-                                        IconButton(
-                                            onPressed: () {},
-                                            icon: Icon(Icons.delete))
-                                      ],
-                                    ),
-                                    Padding(
-                                      padding:
-                                          EdgeInsets.symmetric(vertical: 10),
-                                      child: Text(
-                                        documentSnapshot['address'],
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        title: const Text("All Address"),
+        actions: [
+          IconButton(
+              onPressed: () {
+                Get.to(() => AllAddressScreen());
+              },
+              icon: Icon(Icons.new_label))
+        ],
+      ),
+      body: ListView(
+        //  mainAxisSize: MainAxisSize.min,
+        children: [
+          // SizedBox(
+          //   height: size.height / 30,
+          // ),
+          StreamBuilder<QuerySnapshot>(
+              stream: _addressStream,
+              builder: (BuildContext context,
+                  AsyncSnapshot<QuerySnapshot> snapshot) {
+                if (snapshot.hasError) {
+                  print("Something went wrong");
+                }
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Text('Loading');
+                }
+                return Padding(
+                  padding: const EdgeInsets.only(left: 40, right: 40),
+                  child: ListView.builder(
+                      shrinkWrap: true,
+                      primary: true,
+                      itemCount: snapshot.data!.docs.length,
+                      itemBuilder: (context, index) {
+                        final DocumentSnapshot documentSnapshot =
+                            snapshot.data!.docs[index];
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Material(
+                            elevation: 5,
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 20,
+                                horizontal: 15,
+                              ),
+                              width: size.width / 1.1,
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        documentSnapshot['name'],
                                         style: TextStyle(
-                                          fontSize: 18,
+                                            fontSize: 22,
+                                            fontWeight: FontWeight.w500),
+                                      ),
+                                      IconButton(
+                                          onPressed: () {
+                                            addressControl.deleteAddress(
+                                              Address(
+                                                  id: documentSnapshot['id']),
+                                            );
+                                          },
+                                          icon: Icon(Icons.delete))
+                                    ],
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.symmetric(vertical: 10),
+                                    child: Text(
+                                      documentSnapshot['address'],
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ),
+                                  Text(
+                                    documentSnapshot['pincode'],
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                  SizedBox(
+                                    height: size.height / 30,
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      // controller.onEdit();
+                                      // addressScreenController.onEdit();
+                                      Get.to(() => EditAddress(
+                                            id: documentSnapshot.id,
+                                            name: documentSnapshot['name'],
+                                            address:
+                                                documentSnapshot['address'],
+                                            pincode:
+                                                documentSnapshot['pincode'],
+                                          ));
+                                    },
+                                    child: Container(
+                                      height: size.height / 18,
+                                      width: size.width / 1.2,
+                                      color: Colors.black,
+                                      alignment: Alignment.center,
+                                      child: const Text(
+                                        "Edit",
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          color: Colors.white,
                                           fontWeight: FontWeight.w500,
                                         ),
                                       ),
                                     ),
-                                    Text(
-                                      documentSnapshot['pincode'],
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.w500),
-                                    ),
-                                    SizedBox(
-                                      height: size.height / 30,
-                                    ),
-                                    GestureDetector(
-                                      onTap: () {
-                                        // controller.onEdit();
-                                        // addressScreenController.onEdit();
-                                        Get.to(() => EditAddress(
-                                              id: documentSnapshot.id,
-                                              name: documentSnapshot['name'],
-                                              address:
-                                                  documentSnapshot['address'],
-                                              pincode:
-                                                  documentSnapshot['pincode'],
-                                            ));
-                                      },
-                                      child: Container(
-                                        height: size.height / 18,
-                                        width: size.width / 1.2,
-                                        color: Colors.black,
-                                        alignment: Alignment.center,
-                                        child: const Text(
-                                          "Edit",
-                                          style: TextStyle(
-                                            fontSize: 16,
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
-                            );
-                          });
-                    })
-              ],
-            ),
-          ),
-          bottomNavigationBar: GestureDetector(
-            onTap: () {
-              Get.to(() => ConfirmationScreen());
-            },
-            child: Container(
-              height: size.height / 12,
-              width: size.width / 1.2,
-              color: Colors.black,
-              alignment: Alignment.center,
-              child: const Text(
-                "Proceed",
-                style: TextStyle(
-                  fontSize: 21,
-                  color: Colors.white,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
+                            ),
+                          ),
+                        );
+                      }),
+                );
+              })
+        ],
+      ),
+      bottomNavigationBar: GestureDetector(
+        onTap: () {
+          Get.to(() => ConfirmationScreen());
+        },
+        child: Container(
+          height: size.height / 12,
+          width: size.width / 1.2,
+          color: Colors.black,
+          alignment: Alignment.center,
+          child: const Text(
+            "Proceed",
+            style: TextStyle(
+              fontSize: 21,
+              color: Colors.white,
+              fontWeight: FontWeight.w500,
             ),
           ),
         ),

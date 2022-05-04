@@ -188,7 +188,7 @@ class DetailScreen extends StatelessWidget {
                   Get.to(() => Login());
                 } else
                   cartController.addToCart(Cart(
-                      productId: productId,
+                      cartId: productId,
                       productName: productName,
                       productPrice: productPrice,
                       ProductQuantity: 1.toString(),
