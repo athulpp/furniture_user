@@ -17,7 +17,6 @@ class Controller extends GetxController {
     update(["indexchange"]);
   }
 
-
   // final quantity = 0.obs;
   // void increment() => quantity.value++;
   // void decrement() => quantity.value--;
@@ -156,7 +155,8 @@ class Controller extends GetxController {
   logOut() async {
     await FirebaseAuth.instance.signOut();
 
-    Get.to(() => Login());
+    // Get.to(() => Login());
+    Get.offAll(() => Login());
   }
 
   Future queryData(String queryString) async {
@@ -165,10 +165,4 @@ class Controller extends GetxController {
         .where('productname', isGreaterThanOrEqualTo: queryString)
         .get();
   }
-
-
-
-
-
-
 }

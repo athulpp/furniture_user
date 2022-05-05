@@ -3,10 +3,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:userapp/controller/cart_controller.dart';
-
+import 'dart:ui' as ui;
 import 'package:userapp/model/cart.dart';
+import 'package:userapp/product_overview/product_detail.dart';
 
 import 'package:userapp/shipping%20address/address.dart';
+import 'package:userapp/shipping%20address/all_address.dart';
 
 class CartScreen extends StatelessWidget {
   final _cartStream = FirebaseFirestore.instance
@@ -44,7 +46,16 @@ class CartScreen extends StatelessWidget {
                         print(documentSnapshot);
                         return InkWell(
                           onTap: (() {
-                            Get.to(() => AddAdressScreen());
+                            Get.to(
+                              () => DetailScreen(
+                                productId: documentSnapshot.id,
+                                productName: documentSnapshot['name'],
+                                productDesc: documentSnapshot['des'],
+                                productPrice: documentSnapshot['price'],
+                                productImage: documentSnapshot['image'],
+                                productQuantity: documentSnapshot['quantity'],
+                              ),
+                            );
                           }),
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
@@ -81,11 +92,22 @@ class CartScreen extends StatelessWidget {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.end,
                                             children: [
-                                              Text(documentSnapshot['price'],
+                                              Text(
+                                                  '₹ ${documentSnapshot['price']}',
                                                   style: Theme.of(context)
                                                       .textTheme
                                                       .headline6),
                                               Spacer(),
+                                              Container(
+                                                decoration: BoxDecoration(
+                                                    color: Colors.grey,
+                                                    border: Border.all(
+                                                      color: Colors.black12,
+                                                    ),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10)),
+                                              ),
                                               IconButton(
                                                 onPressed: () {
                                                   if (int.parse(
@@ -102,6 +124,9 @@ class CartScreen extends StatelessWidget {
                                                                 'id'],
                                                         ProductQuantity:
                                                             x.toString(),
+                                                        productDes:
+                                                            documentSnapshot[
+                                                                'des'],
                                                         productImage:
                                                             documentSnapshot[
                                                                 'image'],
@@ -113,10 +138,17 @@ class CartScreen extends StatelessWidget {
                                                                 'price']));
                                                   }
                                                 },
-                                                icon: Icon(Icons.remove_circle),
+                                                icon: Icon(
+                                                  Icons.remove_circle,
+                                                  color: Colors.brown,
+                                                ),
                                               ),
                                               Text(
-                                                  documentSnapshot['quantity']),
+                                                documentSnapshot['quantity'],
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .headline6,
+                                              ),
                                               IconButton(
                                                 onPressed: () {
                                                   int x = int.parse(
@@ -129,6 +161,9 @@ class CartScreen extends StatelessWidget {
                                                           'id'],
                                                       ProductQuantity:
                                                           x.toString(),
+                                                      productDes:
+                                                          documentSnapshot[
+                                                              'des'],
                                                       productImage:
                                                           documentSnapshot[
                                                               'image'],
@@ -139,7 +174,10 @@ class CartScreen extends StatelessWidget {
                                                           documentSnapshot[
                                                               'price']));
                                                 },
-                                                icon: Icon(Icons.add_circle),
+                                                icon: Icon(
+                                                  Icons.add_circle,
+                                                  color: Colors.brown,
+                                                ),
                                               ),
                                             ],
                                           ),
@@ -160,10 +198,12 @@ class CartScreen extends StatelessWidget {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text('Remove from the Cart',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headline6),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text('Remove from the Cart',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w500)),
+                                      ),
                                       IconButton(
                                           onPressed: () {
                                             FirebaseFirestore.instance
@@ -191,21 +231,76 @@ class CartScreen extends StatelessWidget {
                       }),
                 ),
               ),
-              bottomNavigationBar: SizedBox(
-                  child: Padding(
+              bottomNavigationBar: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text('total price ${sum(cartList)}'),
-                    TextButton(
-                        onPressed: () {
-                          Get.to(() => AddressScreen());
-                        },
-                        child: Text('Proceed'))
-                  ],
-                ),
-              )),
+                child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.grey.shade200,
+                      border: Border.all(
+                        color: Colors.brown,
+                        width: 2,
+                      ),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Total:',
+                            style: TextStyle(
+                                fontSize: 20,
+                                foreground: Paint()
+                                  ..shader = ui.Gradient.linear(
+                                    const Offset(0, 20),
+                                    const Offset(150, 20),
+                                    <Color>[
+                                      Colors.black,
+                                      Colors.grey,
+                                    ],
+                                  )),
+                          ),
+                          Container(
+                              height: 30,
+                              width: 150,
+                              decoration: BoxDecoration(
+                                  // color: Colors.brown,
+                                  border:
+                                      Border.all(color: Colors.brown.shade100),
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: Center(
+                                child: Text(
+                                  '₹ ${sum(cartList)}',
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 22),
+                                ),
+                              )),
+                          Container(
+                            height: 40,
+                            decoration: BoxDecoration(
+                                color: Colors.deepOrange,
+                                border:
+                                    Border.all(color: Colors.green.shade200),
+                                borderRadius: BorderRadius.circular(6)),
+                            child: TextButton(
+                              onPressed: () {
+                                Get.to(() => AllAddressScreen(
+                                      total: sum(cartList),
+                                    ));
+                              },
+                              child: Text(
+                                'Place Order',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    )),
+              ),
             );
           }),
     );

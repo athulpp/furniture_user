@@ -2,10 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ConfirmationScreen extends StatelessWidget {
-  ConfirmationScreen({Key? key}) : super(key: key);
+  ConfirmationScreen(
+      {Key? key,
+      required this.id,
+      required this.addressName,
+      required this.addressAdd,
+      required this.AddressPin,
+      required this.total})
+      : super(key: key);
 
   // final controller = Get.put(ConfirmationScreenController());
-
+  var id;
+  String addressName;
+  String addressAdd;
+  String AddressPin;
+  var total;
   @override
   Widget build(BuildContext context) {
     final Size size = Get.size;
@@ -26,11 +37,12 @@ class ConfirmationScreen extends StatelessWidget {
                 SizedBox(
                   height: size.height / 30,
                 ),
-                addressCard(size),
+                addressCard(size, id, addressName, addressAdd, AddressPin),
                 SizedBox(
                   height: size.height / 30,
                 ),
                 orderDetails(size),
+                
               ],
             ),
           ),
@@ -58,7 +70,7 @@ class ConfirmationScreen extends StatelessWidget {
     );
   }
 
-  Widget addressCard(Size size) {
+  Widget addressCard(Size size, id, name, address, pincode) {
     return Material(
       elevation: 5,
       color: Colors.white,
@@ -71,24 +83,24 @@ class ConfirmationScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Text(
-            //   controller.name,
-            //   style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
-            // ),
+            Text(
+              name,
+              style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
+            ),
             Padding(
               padding: EdgeInsets.symmetric(vertical: 10),
-              // child: Text(
-              //   controller.address,
-              //   style: TextStyle(
-              //     fontSize: 18,
-              //     fontWeight: FontWeight.w500,
-              //   ),
-              // ),
+              child: Text(
+                address,
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
             ),
-            // Text(
-            //   controller.pincode,
-            //   style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
-            // ),
+            Text(
+              pincode,
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+            ),
           ],
         ),
       ),
@@ -140,12 +152,12 @@ class ConfirmationScreen extends StatelessWidget {
             SizedBox(
               height: size.height / 40,
             ),
-            // text('Total Price :', 'Rs. ${controller.totalPrice}'),
+            text('Total Price:', 'Rs. ${total}'),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 15),
-              // child: text('Discount :', 'Rs. ${controller.totalDiscount}'),
+              child: text('Delivery charge:', 'Rs.${50}'),
             ),
-            // text('Payable Price :', 'Rs. ${controller.payablePrice}'),
+            text('Payable Price :', 'Rs. ${total + 50}'),
           ],
         ),
       ),

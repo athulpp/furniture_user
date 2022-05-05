@@ -190,6 +190,7 @@ class DetailScreen extends StatelessWidget {
                   cartController.addToCart(Cart(
                       cartId: productId,
                       productName: productName,
+                      productDes: productDesc,
                       productPrice: productPrice,
                       ProductQuantity: 1.toString(),
                       productImage: productImage));

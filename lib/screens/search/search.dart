@@ -103,7 +103,7 @@ class ProductSearch extends SearchDelegate {
   ThemeData appBarTheme(BuildContext context) {
     return ThemeData(
       appBarTheme: const AppBarTheme(
-        color: Colors.brown, // affects AppBar's background color
+        color: Colors.grey, // affects AppBar's background color
         // hintColor: Colors.grey, // affects the initial 'Search' text
         textTheme: const TextTheme(
             headline6: TextStyle(
@@ -157,19 +157,28 @@ class ProductSearch extends SearchDelegate {
                     .map((QueryDocumentSnapshot<Object?> data) {
                   final String productname = data.get('productname');
                   final String image = data.get('productimage');
-                  return ListTile(
-                    onTap: () {
-                      Get.to(() => DetailScreen(
-                            productId: data.id,
-                            productName: data['productname'],
-                            productDesc: data['productdes'],
-                            productPrice: data['productprice'],
-                            productImage: data['productimage'],
-                            productQuantity: data['productquantity'],
-                          ));
-                    },
-                    leading: Image.network(image),
-                    title: Text(productname),
+                  return SizedBox(
+                    height: 60,
+                    child: Material(
+                      elevation: 5,
+                      child: ListTile(
+                        onTap: () {
+                          Get.to(() => DetailScreen(
+                                productId: data.id,
+                                productName: data['productname'],
+                                productDesc: data['productdes'],
+                                productPrice: data['productprice'],
+                                productImage: data['productimage'],
+                                productQuantity: data['productquantity'],
+                              ));
+                        },
+                        leading: Image.network(
+                          image,
+                          fit: BoxFit.cover,
+                        ),
+                        title: Text(productname),
+                      ),
+                    ),
                   );
                 })
               ],
@@ -181,7 +190,15 @@ class ProductSearch extends SearchDelegate {
   @override
   Widget buildSuggestions(BuildContext context) {
     return Center(
-      child: Text('Search anything here'),
-    );
+        child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Image.asset('assests/images/Group.png'),
+        Text(
+          'Search Your Furniture',
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+        )
+      ],
+    ));
   }
 }

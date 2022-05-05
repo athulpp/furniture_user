@@ -76,4 +76,20 @@ class CartController extends GetxController {
     }
     return res;
   }
+
+
+
+  sum(List<Cart> cartList) {
+  double sumProd = 0.0;
+  for (var cart in cartList) {
+    sumProd +=
+        int.parse(cart.ProductQuantity) * double.parse(cart.productPrice);
+
+    print(sumProd);
+
+    // print(cartList);
+  }
+  print(sumProd);
+  return sumProd;
+}
 }
