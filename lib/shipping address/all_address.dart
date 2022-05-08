@@ -4,17 +4,26 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:userapp/controller/address-controller.dart';
 import 'package:userapp/model/address.dart';
+import 'package:userapp/model/cart.dart';
 import 'package:userapp/screens/checkout/confirmation_screen.dart';
 import 'package:userapp/shipping%20address/address.dart';
 
 class AllAddressScreen extends StatelessWidget {
-  AllAddressScreen({Key? key, required this.total}) : super(key: key);
+  AllAddressScreen({Key? key, required this.total, required this.cartList})
+      : super(key: key);
   final _addressStream = FirebaseFirestore.instance
       .collection('AddressCollection')
       .doc(FirebaseAuth.instance.currentUser!.uid)
       .collection('address')
       .snapshots();
   var total;
+  List<Cart> cartList;
+  // final cartId;
+  // String Cartname;
+  // String CartDes;
+  // String CartQuantity;
+  // String CartPrice;
+
   @override
   Widget build(BuildContext context) {
     final size = Get.size;
@@ -49,6 +58,8 @@ class AllAddressScreen extends StatelessWidget {
                             addressName: documentSnapshot['name'],
                             addressAdd: documentSnapshot['address'],
                             AddressPin: documentSnapshot['pincode'],
+                            phoneNo: documentSnapshot['phoneNumber'],
+                            cartList: cartList,
                           ));
                     },
                     child: Material(
@@ -100,6 +111,15 @@ class AllAddressScreen extends StatelessWidget {
                                   SizedBox(
                                     height: size.height * 0.02,
                                   ),
+                                  Text(
+                                    documentSnapshot['phoneNumber'],
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                  SizedBox(
+                                    height: size.height * 0.02,
+                                  ),
                                   Center(
                                     child: GestureDetector(
                                       onTap: () {
@@ -108,6 +128,8 @@ class AllAddressScreen extends StatelessWidget {
                                           name: documentSnapshot['name'],
                                           address: documentSnapshot['address'],
                                           pincode: documentSnapshot['pincode'],
+                                          phoneNumber:
+                                              documentSnapshot['phoneNumber'],
                                         )));
                                       },
                                       child: Container(

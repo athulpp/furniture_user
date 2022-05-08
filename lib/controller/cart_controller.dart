@@ -77,19 +77,24 @@ class CartController extends GetxController {
     return res;
   }
 
-
-
   sum(List<Cart> cartList) {
-  double sumProd = 0.0;
-  for (var cart in cartList) {
-    sumProd +=
-        int.parse(cart.ProductQuantity) * double.parse(cart.productPrice);
+    double sumProd = 0.0;
+    for (var cart in cartList) {
+      sumProd +=
+          int.parse(cart.ProductQuantity) * double.parse(cart.productPrice);
 
+      print(sumProd);
+
+      // print(cartList);
+    }
     print(sumProd);
-
-    // print(cartList);
+    return sumProd;
   }
-  print(sumProd);
-  return sumProd;
-}
+
+  Stream<List<Cart>> getAllCartItems() => FirebaseFirestore.instance
+      .collection('cartCollection')
+      .doc(FirebaseAuth.instance.currentUser!.uid)
+      .collection('cart')
+      .snapshots()
+      .map((event) => event.docs.map((e) => Cart.fromJson(e.data())).toList());
 }

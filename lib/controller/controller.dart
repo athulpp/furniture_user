@@ -165,4 +165,11 @@ class Controller extends GetxController {
         .where('productname', isGreaterThanOrEqualTo: queryString)
         .get();
   }
+
+  /// payment controller
+  var selectPayment = "".obs;
+
+  onChangePayment(var payment) {
+    selectPayment.value = payment;
+  }
 }

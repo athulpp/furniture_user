@@ -10,6 +10,7 @@ class AddressControl extends GetxController {
   TextEditingController nameController = TextEditingController();
   TextEditingController addressController = TextEditingController();
   TextEditingController pincodeController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
 
   Future<String> addAddress(Address add) async {
     String res = 'Some error occured';

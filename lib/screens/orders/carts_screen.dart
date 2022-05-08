@@ -1,13 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:userapp/controller/cart_controller.dart';
+import 'package:userapp/model/address.dart';
 import 'dart:ui' as ui;
 import 'package:userapp/model/cart.dart';
+import 'package:userapp/model/order.dart';
 import 'package:userapp/product_overview/product_detail.dart';
 
-import 'package:userapp/shipping%20address/address.dart';
 import 'package:userapp/shipping%20address/all_address.dart';
 
 class CartScreen extends StatelessWidget {
@@ -16,6 +18,24 @@ class CartScreen extends StatelessWidget {
       .doc(FirebaseAuth.instance.currentUser!.uid)
       .collection('cart')
       .snapshots();
+  // List<Cart> convertToCart(AsyncSnapshot<QuerySnapshot<Object?>> snap) {
+  //   List<Cart> cartList = [];
+  //   for (var element in snap) {
+  //     cartList.add(Cart.fromJson(element));
+  //   }
+  //   return cartList;
+  // }
+
+  void placeOrder(
+    List<Cart> cartList,
+    double totalPrice,
+    Address addres,
+  ) {
+   List<Order> orderList = [];
+    for (var cart in cartList) {
+      orderList.add(Order(createdDate: Timestamp.now(), cart: cart, address: addres, status: 'delivered', totalPrice: totalPrice));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -265,7 +285,6 @@ class CartScreen extends StatelessWidget {
                               height: 30,
                               width: 150,
                               decoration: BoxDecoration(
-                                  // color: Colors.brown,
                                   border:
                                       Border.all(color: Colors.brown.shade100),
                                   borderRadius: BorderRadius.circular(10)),
@@ -289,6 +308,7 @@ class CartScreen extends StatelessWidget {
                               onPressed: () {
                                 Get.to(() => AllAddressScreen(
                                       total: sum(cartList),
+                                      cartList:cartList,
                                     ));
                               },
                               child: Text(
@@ -337,15 +357,6 @@ quantity(List<Cart> cartList) {
   }
   return quantity;
 }
-
-// increment(List<Cart> adding) {
-//   int incement = 1;
-//   for (var add in adding) {
-//     incement = int.parse(add.ProductQuantity!);
-//     incement++;
-//     quantity(adding);
-//   }
-// }
 
 class CartProductCard extends StatelessWidget {
   CartProductCard({

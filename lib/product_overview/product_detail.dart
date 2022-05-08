@@ -12,6 +12,7 @@ import 'package:userapp/product_overview/components/product_descripition.dart';
 
 import 'package:userapp/product_overview/product_rating.dart';
 import 'package:userapp/screens/login/login_screen/login..dart';
+import 'package:userapp/screens/orders/carts_screen.dart';
 
 import 'package:uuid/uuid.dart';
 // import 'package:userapp/model/product.dart';
@@ -225,7 +226,13 @@ class DetailScreen extends StatelessWidget {
       elevation: 0,
       actions: [
         IconButton(onPressed: () {}, icon: Icon(Icons.search)),
-        IconButton(onPressed: () {}, icon: Icon(Icons.shopping_bag))
+        IconButton(
+            onPressed: () {
+              Get.to(BottomNavigation(
+                currentIndex: 2,
+              ));
+            },
+            icon: Icon(Icons.shopping_bag))
       ],
     );
   }

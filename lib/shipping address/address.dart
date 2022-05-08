@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:userapp/controller/address-controller.dart';
@@ -50,102 +51,134 @@ class AddAdressScreen extends StatelessWidget {
             //       icon: Icon(Icons.login))
             // ],
           ),
-          body: SizedBox(
-            height: size.height,
-            width: size.width,
+          body: SingleChildScrollView(
             child: SizedBox(
-              height: size.height / 10,
-              width: size.width / 1.1,
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: size.height / 30,
-                    ),
-                    SizedBox(
-                      // height: size.height / 5,
-                      width: size.width / 1.1,
-                      child: TextFormField(
-                        onSaved: (value) {
-                          addressControl.nameController.text = value!;
-                        },
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return "Please Enter Name";
-                          }
-                        },
-                        // controller: controller.nameController,
+              height: size.height,
+              width: size.width,
+              child: SizedBox(
+                height: size.height / 10,
+                width: size.width / 1.1,
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: size.height / 30,
+                      ),
+                      SizedBox(
+                        // height: size.height / 5,
+                        width: size.width / 1.1,
+                        child: TextFormField(
+                          onSaved: (value) {
+                            addressControl.nameController.text = value!;
+                          },
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return "Please Enter Name";
+                            }
+                          },
+                          // controller: controller.nameController,
 
-                        controller: addressControl.nameController,
-                        maxLength: 15,
-                        decoration: InputDecoration(
-                          hintText: "Full Name",
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(5),
+                          controller: addressControl.nameController,
+                          maxLength: 15,
+                          decoration: InputDecoration(
+                            hintText: "Full Name",
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(5),
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                    SizedBox(
-                      height: size.height / 30,
-                    ),
-                    SizedBox(
-                      height: size.height / 5,
-                      width: size.width / 1.1,
-                      child: TextFormField(
-                        onSaved: (value) {
-                          addressControl.addressController.text = value!;
-                        },
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'Please Enter the Address';
-                          }
-                        },
-                        // controller: controller.addressController,
-                        controller: addressControl.addressController,
-                        maxLines: 5,
-                        decoration: InputDecoration(
-                          hintText: "Address",
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(5),
+                      SizedBox(
+                        height: size.height / 30,
+                      ),
+                      SizedBox(
+                        height: size.height / 5,
+                        width: size.width / 1.1,
+                        child: TextFormField(
+                          onSaved: (value) {
+                            addressControl.addressController.text = value!;
+                          },
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Please Enter the Address';
+                            }
+                          },
+                          // controller: controller.addressController,
+                          controller: addressControl.addressController,
+                          maxLines: 5,
+                          decoration: InputDecoration(
+                            hintText: "Address",
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(5),
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                    SizedBox(
-                      height: size.height / 30,
-                    ),
-                    SizedBox(
-                      height: size.height / 10,
-                      width: size.width / 1.1,
-                      child: TextFormField(
-                        onSaved: (value) {
-                          addressControl.pincodeController.text = value!;
-                        },
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return "Please Enter the Pincode";
-                          }
-                        },
-                        // controller: controller.pincodeController,
-                        controller: addressControl.pincodeController,
-                        maxLength: 6,
-                        decoration: InputDecoration(
-                          hintText: "Pincode",
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(5),
+                      SizedBox(
+                        height: size.height / 30,
+                      ),
+                      SizedBox(
+                        height: size.height / 10,
+                        width: size.width / 1.1,
+                        child: TextFormField(
+                          onSaved: (value) {
+                            addressControl.pincodeController.text = value!;
+                          },
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return "Please Enter the Pincode";
+                            }
+                          },
+                          keyboardType: TextInputType.number,
+                          // controller: controller.pincodeController,
+                          controller: addressControl.pincodeController,
+                          maxLength: 6,
+                          decoration: InputDecoration(
+                            hintText: "Pincode",
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(5),
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                      SizedBox(
+                        height: size.height / 30,
+                      ),
+                      SizedBox(
+                        height: size.height / 10,
+                        width: size.width / 1.1,
+                        child: TextFormField(
+                          onSaved: (value) {
+                            addressControl.phoneController.text = value!;
+                          },
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return "Please Enter the phoneNumber";
+                            }
+                          },
+                          keyboardType: TextInputType.phone,
+                          // controller: controller.pincodeController,
+                          controller: addressControl.phoneController,
+                          maxLength: 10,
+                          decoration: InputDecoration(
+                            hintText: "Phone Number",
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(5),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -161,12 +194,14 @@ class AddAdressScreen extends StatelessWidget {
                           id: address_id.v4(),
                           name: addressControl.nameController.text,
                           address: addressControl.addressController.text,
-                          pincode: addressControl.pincodeController.text),
+                          pincode: addressControl.pincodeController.text,
+                          PhoneNumber: addressControl.phoneController.text),
                     );
                     Fluttertoast.showToast(msg: "Address Added Sucessfully");
                     addressControl.nameController.clear();
                     addressControl.addressController.clear();
                     addressControl.pincodeController.clear();
+                    addressControl.phoneController.clear();
                   } catch (e) {
                     print(e);
                   }
@@ -287,7 +322,7 @@ class EditAddressScreen extends StatelessWidget {
                                     ),
                                   ),
                                   Text(
-                                    documentSnapshot['pincode'],
+                                    documentSnapshot['phoneNumber'],
                                     style: TextStyle(
                                         fontSize: 18,
                                         fontWeight: FontWeight.w500),
@@ -306,6 +341,8 @@ class EditAddressScreen extends StatelessWidget {
                                                 documentSnapshot['address'],
                                             pincode:
                                                 documentSnapshot['pincode'],
+                                            phoneNumber:
+                                                documentSnapshot['phoneNumber'],
                                           ));
                                     },
                                     child: Container(
@@ -367,22 +404,26 @@ class EditAddress extends StatelessWidget {
       required this.id,
       required this.name,
       required this.address,
-      required this.pincode})
+      required this.pincode,
+      required this.phoneNumber})
       : super(key: key);
 
   final id;
   String name;
   String address;
   String pincode;
+  String phoneNumber;
 
   TextEditingController nameController = TextEditingController();
   TextEditingController addressController = TextEditingController();
   TextEditingController pincodeController = TextEditingController();
+  TextEditingController phoneNumberController = TextEditingController();
 
   addressEdit() {
     nameController.text = name;
     addressController.text = address;
     pincodeController.text = pincode;
+    phoneNumberController.text = phoneNumber;
   }
 
   @override
@@ -406,74 +447,95 @@ class EditAddress extends StatelessWidget {
                   icon: Icon(Icons.login))
             ],
           ),
-          body: SizedBox(
-            height: size.height,
-            width: size.width,
-            child: Column(
-              children: [
-                SizedBox(
-                  height: size.height / 30,
-                ),
-                SizedBox(
-                  height: size.height / 10,
-                  width: size.width / 1.1,
-                  child: TextField(
-                    // controller: controller.nameController,
+          body: SingleChildScrollView(
+            child: SizedBox(
+              height: size.height,
+              width: size.width,
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: size.height / 30,
+                  ),
+                  SizedBox(
+                    height: size.height / 10,
+                    width: size.width / 1.1,
+                    child: TextField(
+                      // controller: controller.nameController,
 
-                    // controller: addressControl.nameController,
-                    controller: nameController,
-                    maxLength: 15,
-                    decoration: InputDecoration(
-                      hintText: "Full Name",
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(5),
+                      // controller: addressControl.nameController,
+                      controller: nameController,
+                      maxLength: 15,
+                      decoration: InputDecoration(
+                        hintText: "Full Name",
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(5),
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-                SizedBox(
-                  height: size.height / 30,
-                ),
-                SizedBox(
-                  height: size.height / 5,
-                  width: size.width / 1.1,
-                  child: TextField(
-                    // controller: controller.addressController,
-                    // controller: addressControl.addressController,
-                    controller: addressController,
-                    maxLines: 5,
-                    decoration: InputDecoration(
-                      hintText: "Address",
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(5),
+                  SizedBox(
+                    height: size.height / 30,
+                  ),
+                  SizedBox(
+                    height: size.height / 5,
+                    width: size.width / 1.1,
+                    child: TextField(
+                      // controller: controller.addressController,
+                      // controller: addressControl.addressController,
+                      controller: addressController,
+                      maxLines: 5,
+                      decoration: InputDecoration(
+                        hintText: "Address",
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(5),
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-                SizedBox(
-                  height: size.height / 30,
-                ),
-                SizedBox(
-                  height: size.height / 10,
-                  width: size.width / 1.1,
-                  child: TextField(
-                    controller: pincodeController,
-                    maxLength: 6,
-                    decoration: InputDecoration(
-                      hintText: "Pincode",
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(5),
+                  SizedBox(
+                    height: size.height / 30,
+                  ),
+                  SizedBox(
+                    height: size.height / 10,
+                    width: size.width / 1.1,
+                    child: TextField(
+                      controller: pincodeController,
+                      maxLength: 6,
+                      decoration: InputDecoration(
+                        hintText: "Pincode",
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(5),
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                  SizedBox(
+                    height: size.height / 30,
+                  ),
+                  SizedBox(
+                    height: size.height / 10,
+                    width: size.width / 1.1,
+                    child: TextField(
+                      controller: phoneNumberController,
+                      maxLength: 6,
+                      decoration: InputDecoration(
+                        hintText: "PhoneNumber",
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(5),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
           bottomNavigationBar: GestureDetector(
@@ -484,12 +546,14 @@ class EditAddress extends StatelessWidget {
                     id: id,
                     name: nameController.text,
                     address: addressController.text,
-                    pincode: pincodeController.text),
+                    pincode: pincodeController.text,
+                    PhoneNumber: phoneNumberController.text),
               );
               Fluttertoast.showToast(msg: "Address Updated Sucessfully");
               nameController.clear();
               addressController.clear();
               pincodeController.clear();
+              phoneNumberController.clear();
             },
             child: Container(
               height: size.height / 12,
