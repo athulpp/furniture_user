@@ -329,7 +329,7 @@ class CartScreen extends StatelessWidget {
   List<Cart> convetToCart(List<QueryDocumentSnapshot<Object?>> docs) {
     List<Cart> cartList = [];
     for (var element in docs) {
-      cartList.add(Cart.fromJson(element));
+      cartList.add(Cart.fromMap(element));
       print('$cartList  the product lsit');
     }
     return cartList;

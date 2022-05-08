@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
+import 'package:userapp/controller/cart_controller.dart';
 
 import 'package:userapp/controller/controller.dart';
 import 'package:userapp/controller/order_control.dart';
@@ -255,6 +256,7 @@ class ConfirmationScreen extends StatelessWidget {
             pincode: AddressPin,
             PhoneNumber: phoneNo));
     Get.to(() => SucessScreen());
+    cartRemove(cartList);
   }
 
   void _handlePaymentError(PaymentFailureResponse response) {
@@ -271,20 +273,6 @@ class ConfirmationScreen extends StatelessWidget {
     };
     _razorpay.open(options);
   }
-
-//  List<Cart> cartItem() {
-
-// FirebaseFirestore.instance
-//         .collection('cartCollection')
-//         .doc(FirebaseAuth.instance.currentUser!.uid)
-//         .collection('cart')
-//         .get()
-//         .map((e) => e.docs.map((e) => Cart.fromJson(e.data())).toList());
-//         print(cartItem());
-// return cartItem();
-
-//   }
-
 }
 
 void placeOrder(
@@ -308,6 +296,11 @@ void placeOrder(
 }
 
 double getCartTOtalPrice(Cart cart) {
-  return double.parse(cart.ProductQuantity) * double.parse(cart.productPrice) +
-      50;
+  return double.parse(cart.ProductQuantity) * double.parse(cart.productPrice);
+}
+
+void cartRemove(List<Cart> cartList) {
+  for (var cart in cartList) {
+    cartController.cartDelete(cart);
+  }
 }

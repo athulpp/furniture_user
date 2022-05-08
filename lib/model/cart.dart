@@ -22,7 +22,7 @@ class Cart {
         "quantity": ProductQuantity,
         "image": productImage
       };
-  static Cart fromJson(dynamic json) {
+  static Cart fromMap(dynamic json) {
     return Cart(
         cartId: json['id'],
         productName: json['name'],
@@ -32,7 +32,14 @@ class Cart {
         productImage: json['image']);
   }
 
-  static fromMap(Map<String, dynamic> map) {}
+  Map<String, dynamic> toMap() => {
+        'id': cartId,
+        "name": productName,
+        'des': productDes,
+        "price": productPrice,
+        "quantity": ProductQuantity,
+        "image": productImage
+      };
 
-  toMap() {}
+  collection(String s) {}
 }

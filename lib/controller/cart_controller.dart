@@ -91,10 +91,20 @@ class CartController extends GetxController {
     return sumProd;
   }
 
-  Stream<List<Cart>> getAllCartItems() => FirebaseFirestore.instance
-      .collection('cartCollection')
-      .doc(FirebaseAuth.instance.currentUser!.uid)
-      .collection('cart')
-      .snapshots()
-      .map((event) => event.docs.map((e) => Cart.fromJson(e.data())).toList());
+  // Stream<List<Cart>> getAllCartItems() => FirebaseFirestore.instance
+  //     .collection('cartCollection')
+  //     .doc(FirebaseAuth.instance.currentUser!.uid)
+  //     .collection('cart')
+  //     .snapshots()
+  //     .map((event) => event.docs.map((e) => Cart.fromJson(e.data())).toList());
+
+  Future cartDelete(Cart cart) async {
+    String res = 'error';
+    DocumentReference<Map<String, dynamic>> user_cart = FirebaseFirestore
+        .instance
+        .collection('cartCollection')
+        .doc(FirebaseAuth.instance.currentUser!.uid);
+    await user_cart.collection('cart').doc(cart.cartId).delete();
+    return res;
+  }
 }
