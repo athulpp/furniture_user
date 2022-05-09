@@ -21,7 +21,7 @@ class AddressControl extends GetxController {
           .doc(FirebaseAuth.instance.currentUser!.uid);
       await user_address
           .collection('address')
-          .doc(add.id)
+          .doc(add.name)
           .set(add.toJson())
           .then((value) {});
       res = 'success';
@@ -40,7 +40,7 @@ class AddressControl extends GetxController {
           .doc(FirebaseAuth.instance.currentUser!.uid);
       await user_address
           .collection('address')
-          .doc(address.id)
+          .doc(address.name)
           .update(address.toJson())
           .then((value) {});
     } catch (e) {
@@ -55,7 +55,7 @@ class AddressControl extends GetxController {
         .instance
         .collection('AddressCollection')
         .doc(FirebaseAuth.instance.currentUser!.uid);
-    await user_address.collection('address').doc(address.id).delete();
+    await user_address.collection('address').doc(address.name).delete();
     return res;
   }
 }

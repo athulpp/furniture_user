@@ -1,17 +1,20 @@
 class Address {
-  final id;
   String? name;
   String? address;
   String? pincode;
   String? PhoneNumber;
 
-  Address({this.id, this.name, this.address, this.pincode,this.PhoneNumber});
-  Map<String, dynamic> toJson() =>
-      {"id": id, "name": name, "address": address, "pincode": pincode,"phoneNumber":PhoneNumber};
+  Address({this.name, this.address, this.pincode, this.PhoneNumber});
+  Map<String, dynamic> toJson() => {
+        "name": name,
+        "address": address,
+        "pincode": pincode,
+        "phoneNumber": PhoneNumber
+      };
 
-  static Address fromJson(Map<String, dynamic> json) {
+  static Address fromJson(dynamic json) {
+    print("${json['name']} ${json['address']}  ${json['pincode']}  ${json['phoneNumber']} ");
     return Address(
-        id: json['id'],
         name: json['name'],
         address: json['address'],
         pincode: json['pincode'],

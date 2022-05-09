@@ -9,9 +9,9 @@ OrderController orderController = OrderController();
 class OrderController extends GetxController {
   Future<String> createOrder(Order order) async {
     String res = 'Some error occured';
-    
+
     try {
-  FirebaseFirestore.instance
+      FirebaseFirestore.instance
           .collection('OrderCollection')
           .doc(FirebaseAuth.instance.currentUser!.uid)
           .collection('order')

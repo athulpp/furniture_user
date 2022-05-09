@@ -86,7 +86,7 @@ class AllAddressScreen extends StatelessWidget {
                                           onPressed: () {
                                             addressControl.deleteAddress(
                                               Address(
-                                                  id: documentSnapshot['id']),
+                                                  name: documentSnapshot['name']),
                                             );
                                           },
                                           icon: Icon(Icons.delete))

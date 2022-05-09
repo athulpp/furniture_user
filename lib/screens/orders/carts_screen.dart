@@ -2,12 +2,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+
 import 'package:get/get.dart';
+import 'package:userapp/controller/bottom_bar_control.dart';
 import 'package:userapp/controller/cart_controller.dart';
-import 'package:userapp/model/address.dart';
+
 import 'dart:ui' as ui;
 import 'package:userapp/model/cart.dart';
-import 'package:userapp/model/order.dart';
+
 import 'package:userapp/product_overview/product_detail.dart';
 
 import 'package:userapp/shipping%20address/all_address.dart';
@@ -26,16 +28,16 @@ class CartScreen extends StatelessWidget {
   //   return cartList;
   // }
 
-  void placeOrder(
-    List<Cart> cartList,
-    double totalPrice,
-    Address addres,
-  ) {
-   List<Order> orderList = [];
-    for (var cart in cartList) {
-      orderList.add(Order(createdDate: Timestamp.now(), cart: cart, address: addres, status: 'delivered', totalPrice: totalPrice));
-    }
-  }
+  // void placeOrder(
+  //   List<Cart> cartList,
+  //   double totalPrice,
+  //   Address addres,
+  // ) {
+  //  List<Order> orderList = [];
+  //   for (var cart in cartList) {
+  //     orderList.add(Order(createdDate: Timestamp.now(), cart: cart, address: addres, status: 'delivered', totalPrice: totalPrice));
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -306,10 +308,17 @@ class CartScreen extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(6)),
                             child: TextButton(
                               onPressed: () {
-                                Get.to(() => AllAddressScreen(
-                                      total: sum(cartList),
-                                      cartList:cartList,
-                                    ));
+                                if (cartList.isEmpty) {
+                                  Get.to(() => BottomNavigation(
+                                        currentIndex: 0,
+                                      ));
+                                  Fluttertoast.showToast(
+                                      msg: 'Please Add Products in the Cart');
+                                } else
+                                  Get.to(() => AllAddressScreen(
+                                        total: sum(cartList),
+                                        cartList: cartList,
+                                      ));
                               },
                               child: Text(
                                 'Place Order',

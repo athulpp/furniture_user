@@ -11,6 +11,7 @@ import 'package:userapp/model/address.dart';
 import 'package:userapp/model/cart.dart';
 import 'package:userapp/model/order.dart';
 import 'package:userapp/screens/sucess/sucees_page.dart';
+import 'package:uuid/uuid.dart';
 
 class ConfirmationScreen extends StatelessWidget {
   ConfirmationScreen(
@@ -275,15 +276,12 @@ class ConfirmationScreen extends StatelessWidget {
   }
 }
 
-void placeOrder(
-  List<Cart> cartList,
-  double totalPrice,
-  Address addres,
-) {
+void placeOrder(List<Cart> cartList, double totalPrice, Address addres) {
   List<Order> orderList = [];
-
+  var order_id = Uuid();
   for (var cart in cartList) {
     orderList.add(Order(
+        orderId: order_id.v1(),
         createdDate: Timestamp.now(),
         cart: cart,
         address: addres,

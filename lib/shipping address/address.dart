@@ -191,7 +191,7 @@ class AddAdressScreen extends StatelessWidget {
                   try {
                     addressControl.addAddress(
                       Address(
-                          id: address_id.v4(),
+                          // id: address_id.v4(),
                           name: addressControl.nameController.text,
                           address: addressControl.addressController.text,
                           pincode: addressControl.pincodeController.text,
@@ -305,7 +305,7 @@ class EditAddressScreen extends StatelessWidget {
                                           onPressed: () {
                                             addressControl.deleteAddress(
                                               Address(
-                                                  id: documentSnapshot['id']),
+                                                  name: documentSnapshot['name']),
                                             );
                                           },
                                           icon: Icon(Icons.delete))
@@ -543,7 +543,7 @@ class EditAddress extends StatelessWidget {
               // controller.onTap();
               addressControl.updateAddress(
                 Address(
-                    id: id,
+                 
                     name: nameController.text,
                     address: addressController.text,
                     pincode: pincodeController.text,
