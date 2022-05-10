@@ -266,7 +266,7 @@ class MyOrder extends StatelessWidget {
                                   orderName: each.cart.productName,
                                   orderId: each.orderId,
                                   orderImage: each.cart.productImage,
-                                  orderPrice: each.cart.productPrice,
+                                  orderPrice: each.totalPrice.toString(),
                                   Quantity: each.cart.ProductQuantity,
                                   OrderDate: each.createdDate,
                                   status: each.status,
@@ -339,7 +339,7 @@ class MyOrder extends StatelessWidget {
                                                   width: 5,
                                                 ),
                                                 Text(
-                                                  each.cart.productPrice,
+                                                  each.totalPrice.toString(),
                                                   style: TextStyle(
                                                       fontSize: 20,
                                                       fontWeight:
@@ -398,5 +398,9 @@ class MyOrder extends StatelessWidget {
 
                   return CircularProgressIndicator();
                 })));
+  }
+
+  double getCartTOtalPrice(Order order) {
+    return (order.totalPrice);
   }
 }

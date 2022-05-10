@@ -87,6 +87,16 @@ class ConfirmationScreen extends StatelessWidget {
                 // placeOrder();
               } else {
                 print('cash on delivery');
+                placeOrder(
+                    cartList,
+                    total,
+                    Address(
+                        address: addressAdd,
+                        name: addressName,
+                        pincode: AddressPin,
+                        PhoneNumber: phoneNo));
+                Get.to(() => SucessScreen());
+                cartRemove(cartList);
               }
             },
             child: Container(

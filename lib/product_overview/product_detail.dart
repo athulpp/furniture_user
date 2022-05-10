@@ -52,11 +52,13 @@ class DetailScreen extends StatelessWidget {
           children: [
             SizedBox(
               height: size.height,
+              // width: size.width,
               child: Stack(
                 children: [
                   Container(
-                    margin: EdgeInsets.only(top: size.height * 0.45),
+                    margin: EdgeInsets.only(top: size.height * 0.55),
                     height: 500,
+                    width: double.infinity,
                     decoration: BoxDecoration(
                       color: Colors.grey.shade100,
                       borderRadius: BorderRadius.only(
@@ -68,10 +70,18 @@ class DetailScreen extends StatelessWidget {
                         SizedBox(
                           height: 20,
                         ),
-                        ProductRating(),
+
                         ProductDescripition(
                           productDesc: productDesc,
                         ),
+                        SizedBox(
+                          height: 100,
+                        ),
+                        // ProductRating(
+                        //   productId: productId,
+                        // ),
+                        // TextFormField(),
+
                         // Padding(
                         //   padding: const EdgeInsets.only(
                         //       top: 20, left: 20, right: 20),
@@ -140,9 +150,11 @@ class DetailScreen extends StatelessWidget {
                               height: 20,
                             ),
                             Container(
-                              height: 250,
-                              width: 250,
-                              child: Image.network(productImage),
+                              height: 350,
+                              width: 300,
+                              child: FittedBox(
+                                  fit: BoxFit.contain,
+                                  child: Image.network(productImage)),
                             ),
                           ],
                         )

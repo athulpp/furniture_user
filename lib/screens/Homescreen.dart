@@ -18,7 +18,7 @@ class HomeScreen extends StatelessWidget {
         FirebaseFirestore.instance.collection('products').snapshots();
     // print(_productStream);
     return Scaffold(
-        backgroundColor: Colors.grey,
+        backgroundColor: Colors.grey.shade100,
         body: ListView(children: [
           Container(
             color: Colors.grey.shade100,

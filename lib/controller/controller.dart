@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:userapp/model/product.dart';
+import 'package:userapp/model/rating.dart';
 import 'package:userapp/model/usermodel.dart';
 import 'package:userapp/screens/login/login_screen/login..dart';
 
@@ -171,5 +172,23 @@ class Controller extends GetxController {
 
   onChangePayment(var payment) {
     selectPayment.value = payment;
+  }
+
+  Future<String> addRating(Rating rating) async {
+    Product? product;
+    String res = 'Some error occured';
+    try {
+      DocumentReference<Map<String, dynamic>> rating1 =
+          FirebaseFirestore.instance.collection('products').doc();
+      await rating1
+          .collection('rating')
+          .doc(rating.id)
+          .set(rating.toMap());
+
+      res = 'success';
+    } catch (err) {
+      print('...........$err');
+    }
+    return res;
   }
 }
