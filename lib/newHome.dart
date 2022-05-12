@@ -35,7 +35,7 @@ class _SingleProductWidgetState extends State<SingleProductWidget> {
             print("Something went wrong");
           }
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Text('Loading');
+            return Center(child: Image.asset('assests/images/Group.png'));
           }
           return Padding(
             padding: const EdgeInsets.all(10),

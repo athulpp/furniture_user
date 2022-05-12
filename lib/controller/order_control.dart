@@ -23,4 +23,23 @@ class OrderController extends GetxController {
     }
     return res;
   }
+
+
+  Future<String> cancelOrder(Order order) async {
+    String res = 'Some error occured';
+
+    try {
+      FirebaseFirestore.instance
+          .collection('OrderCollection')
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .collection('order')
+          .doc(order.orderId)
+          .update(order.toMap());
+      res = 'success';
+    } catch (err) {
+      print('...........$err');
+    }
+    return res;
+  }
+
 }

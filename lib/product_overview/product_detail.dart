@@ -79,6 +79,7 @@ class DetailScreen extends StatelessWidget {
                         ),
                         // ProductRating(
                         //   productId: productId,
+                        //   status: 'hello',
                         // ),
                         // TextFormField(),
 

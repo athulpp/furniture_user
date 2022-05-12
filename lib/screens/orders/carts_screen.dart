@@ -46,8 +46,8 @@ class CartScreen extends StatelessWidget {
           stream: _cartStream,
           builder:
               (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-            if (snapshot.hasError) {
-              print("Something went wrong");
+            if (snapshot == null) {
+              return Text('no items');
             }
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Center(child: Image.asset('assests/images/Group.png'));
@@ -66,6 +66,9 @@ class CartScreen extends StatelessWidget {
                         final DocumentSnapshot documentSnapshot =
                             snapshot.data!.docs[index];
                         print(documentSnapshot);
+                        // if (documentSnapshot == null) {
+                        //   return CircularProgressIndicator();
+                        // } else
                         return InkWell(
                           onTap: (() {
                             Get.to(

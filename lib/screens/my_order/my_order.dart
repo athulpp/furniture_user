@@ -253,20 +253,24 @@ class MyOrder extends StatelessWidget {
                     itemCount: orderList.length,
                     itemBuilder: ((context, index) {
                       final each = orderList[index];
+                      List<Order> e = orderList;
                       return Padding(
                         padding:
                             EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                         child: GestureDetector(
                           onTap: () {
                             Get.to(() => MyOrderDetailsScreen(
+                                  order: e,
+                                  productId: each.cart.cartId,
                                   username: each.address.name.toString(),
                                   address: each.address.address.toString(),
                                   phonNo: each.address.PhoneNumber.toString(),
                                   pin: each.address.pincode.toString(),
                                   orderName: each.cart.productName,
+                                  orderDes: each.cart.productDes,
                                   orderId: each.orderId,
                                   orderImage: each.cart.productImage,
-                                  orderPrice: each.totalPrice.toString(),
+                                  orderPrice: each.totalPrice,
                                   Quantity: each.cart.ProductQuantity,
                                   OrderDate: each.createdDate,
                                   status: each.status,
@@ -378,7 +382,7 @@ class MyOrder extends StatelessWidget {
                                               style: TextStyle(
                                                   color: Colors.green,
                                                   fontWeight: FontWeight.bold,
-                                                  fontSize: 15),
+                                                  fontSize: 14),
                                             ),
                                           ],
                                         )

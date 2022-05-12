@@ -10,6 +10,7 @@ import 'package:userapp/controller/order_control.dart';
 import 'package:userapp/model/address.dart';
 import 'package:userapp/model/cart.dart';
 import 'package:userapp/model/order.dart';
+import 'package:userapp/screens/sucess/failed_page.dart';
 import 'package:userapp/screens/sucess/sucees_page.dart';
 import 'package:uuid/uuid.dart';
 
@@ -25,7 +26,6 @@ class ConfirmationScreen extends StatelessWidget {
       required this.cartList})
       : super(key: key);
 
-  // final controller = Get.put(ConfirmationScreenController());
   var id;
   String addressName;
   String addressAdd;
@@ -208,9 +208,9 @@ class ConfirmationScreen extends StatelessWidget {
             text('Total Price:', 'Rs. ${total}'),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 15),
-              child: text('Delivery charge:', 'Rs.${50}'),
+              child: text('Delivery charge:', 'Rs.${20}'),
             ),
-            text('Payable Price :', 'Rs. ${total + 50}'),
+            text('Payable Price :', 'Rs. ${total + 20}'),
           ],
         ),
       ),
@@ -232,7 +232,11 @@ class ConfirmationScreen extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      Text('Cash on Delivery'),
+                      Text(
+                        'Cash on Delivery',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 18),
+                      ),
                       Radio(
                           value: 'CashonDelivery',
                           groupValue: controller.selectPayment.value,
@@ -243,7 +247,11 @@ class ConfirmationScreen extends StatelessWidget {
                   ),
                   Row(
                     children: [
-                      Text('Razor Payment'),
+                      Text(
+                        'Razor Payment',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 18),
+                      ),
                       Radio(
                           value: 'Razorpayment',
                           groupValue: controller.selectPayment.value,
@@ -271,16 +279,16 @@ class ConfirmationScreen extends StatelessWidget {
   }
 
   void _handlePaymentError(PaymentFailureResponse response) {
-    print('failed');
+    Get.off(() => FailedPage());
   }
 
   onPay(double total_price) {
     var options = {
       'key': 'rzp_test_cDZYIPKnedh4R6',
-      'amount': ((total_price + 50) * 100).toString(),
-      'name': 'Acme Corp.',
-      'description': 'Fine T-Shirt',
-      'prefill': {'contact': '8888888888', 'email': 'test@razorpay.com'}
+      'amount': ((total_price) * 100).toString(),
+      'name': addressName,
+      'description': addressAdd,
+      'prefill': {'contact': phoneNo, 'email': 'test@razorpay.com'}
     };
     _razorpay.open(options);
   }
@@ -295,7 +303,7 @@ void placeOrder(List<Cart> cartList, double totalPrice, Address addres) {
         createdDate: Timestamp.now(),
         cart: cart,
         address: addres,
-        status: 'delivered',
+        status: 'Delivered in 7 days',
         totalPrice: getCartTOtalPrice(cart)));
   }
   for (var order in orderList) {

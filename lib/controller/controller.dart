@@ -180,15 +180,17 @@ class Controller extends GetxController {
     try {
       DocumentReference<Map<String, dynamic>> rating1 =
           FirebaseFirestore.instance.collection('products').doc();
-      await rating1
-          .collection('rating')
-          .doc(rating.id)
-          .set(rating.toMap());
+      await rating1.collection('rating').doc(rating.id).set(rating.toMap());
 
       res = 'success';
     } catch (err) {
       print('...........$err');
     }
     return res;
+  }
+
+  onclickedProuctId(var prod) {
+    productId = prod;
+    update(['productId']);
   }
 }

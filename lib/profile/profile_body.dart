@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:userapp/controller/controller.dart';
 
 import 'package:userapp/screens/my_order/my_order.dart';
-import 'package:userapp/screens/settings/settings.dart';
 
 class ProfileBody extends StatelessWidget {
   const ProfileBody({Key? key}) : super(key: key);
@@ -13,8 +12,8 @@ class ProfileBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(children: [
       SizedBox(
-        height: 115,
-        width: 115,
+        height: 150,
+        width: 150,
         child: Stack(
           fit: StackFit.expand,
           clipBehavior: Clip.hardEdge,
@@ -61,22 +60,36 @@ class ProfileBody extends StatelessWidget {
         },
         icon: 'assests/images/person-244.svg',
       ),
-      SizedBox(
-        height: 20,
-      ),
-      ProfileMenu(
-        text: 'Settings',
-        press: () {
-          Get.to((SettingsScreen()));
-        },
-        icon: 'assests/images/settings-5670.svg',
-      ),
+      // SizedBox(
+      //   height: 20,
+      // ),
+      // ProfileMenu(
+      //   text: 'Settings',
+      //   press: () {
+      //     Get.to((SettingsScreen()));
+      //   },
+      //   icon: 'assests/images/settings-5670.svg',
+      // ),
       SizedBox(
         height: 20,
       ),
       ProfileMenu(
         text: 'Privacy Policy',
-        press: () {},
+        press: () {
+          showAboutDialog(
+              applicationIcon: Image.asset(
+                'assests/images/Group.png',
+                width: 70,
+                height: 70,
+              ),
+              context: context,
+              applicationName: 'Furnidesk',
+              applicationVersion: '1.1.0',
+              children: [
+                const Text(
+                    "Furnidesk is a Tables Ecommerce Platform Created by Athul"),
+              ]);
+        },
         icon: 'assests/images/user-security-11931.svg',
       ),
       SizedBox(
@@ -108,33 +121,38 @@ class ProfileMenu extends StatelessWidget {
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
             color: Colors.grey.shade200),
-        height: 50,
+        height: 100,
         width: double.infinity,
         // color: Colors.grey.shade300,
-        child: TextButton(
-            clipBehavior: Clip.antiAlias,
-            onPressed: press,
-            child: Row(
-              children: [
-                SvgPicture.asset(
-                  icon,
-                  width: 22,
-                ),
-                SizedBox(
-                  width: 22,
-                ),
-                Expanded(
-                  child: Text(
-                    text,
-                    style: Theme.of(context).textTheme.bodyText1,
+        child: Material(
+          elevation: 2,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(22.0)),
+          child: TextButton(
+              clipBehavior: Clip.antiAlias,
+              onPressed: press,
+              child: Row(
+                children: [
+                  SvgPicture.asset(
+                    icon,
+                    width: 32,
                   ),
-                ),
-                Icon(
-                  Icons.arrow_forward_ios,
-                  color: Colors.brown,
-                )
-              ],
-            )),
+                  SizedBox(
+                    width: 22,
+                  ),
+                  Expanded(
+                    child: Text(
+                      text,
+                      style: Theme.of(context).textTheme.bodyText1,
+                    ),
+                  ),
+                  Icon(
+                    Icons.arrow_forward_ios,
+                    color: Colors.brown,
+                  )
+                ],
+              )),
+        ),
       ),
     );
   }

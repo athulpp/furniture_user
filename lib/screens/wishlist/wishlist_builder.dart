@@ -19,11 +19,11 @@ class WishList extends StatelessWidget {
           stream: _favStream,
           builder:
               (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-            if (snapshot.hasError) {
-              print("Something went wrong");
+            if (snapshot == null) {
+              return CircularProgressIndicator();
             }
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Text('Loading');
+              return Center(child: Image.asset('assests/images/Group.png'));
             }
             return ListView.builder(
               itemCount: snapshot.data!.docs.length,
