@@ -1,15 +1,11 @@
-
-
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-
 
 import 'package:userapp/model/address.dart';
 import 'package:userapp/model/cart.dart';
 
 class Order {
   String? orderId;
-  
+  String? userId;
   Timestamp createdDate;
   Cart cart;
   Address address;
@@ -18,6 +14,7 @@ class Order {
 
   Order({
     required this.orderId,
+    required this.userId,
     required this.createdDate,
     required this.cart,
     required this.address,
@@ -28,6 +25,7 @@ class Order {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'orderId': orderId,
+      'userId':userId,
       'createdDate': createdDate,
       'cart': cart.toMap(),
       'address': address.toJson(),
@@ -42,6 +40,7 @@ class Order {
 
     return Order(
       orderId: map['orderId'] ?? "",
+      userId: map['userId'] ?? "",
       createdDate: map['createdDate'] ?? "",
       cart: Cart.fromMap(map['cart'] as Map<String, dynamic>),
       address: Address.fromJson(map['address'] as Map<String, dynamic>),
@@ -49,5 +48,4 @@ class Order {
       totalPrice: map['totalPrice'] ?? 0.0 as double,
     );
   }
-
 }

@@ -152,7 +152,7 @@ class DetailScreen extends StatelessWidget {
                             ),
                             Container(
                               height: 350,
-                              width: 300,
+                              width: 260,
                               child: FittedBox(
                                   fit: BoxFit.contain,
                                   child: Image.network(productImage)),

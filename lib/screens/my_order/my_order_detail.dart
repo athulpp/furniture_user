@@ -1,12 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:userapp/controller/controller.dart';
+
 import 'package:userapp/controller/order_control.dart';
 import 'package:userapp/model/address.dart';
 import 'package:userapp/model/cart.dart';
 import 'package:userapp/model/order.dart';
-import 'package:userapp/product_overview/product_rating.dart';
+
 import 'package:userapp/screens/my_order/my_order.dart';
 
 class MyOrderDetailsScreen extends StatelessWidget {
@@ -47,299 +48,294 @@ class MyOrderDetailsScreen extends StatelessWidget {
     final Size size = Get.size;
 
     return Container(
-        color: Colors.black,
-        child: SafeArea(
-            child: Scaffold(
-                appBar: AppBar(
-                  title: Text('Order Summary'),
-                  backgroundColor: Colors.black,
-                ),
-                body: SizedBox(
-                  height: size.height,
-                  width: size.width,
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: size.height / 30,
-                        ),
-                        Container(
-                          height: size.height / 5,
-                          width: size.width / 1.1,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: NetworkImage(orderImage.toString()),
-                            ),
-                          ),
-                        ),
-                        // ProductRating(
-                        TextButton(
-                            onPressed: () {
-                              cancelOrderDialog(context);
-                            },
-                            child: Text('Cancel'))
+      color: Colors.black,
+      child: SafeArea(
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text('Order Summary'),
+            backgroundColor: Colors.black,
+          ),
+          body: SizedBox(
+            height: size.height,
+            width: size.width,
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: size.height / 30,
+                  ),
+                  Container(
+                    height: size.height / 5,
+                    width: size.width / 1.1,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: NetworkImage(orderImage.toString()),
+                      ),
+                    ),
+                  ),
+                  // ProductRating(
 
-                        // ),
-                        // GetBuilder<Controller>(
-                        //     id: productId,
-                        //     builder: (context) {
-                        //       return ProductRating(
-                        //         productId: productId,
-                        //         orderId: orderId,
-                        //         address: address,
-                        //         createdDate: OrderDate,
-                        //         name: orderName,
-                        //         phoneNo: phonNo,
-                        //         pincode: pin,
-                        //         productDes: orderDes,
-                        //         productImage: orderImage,
-                        //         productPrice: orderPrice.toString(),
-                        //         productQuantity: Quantity,
-                        //         productname: orderName,
-                        //         status: status,
-                        //         totalPrice: orderPrice,
-                        //       );
-                        //     }),
-                        ,
-                        SizedBox(
-                          height: size.height / 30,
-                        ),
-                        Text(
-                          orderName,
-                          style: const TextStyle(
-                            fontSize: 22,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        SizedBox(
-                          height: size.height / 30,
-                        ),
-                        Material(
-                          elevation: 5,
-                          color: Colors.white,
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(
-                              vertical: 20,
-                              horizontal: 15,
+                  (status == 'cancelled')
+                      ? SizedBox()
+                      : TextButton(
+                          onPressed: () {
+                            cancelOrderDialog(context);
+                          },
+                          child: Text('Cancel'))
+
+                  // ),
+                  // GetBuilder<Controller>(
+                  //     id: productId,
+                  //     builder: (context) {
+                  //       return ProductRating(
+                  //         productId: productId,
+                  //         orderId: orderId,
+                  //         address: address,
+                  //         createdDate: OrderDate,
+                  //         name: orderName,
+                  //         phoneNo: phonNo,
+                  //         pincode: pin,
+                  //         productDes: orderDes,
+                  //         productImage: orderImage,
+                  //         productPrice: orderPrice.toString(),
+                  //         productQuantity: Quantity,
+                  //         productname: orderName,
+                  //         status: status,
+                  //         totalPrice: orderPrice,
+                  //       );
+                  //     }),
+                  ,
+                  SizedBox(
+                    height: size.height / 30,
+                  ),
+                  Text(
+                    orderName,
+                    style: const TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  SizedBox(
+                    height: size.height / 30,
+                  ),
+                  Material(
+                    elevation: 5,
+                    color: Colors.white,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 20,
+                        horizontal: 15,
+                      ),
+                      width: size.width / 1.1,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            "Order Details",
+                            style: TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.w500,
                             ),
-                            width: size.width / 1.1,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                          ),
+                          SizedBox(
+                            height: size.height / 40,
+                          ),
+                          Row(
+                            children: [
+                              Text(
+                                'Order Id :',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 20),
+                              ),
+                              Text(
+                                orderId.toString().substring(
+                                      0,
+                                      20,
+                                    ),
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 18),
+                              ),
+                            ],
+                          ),
+
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 12),
+                            child: Row(
                               children: [
-                                const Text(
-                                  "Order Details",
+                                Text(
+                                  'Total Price : ',
                                   style: TextStyle(
-                                    fontSize: 24,
-                                    fontWeight: FontWeight.w500,
-                                  ),
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20),
                                 ),
-                                SizedBox(
-                                  height: size.height / 40,
-                                ),
-                                Row(
-                                  children: [
-                                    Text(
-                                      'Order Id :',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 20),
-                                    ),
-                                    Text(
-                                      orderId.toString().substring(
-                                            0,
-                                            20,
-                                          ),
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 18),
-                                    ),
-                                  ],
-                                ),
-
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 12),
-                                  child: Row(
-                                    children: [
-                                      Text(
-                                        'Total Price : ',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 20),
-                                      ),
-                                      Text(
-                                        '₹ ${orderPrice}',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 18),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                                // Text('Paid amount :'),
-                                Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 12),
-                                    child: Row(
-                                      children: [
-                                        Text(
-                                          'Status : ',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 20),
-                                        ),
-                                        Text(
-                                          ' $status',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 18,
-                                              color: Colors.green),
-                                        ),
-                                      ],
-                                    )),
-                                Row(
-                                  children: [
-                                    Text(
-                                      'Ordered on :',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 20),
-                                    ),
-                                    Text(
-                                      '  ${DateTime.fromMicrosecondsSinceEpoch(OrderDate.microsecondsSinceEpoch).toString().substring(0, 10)}',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 18),
-                                    ),
-                                  ],
+                                Text(
+                                  '₹ ${orderPrice}',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18),
                                 )
                               ],
                             ),
                           ),
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Material(
-                          elevation: 5,
-                          color: Colors.white,
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(
-                              vertical: 20,
-                              horizontal: 15,
-                            ),
-                            width: size.width / 1.1,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Text(
-                                  "Address Details",
-                                  style: TextStyle(
-                                    fontSize: 22,
-                                    fontWeight: FontWeight.w500,
+                          // Text('Paid amount :'),
+                          Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 12),
+                              child: Row(
+                                children: [
+                                  Text(
+                                    'Status : ',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20),
                                   ),
-                                ),
-                                SizedBox(
-                                  height: size.height / 40,
-                                ),
-                                Row(
-                                  children: [
-                                    Text(
-                                      'Name :',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 20),
-                                    ),
-                                    Text(
-                                      ' $username',
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 20),
-                                    ),
-                                  ],
-                                ),
-
-                                Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 10),
-                                    child: Row(
-                                      children: [
-                                        Text(
-                                          'Address :',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 20),
-                                        ),
-                                        Flexible(
-                                          child: Text(
-                                            ' $address',
-                                            overflow: TextOverflow.visible,
-                                            softWrap: true,
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 18),
-                                          ),
-                                        ),
-                                      ],
-                                    )),
-                                // Text('Paid amount :'),
-                                // Padding(
-                                //   padding:
-                                //       const EdgeInsets.symmetric(vertical: 12),
-                                //   // child:Row(children: [Text('Status')],) Text('Status : $status'),
-                                // ),
-                                Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 12),
-                                    child: Row(
-                                      children: [
-                                        Text(
-                                          'Phone No : ',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 20),
-                                        ),
-                                        Text(
-                                          ' $phonNo',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 18),
-                                        ),
-                                      ],
-                                    )),
-                                Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 10),
-                                    child: Row(
-                                      children: [
-                                        Text(
-                                          'Pincode : ',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 20),
-                                        ),
-                                        Text(
-                                          ' ${pin}',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 18),
-                                        ),
-                                      ],
-                                    )),
-                                // Padding(
-                                //   padding: const EdgeInsets.symmetric(vertical: 12),
-                                //   child: text('Delivered on :', '28-10-2021'),
-                                // ),
-                              ],
-                            ),
-                          ),
-                        )
-                      ],
+                                  Text(
+                                    ' $status',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18,
+                                        color: Colors.red),
+                                  ),
+                                ],
+                              )),
+                          Row(
+                            children: [
+                              Text(
+                                'Ordered on :',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 20),
+                              ),
+                              Text(
+                                '  ${DateTime.fromMicrosecondsSinceEpoch(OrderDate.microsecondsSinceEpoch).toString().substring(0, 10)}',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 18),
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
                     ),
                   ),
-                ))));
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Material(
+                    elevation: 5,
+                    color: Colors.white,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 20,
+                        horizontal: 15,
+                      ),
+                      width: size.width / 1.1,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            "Address Details",
+                            style: TextStyle(
+                              fontSize: 22,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          SizedBox(
+                            height: size.height / 40,
+                          ),
+                          Row(
+                            children: [
+                              Text(
+                                'Name :',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 20),
+                              ),
+                              Text(
+                                ' $username',
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 20),
+                              ),
+                            ],
+                          ),
+
+                          Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 10),
+                              child: Row(
+                                children: [
+                                  Text(
+                                    'Address :',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20),
+                                  ),
+                                  Flexible(
+                                    child: Text(
+                                      ' $address',
+                                      overflow: TextOverflow.visible,
+                                      softWrap: true,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 18),
+                                    ),
+                                  ),
+                                ],
+                              )),
+                          // Text('Paid amount :'),
+                          // Padding(
+                          //   padding:
+                          //       const EdgeInsets.symmetric(vertical: 12),
+                          //   // child:Row(children: [Text('Status')],) Text('Status : $status'),
+                          // ),
+                          Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 12),
+                              child: Row(
+                                children: [
+                                  Text(
+                                    'Phone No : ',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20),
+                                  ),
+                                  Text(
+                                    ' $phonNo',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18),
+                                  ),
+                                ],
+                              )),
+                          Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 10),
+                              child: Row(
+                                children: [
+                                  Text(
+                                    'Pincode : ',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20),
+                                  ),
+                                  Text(
+                                    ' ${pin}',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18),
+                                  ),
+                                ],
+                              )),
+                          // Padding(
+                          //   padding: const EdgeInsets.symmetric(vertical: 12),
+                          //   child: text('Delivered on :', '28-10-2021'),
+                          // ),
+                        ],
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
   }
 
   void cancelOrder(List<Order> cartList, double totalPrice, Address addres) {
@@ -347,6 +343,7 @@ class MyOrderDetailsScreen extends StatelessWidget {
     for (var order in cartList) {
       orderList.add(Order(
           orderId: orderId,
+          userId: FirebaseAuth.instance.currentUser!.uid,
           createdDate: OrderDate,
           cart: Cart(
               productName: orderName,

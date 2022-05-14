@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -300,10 +301,11 @@ void placeOrder(List<Cart> cartList, double totalPrice, Address addres) {
   for (var cart in cartList) {
     orderList.add(Order(
         orderId: order_id.v1(),
+        userId: FirebaseAuth.instance.currentUser!.uid,
         createdDate: Timestamp.now(),
         cart: cart,
         address: addres,
-        status: 'Delivered in 7 days',
+        status: 'Pending',
         totalPrice: getCartTOtalPrice(cart)));
   }
   for (var order in orderList) {

@@ -379,10 +379,12 @@ class MyOrder extends StatelessWidget {
                                             ),
                                             Text(
                                               each.status,
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 1,
                                               style: TextStyle(
                                                   color: Colors.green,
                                                   fontWeight: FontWeight.bold,
-                                                  fontSize: 14),
+                                                  fontSize: 13.5),
                                             ),
                                           ],
                                         )
