@@ -1,6 +1,9 @@
+import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+
 import 'package:userapp/controller/controller.dart';
 import 'package:userapp/home/home.dart';
 
@@ -63,7 +66,10 @@ class BottomNavigation extends StatelessWidget {
         title: GetBuilder<Controller>(
           id: 'indexchange',
           builder: (controller) {
-            return Text(title[data_control.selectedIndex]);
+            return Text(title[data_control.selectedIndex],
+                style: GoogleFonts.lato(
+                  textStyle: TextStyle(color: Colors.brown, letterSpacing: .5),
+                ));
           },
         ),
         automaticallyImplyLeading: false,
@@ -93,41 +99,31 @@ class BottomNavigation extends StatelessWidget {
         child: GetBuilder<Controller>(
             id: 'indexchange',
             builder: (controller) {
-              return BottomNavigationBar(
-                type: BottomNavigationBarType.fixed,
-                onTap: controller.onItemTapped,
-                currentIndex: controller.selectedIndex,
-                items: const <BottomNavigationBarItem>[
-                  BottomNavigationBarItem(
-                      icon: Icon(
-                        Icons.home,
-                        color: Colors.grey,
-                      ),
-                      activeIcon: Icon(Icons.home, color: Colors.white),
-                      label: ''),
-                  BottomNavigationBarItem(
-                      icon: Icon(
-                        Icons.bookmark_border,
-                        color: Colors.grey,
-                      ),
-                      activeIcon:
-                          Icon(Icons.bookmark_border, color: Colors.white),
-                      label: ''),
-                  BottomNavigationBarItem(
-                      icon: Icon(
-                        Icons.shopping_cart,
-                        color: Colors.grey,
-                      ),
-                      activeIcon:
-                          Icon(Icons.shopping_cart, color: Colors.white),
-                      label: ''),
-                  BottomNavigationBarItem(
-                      icon: Icon(
-                        Icons.person,
-                        color: Colors.grey,
-                      ),
-                      activeIcon: Icon(Icons.person, color: Colors.white),
-                      label: ''),
+              return BottomNavyBar(
+                showElevation: true,
+                onItemSelected: controller.onItemTapped,
+                selectedIndex: controller.selectedIndex,
+                items: <BottomNavyBarItem>[
+                  BottomNavyBarItem(
+                    icon: Icon(Icons.home),
+                    title: Text('Home'),
+                    activeColor: Colors.black,
+                  ),
+                  BottomNavyBarItem(
+                    icon: Icon(Icons.bookmark_border),
+                    title: Text('Wishlist'),
+                    activeColor: Colors.black,
+                  ),
+                  BottomNavyBarItem(
+                    icon: Icon(Icons.shopping_cart),
+                    title: Text('Cart'),
+                    activeColor: Colors.black,
+                  ),
+                  BottomNavyBarItem(
+                    icon: Icon(Icons.bookmark_border),
+                    title: Text('Profile'),
+                    activeColor: Colors.black,
+                  ),
                 ],
               );
             }),

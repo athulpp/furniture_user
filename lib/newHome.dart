@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import 'package:userapp/product_overview/product_detail.dart';
 
 class SingleProductWidget extends StatefulWidget {
@@ -28,6 +30,7 @@ final Stream<QuerySnapshot> _productStream =
 class _SingleProductWidgetState extends State<SingleProductWidget> {
   @override
   Widget build(BuildContext context) {
+    timeDilation = 3.0;
     return StreamBuilder<QuerySnapshot>(
         stream: _productStream,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -35,7 +38,20 @@ class _SingleProductWidgetState extends State<SingleProductWidget> {
             print("Something went wrong");
           }
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: Image.asset('assests/images/Group.png'));
+            return Center(
+                child: Lottie.asset('assests/images/66405-swap.json'));
+          }
+          if (snapshot.data!.docs.isEmpty) {
+            return SizedBox(
+              height: 600,
+              child: Center(
+                  child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Lottie.asset('assests/images/66405-swap.json'),
+                ],
+              )),
+            );
           }
           return Padding(
             padding: const EdgeInsets.all(10),
@@ -53,6 +69,8 @@ class _SingleProductWidgetState extends State<SingleProductWidget> {
                 itemBuilder: (context, index) {
                   final DocumentSnapshot documentSnapshot =
                       snapshot.data!.docs[index];
+                  print("hello world${snapshot.data!.docs.isNotEmpty}");
+                  // ignore: unnecessary_null_comparison
                   return GestureDetector(
                     // onTap:Widget.() {,
                     onTap: () {
@@ -67,89 +85,92 @@ class _SingleProductWidgetState extends State<SingleProductWidget> {
                     },
                     // },
 
-                    child: Material(
-                      elevation: 5,
-                      child: Container(
-                        height: 50,
-                        margin: EdgeInsets.all(10.0),
-                        decoration: BoxDecoration(
-                          color: Colors.grey.shade100,
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 10, right: 10, top: 10),
-                                child: Container(
-                                  alignment: Alignment.topRight,
-                                  width: double.infinity,
-                                  height: 100,
-                                  decoration: BoxDecoration(
-                                    color: Colors.transparent,
-                                    image: DecorationImage(
-                                      fit: BoxFit.scaleDown,
-                                      scale: 2,
-                                      image: NetworkImage(
-                                        documentSnapshot['productimage'],
+                    child: Hero(
+                      tag: 'hero',
+                      child: Material(
+                        elevation: 5,
+                        child: Container(
+                          height: 50,
+                          margin: EdgeInsets.all(10.0),
+                          decoration: BoxDecoration(
+                            color: Colors.grey.shade100,
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 10, right: 10, top: 10),
+                                  child: Container(
+                                    alignment: Alignment.topRight,
+                                    width: double.infinity,
+                                    height: 100,
+                                    decoration: BoxDecoration(
+                                      color: Colors.transparent,
+                                      image: DecorationImage(
+                                        fit: BoxFit.scaleDown,
+                                        scale: 2,
+                                        image: NetworkImage(
+                                          documentSnapshot['productimage'],
+                                        ),
                                       ),
                                     ),
                                   ),
                                 ),
                               ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 5),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  SizedBox(
-                                    height: 5,
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 5),
-                                    child: Text(
-                                      documentSnapshot['productname'],
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 20),
+                              Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 5),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SizedBox(
+                                      height: 5,
                                     ),
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  // Text(
-                                  //   widget.productModel,
-                                  //   overflow: TextOverflow.ellipsis,
-                                  //   style: TextStyle(color: Colors.black),
-                                  // ),
-                                  // SizedBox(
-                                  //   height: 10,
-                                  // ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 5),
-                                    child: Text(
-                                      "\₹ ${documentSnapshot['productprice']}",
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 18),
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 5),
+                                      child: Text(
+                                        documentSnapshot['productname'],
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 20),
+                                      ),
                                     ),
-                                  ),
-                                  SizedBox(
-                                    width: 15,
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  )
-                                ],
-                              ),
-                            )
-                          ],
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    // Text(
+                                    //   widget.productModel,
+                                    //   overflow: TextOverflow.ellipsis,
+                                    //   style: TextStyle(color: Colors.black),
+                                    // ),
+                                    // SizedBox(
+                                    //   height: 10,
+                                    // ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 5),
+                                      child: Text(
+                                        "\₹ ${documentSnapshot['productprice']}",
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 18),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 15,
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    )
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ),

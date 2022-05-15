@@ -11,6 +11,7 @@ import 'controller/bottom_bar_control.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+
   runApp(MyApp());
 }
 
