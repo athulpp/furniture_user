@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:get/get.dart';
+import 'package:nb_utils/nb_utils.dart';
 import 'package:userapp/controller/bottom_bar_control.dart';
 import 'package:userapp/controller/cart_controller.dart';
 
@@ -50,7 +51,7 @@ class CartScreen extends StatelessWidget {
               return Text('no items');
             }
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(child: Image.asset('assests/images/Group.png'));
+              return Loader();
             }
             List<Cart>? cartList = convetToCart(snapshot.data!.docs);
 
@@ -229,20 +230,63 @@ class CartScreen extends StatelessWidget {
                                             style: TextStyle(
                                                 fontWeight: FontWeight.w500)),
                                       ),
-                                      IconButton(
-                                          onPressed: () {
-                                            FirebaseFirestore.instance
-                                                .collection('cartCollection')
-                                                .doc(FirebaseAuth
-                                                    .instance.currentUser!.uid)
-                                                .collection('cart')
-                                                .doc(documentSnapshot.id)
-                                                .delete();
-                                          },
-                                          icon: Icon(
-                                            Icons.delete,
-                                            color: Colors.red,
-                                          ))
+                                      // IconButton(
+                                      //     onPressed: () {
+                                      //       AppButton(
+                                      //         text: "Delete",
+                                      //         onTap: () {
+                                      //           showConfirmDialogCustom(
+                                      //             context,
+                                      //             title:
+                                      //                 "Delete 89 files permanent?",
+                                      //             dialogType: DialogType.DELETE,
+                                      //             onAccept: (context) {
+                                      //               snackBar(context,
+                                      //                   title: 'Deleted');
+                                      //             },
+                                      //           );
+                                      //         },
+                                      //       );
+                                      //       // FirebaseFirestore.instance
+                                      //       //     .collection('cartCollection')
+                                      //       //     .doc(FirebaseAuth
+                                      //       //         .instance.currentUser!.uid)
+                                      //       //     .collection('cart')
+                                      //       //     .doc(documentSnapshot.id)
+                                      //       //     .delete();
+                                      //     },
+                                      //     icon: Icon(
+                                      //       Icons.delete,
+                                      //       color: Colors.red,
+                                      //     )),
+                                      AppButton(
+                                        padding: EdgeInsets.all(1),
+                                        shapeBorder:
+                                            Border.all(color: Colors.black),
+                                        color: Colors.redAccent,
+                                        hoverColor: Colors.red,
+                                        text: "Remove",
+                                        textColor: Colors.white,
+                                        onTap: () {
+                                          showConfirmDialogCustom(
+                                            context,
+                                            title:
+                                                "Do you Want to Remove this item in the Cart?",
+                                            dialogType: DialogType.DELETE,
+                                            onAccept: (context) {
+                                              FirebaseFirestore.instance
+                                                  .collection('cartCollection')
+                                                  .doc(FirebaseAuth.instance
+                                                      .currentUser!.uid)
+                                                  .collection('cart')
+                                                  .doc(documentSnapshot.id)
+                                                  .delete();
+                                              snackBar(context,
+                                                  title: 'Deleted');
+                                            },
+                                          );
+                                        },
+                                      )
                                     ],
                                   ),
                                 ),

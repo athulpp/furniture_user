@@ -3,6 +3,7 @@ import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:nb_utils/nb_utils.dart';
 
 import 'package:userapp/controller/controller.dart';
 
@@ -73,7 +74,9 @@ class BottomNavigation extends StatelessWidget {
         actions: [
           IconButton(
               onPressed: () {
-                Get.to(() => WelcomeScreen());
+                WelcomeScreen().launch(context,
+                    pageRouteAnimation: PageRouteAnimation.Slide);
+                // Get.to(() => WelcomeScreen());
               },
               icon: Icon(Icons.login))
         ],

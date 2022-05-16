@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nb_utils/nb_utils.dart';
 
 import 'package:userapp/newHome.dart';
 
@@ -12,8 +13,10 @@ class HomeScreen extends StatelessWidget {
   }) : super(key: key);
 
   String cate = '';
+  ScrollController scrollController = ScrollController();
   @override
   Widget build(BuildContext context) {
+    scrollController.animToTop();
     final Stream<QuerySnapshot> _productStream =
         FirebaseFirestore.instance.collection('products').snapshots();
     // print(_productStream);

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nb_utils/nb_utils.dart';
 import 'package:userapp/screens/login/welcome/component/welcome_body.dart';
 
 class WelcomeScreen extends StatelessWidget {
@@ -11,7 +12,11 @@ class WelcomeScreen extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              IconButton(onPressed: () {}, icon: Icon(Icons.home)),
+              IconButton(
+                  onPressed: () {
+                    finish(context);
+                  },
+                  icon: Icon(Icons.home)),
               WelcomeBody(),
             ],
           ),

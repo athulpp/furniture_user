@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
+import 'package:nb_utils/nb_utils.dart';
 import 'package:userapp/controller/address-controller.dart';
 import 'package:userapp/model/address.dart';
 import 'package:userapp/model/cart.dart';
@@ -66,18 +67,29 @@ class AllAddressScreen extends StatelessWidget {
                   child: GestureDetector(
                     onTap: () {
                       // print(documentSnapshot.id);
-                      Get.to(() => ConfirmationScreen(
-                            total: total,
-                            id: documentSnapshot.id,
-                            addressName: documentSnapshot['name'],
-                            addressAdd: documentSnapshot['address'],
-                            AddressPin: documentSnapshot['pincode'],
-                            phoneNo: documentSnapshot['phoneNumber'],
-                            cartList: cartList,
-                          ));
+                      // Get.to(() => ConfirmationScreen(
+                      //       total: total,
+                      //       id: documentSnapshot.id,
+                      //       addressName: documentSnapshot['name'],
+                      //       addressAdd: documentSnapshot['address'],
+                      //       AddressPin: documentSnapshot['pincode'],
+                      //       phoneNo: documentSnapshot['phoneNumber'],
+                      //       cartList: cartList,
+                      //     ));
+
+                      ConfirmationScreen(
+                        total: total,
+                        id: documentSnapshot.id,
+                        addressName: documentSnapshot['name'],
+                        addressAdd: documentSnapshot['address'],
+                        AddressPin: documentSnapshot['pincode'],
+                        phoneNo: documentSnapshot['phoneNumber'],
+                        cartList: cartList,
+                      ).launch(context,
+                          pageRouteAnimation: PageRouteAnimation.Fade);
                     },
                     child: Material(
-                      elevation: 5,
+                      elevation: 10,
                       child: Padding(
                         padding: const EdgeInsets.all(10),
                         child: Column(
@@ -107,30 +119,47 @@ class AllAddressScreen extends StatelessWidget {
                                           icon: Icon(Icons.delete))
                                     ],
                                   ),
-                                  Text(
-                                    documentSnapshot['address'],
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w500,
-                                    ),
+                                  TextIcon(
+                                    text: 'Address : ',
+                                    suffix: Text(
+                                      documentSnapshot['address'],
+                                      maxLines: 2,
+                                      softWrap: false,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w500),
+                                    ), // Optional
                                   ),
-                                  SizedBox(
-                                    height: size.height * 0.02,
+                                  TextIcon(
+                                    text: 'Pin Code: ',
+                                    suffix: Text(
+                                      documentSnapshot['pincode'],
+                                      style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w500),
+                                    ), // Optional
                                   ),
-                                  Text(
-                                    documentSnapshot['pincode'],
-                                    style: TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w500),
-                                  ),
-                                  SizedBox(
-                                    height: size.height * 0.02,
-                                  ),
-                                  Text(
-                                    documentSnapshot['phoneNumber'],
-                                    style: TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w500),
+                                  // SizedBox(
+                                  //   height: size.height * 0.02,
+                                  // ),
+                                  // Text(
+                                  //   documentSnapshot['phoneNumber'],
+                                  //   style: TextStyle(
+                                  //       fontSize: 18,
+                                  //       fontWeight: FontWeight.w500),
+                                  // ),
+                                  // SizedBox(
+                                  //   height: size.height * 0.02,
+                                  // ),
+                                  TextIcon(
+                                    text: 'Mobile No: ',
+                                    suffix: Text(
+                                      documentSnapshot['phoneNumber'],
+                                      style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w500),
+                                    ), // Optional
                                   ),
                                   SizedBox(
                                     height: size.height * 0.02,

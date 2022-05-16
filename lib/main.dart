@@ -1,12 +1,12 @@
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'package:userapp/screens/login/login_screen/login..dart';
+
 import 'package:userapp/screens/login/splash_screen.dart';
 
-import 'controller/bottom_bar_control.dart';
+
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
