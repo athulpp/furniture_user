@@ -1,11 +1,10 @@
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:userapp/controller/controller.dart';
-import 'package:userapp/home/home.dart';
 
 import 'package:userapp/profile/profile_screen.dart';
 import 'package:userapp/screens/Homescreen.dart';
@@ -13,8 +12,6 @@ import 'package:userapp/screens/Homescreen.dart';
 import 'package:userapp/screens/login/welcome/welcome_screen.dart';
 import 'package:userapp/screens/orders/carts_screen.dart';
 import 'package:userapp/screens/search/search.dart';
-
-import 'package:userapp/screens/search/search_screen.dart';
 
 import 'package:userapp/screens/wishlist/wishlist_builder.dart';
 
@@ -105,24 +102,35 @@ class BottomNavigation extends StatelessWidget {
                 selectedIndex: controller.selectedIndex,
                 items: <BottomNavyBarItem>[
                   BottomNavyBarItem(
-                    icon: Icon(Icons.home),
-                    title: Text('Home'),
-                    activeColor: Colors.black,
-                  ),
+                      icon: Icon(Icons.home),
+                      title: Text('Home',
+                          style:
+                              GoogleFonts.tillana(fontWeight: FontWeight.bold)),
+                      activeColor: Colors.black,
+                      inactiveColor: Colors.grey),
                   BottomNavyBarItem(
                     icon: Icon(Icons.bookmark_border),
-                    title: Text('Wishlist'),
+                    title: Text('Wishlist',
+                        style:
+                            GoogleFonts.tillana(fontWeight: FontWeight.bold)),
                     activeColor: Colors.black,
+                    inactiveColor: Colors.grey,
                   ),
                   BottomNavyBarItem(
                     icon: Icon(Icons.shopping_cart),
-                    title: Text('Cart'),
+                    title: Text('Cart',
+                        style:
+                            GoogleFonts.tillana(fontWeight: FontWeight.bold)),
                     activeColor: Colors.black,
+                    inactiveColor: Colors.grey,
                   ),
                   BottomNavyBarItem(
-                    icon: Icon(Icons.bookmark_border),
-                    title: Text('Profile'),
+                    icon: Icon(Icons.topic),
+                    title: Text('Profile',
+                        style:
+                            GoogleFonts.tillana(fontWeight: FontWeight.bold)),
                     activeColor: Colors.black,
+                    inactiveColor: Colors.grey,
                   ),
                 ],
               );

@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:userapp/product_overview/product_detail.dart';
 
@@ -64,7 +65,7 @@ class _SingleProductWidgetState extends State<SingleProductWidget> {
                   crossAxisCount: 2,
                   crossAxisSpacing: 10,
                   mainAxisSpacing: 10,
-                  childAspectRatio: 0.8,
+                  childAspectRatio: 0.85,
                 ),
                 itemBuilder: (context, index) {
                   final DocumentSnapshot documentSnapshot =
@@ -134,7 +135,7 @@ class _SingleProductWidgetState extends State<SingleProductWidget> {
                                       child: Text(
                                         documentSnapshot['productname'],
                                         overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
+                                        style: GoogleFonts.alice(
                                             fontWeight: FontWeight.bold,
                                             fontSize: 20),
                                       ),
@@ -142,22 +143,14 @@ class _SingleProductWidgetState extends State<SingleProductWidget> {
                                     SizedBox(
                                       height: 10,
                                     ),
-                                    // Text(
-                                    //   widget.productModel,
-                                    //   overflow: TextOverflow.ellipsis,
-                                    //   style: TextStyle(color: Colors.black),
-                                    // ),
-                                    // SizedBox(
-                                    //   height: 10,
-                                    // ),
                                     Padding(
                                       padding: const EdgeInsets.only(left: 5),
                                       child: Text(
                                         "\₹ ${documentSnapshot['productprice']}",
                                         overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
+                                        style: GoogleFonts.raleway(
                                             fontWeight: FontWeight.bold,
-                                            fontSize: 18),
+                                            fontSize: 22),
                                       ),
                                     ),
                                     SizedBox(

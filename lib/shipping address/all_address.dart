@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import 'package:userapp/controller/address-controller.dart';
 import 'package:userapp/model/address.dart';
 import 'package:userapp/model/cart.dart';
@@ -41,6 +42,19 @@ class AllAddressScreen extends StatelessWidget {
           }
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Text('Loading');
+          }
+          if (snapshot.data!.docs.isEmpty) {
+            return SizedBox(
+              height: 600,
+              child: Center(
+                  child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Lottie.asset('assests/images/lf30_editor_itvwrc9z.json'),
+                  Text('No Items')
+                ],
+              )),
+            );
           }
           return ListView.builder(
               itemCount: snapshot.data!.docs.length,
@@ -86,7 +100,8 @@ class AllAddressScreen extends StatelessWidget {
                                           onPressed: () {
                                             addressControl.deleteAddress(
                                               Address(
-                                                  name: documentSnapshot['name']),
+                                                  name:
+                                                      documentSnapshot['name']),
                                             );
                                           },
                                           icon: Icon(Icons.delete))

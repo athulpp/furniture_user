@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import 'package:userapp/product_overview/product_detail.dart';
 import 'package:userapp/screens/wishlist/wishlist.dart';
 
@@ -19,11 +20,21 @@ class WishList extends StatelessWidget {
           stream: _favStream,
           builder:
               (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-            if (snapshot == null) {
-              return CircularProgressIndicator();
-            }
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Center(child: Image.asset('assests/images/Group.png'));
+            }
+            if (snapshot.data!.docs.isEmpty) {
+              return SizedBox(
+                height: 600,
+                child: Center(
+                    child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Lottie.asset('assests/images/66405-swap.json'),
+                    Text('No Items')
+                  ],
+                )),
+              );
             }
             return ListView.builder(
               itemCount: snapshot.data!.docs.length,

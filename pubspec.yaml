@@ -42,7 +42,9 @@ dependencies:
   bottom_navy_bar: ^6.0.0
   lottie: ^1.3.0
   google_fonts: ^2.3.2
-  popover: ^0.2.6+3
+  # popover: ^0.2.6+3
+  rflutter_alert: ^2.0.4
+  nb_utils: ^4.5.2
 
 
 
