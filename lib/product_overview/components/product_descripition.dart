@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ProductDescripition extends StatelessWidget {
   ProductDescripition({Key? key, required this.productDesc}) : super(key: key);
@@ -9,7 +10,7 @@ class ProductDescripition extends StatelessWidget {
       padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
       child: Text(
         productDesc,
-        style: TextStyle(height: 1.5, fontSize: 16),
+        style: GoogleFonts.lato(fontWeight: FontWeight.w700, fontSize: 18),
       ),
     );
   }
