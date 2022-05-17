@@ -3,7 +3,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:nb_utils/nb_utils.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:userapp/controller/cart_controller.dart';
 
 import 'package:userapp/controller/controller.dart';
@@ -13,6 +16,7 @@ import 'package:userapp/model/cart.dart';
 import 'package:userapp/model/order.dart';
 import 'package:userapp/screens/sucess/failed_page.dart';
 import 'package:userapp/screens/sucess/sucees_page.dart';
+import 'package:userapp/shipping%20address/address.dart';
 import 'package:uuid/uuid.dart';
 
 class ConfirmationScreen extends StatelessWidget {
@@ -50,14 +54,18 @@ class ConfirmationScreen extends StatelessWidget {
         child: Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.black,
-            title: const Text("Confirmation"),
-            actions: [
-              IconButton(
-                  onPressed: () {
-                    print('this is my cart list .......${cartList}');
-                  },
-                  icon: Icon(Icons.abc))
-            ],
+            title: Text(
+              "Confirmation",
+              style: GoogleFonts.raleway(
+                  fontWeight: FontWeight.bold, fontSize: 24),
+            ),
+            // actions: [
+            //   IconButton(
+            //       onPressed: () {
+            //         print('this is my cart list .......${cartList}');
+            //       },
+            //       icon: Icon(Icons.abc))
+            // ],
           ),
           body: SizedBox(
             height: size.height,
@@ -67,7 +75,8 @@ class ConfirmationScreen extends StatelessWidget {
                 SizedBox(
                   height: size.height / 30,
                 ),
-                addressCard(size, id, addressName, addressAdd, AddressPin),
+                addressCard(
+                    size, id, addressName, addressAdd, AddressPin, context),
                 SizedBox(
                   height: size.height / 30,
                 ),
@@ -88,16 +97,42 @@ class ConfirmationScreen extends StatelessWidget {
                 // placeOrder();
               } else {
                 print('cash on delivery');
-                placeOrder(
-                    cartList,
-                    total,
-                    Address(
-                        address: addressAdd,
-                        name: addressName,
-                        pincode: AddressPin,
-                        PhoneNumber: phoneNo));
-                Get.to(() => SucessScreen());
-                cartRemove(cartList);
+                Alert(
+                  context: context,
+                  type: AlertType.none,
+                  title: "Cash on Delivery",
+                  desc: "Do You want to Place this Order",
+                  buttons: [
+                    DialogButton(
+                      child: Text(
+                        "Yes",
+                        style: TextStyle(color: Colors.white, fontSize: 20),
+                      ),
+                      onPressed: () {
+                        placeOrder(
+                            cartList,
+                            total,
+                            Address(
+                                address: addressAdd,
+                                name: addressName,
+                                pincode: AddressPin,
+                                PhoneNumber: phoneNo));
+                        Get.to(() => SucessScreen());
+                        cartRemove(cartList);
+                      },
+                      color: Color.fromRGBO(0, 179, 134, 1.0),
+                    ),
+                    DialogButton(
+                      child: Text(
+                        "No",
+                        style: TextStyle(color: Colors.white, fontSize: 20),
+                      ),
+                      onPressed: () => Navigator.pop(context),
+                      gradient: LinearGradient(
+                          colors: [Colors.red, Colors.redAccent]),
+                    )
+                  ],
+                ).show();
               }
             },
             child: Container(
@@ -105,9 +140,9 @@ class ConfirmationScreen extends StatelessWidget {
               width: size.width / 1.2,
               color: Colors.black,
               alignment: Alignment.center,
-              child: const Text(
+              child: Text(
                 "Pay Now",
-                style: TextStyle(
+                style: GoogleFonts.adventPro(
                   fontSize: 21,
                   color: Colors.white,
                   fontWeight: FontWeight.w500,
@@ -120,10 +155,14 @@ class ConfirmationScreen extends StatelessWidget {
     );
   }
 
-  Widget addressCard(Size size, id, name, address, pincode) {
+  Widget addressCard(Size size, id, name, address, pincode, context) {
     return Material(
+      borderRadius: BorderRadius.circular(20),
+      borderOnForeground: true,
+      color: Colors.grey.shade300,
+      shadowColor: Colors.brown,
+      type: MaterialType.button,
       elevation: 5,
-      color: Colors.white,
       child: Container(
         padding: const EdgeInsets.symmetric(
           vertical: 20,
@@ -133,15 +172,63 @@ class ConfirmationScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              name,
-              style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  name,
+                  style: GoogleFonts.radley(
+                      fontSize: 22, fontWeight: FontWeight.w500),
+                ),
+                IconButton(
+                    onPressed: () {
+                      Alert(
+                        context: context,
+                        type: AlertType.warning,
+                        title: "Address",
+                        desc: "Do You want to change the address",
+                        buttons: [
+                          DialogButton(
+                            child: Text(
+                              "Yes",
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 20),
+                            ),
+                            onPressed: () {
+                              Get.to(() => EditAddress(
+                                    id: id,
+                                    name: name,
+                                    address: addressAdd,
+                                    pincode: pincode,
+                                    phoneNumber: phoneNo,
+                                  ));
+                            },
+                            color: Color.fromRGBO(0, 179, 134, 1.0),
+                          ),
+                          DialogButton(
+                            child: Text(
+                              "No",
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 20),
+                            ),
+                            onPressed: () => Navigator.pop(context),
+                            gradient: LinearGradient(
+                                colors: [Colors.red, Colors.redAccent]),
+                          )
+                        ],
+                      ).show();
+                    },
+                    icon: Icon(
+                      Icons.edit,
+                      color: Colors.green,
+                    ))
+              ],
             ),
             Padding(
               padding: EdgeInsets.symmetric(vertical: 10),
               child: Text(
                 address,
-                style: TextStyle(
+                style: GoogleFonts.alata(
                   fontSize: 18,
                   fontWeight: FontWeight.w500,
                 ),
@@ -149,11 +236,16 @@ class ConfirmationScreen extends StatelessWidget {
             ),
             Text(
               pincode,
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+              style:
+                  GoogleFonts.alata(fontSize: 20, fontWeight: FontWeight.w500),
             ),
-            Text(
-              phoneNo,
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10),
+              child: Text(
+                phoneNo,
+                style: GoogleFonts.alata(
+                    fontSize: 18, fontWeight: FontWeight.w500),
+              ),
             ),
           ],
         ),
@@ -168,14 +260,14 @@ class ConfirmationScreen extends StatelessWidget {
         children: [
           Text(
             header,
-            style: const TextStyle(
+            style: GoogleFonts.alata(
               fontSize: 18,
               fontWeight: FontWeight.w500,
             ),
           ),
           Text(
             footer,
-            style: const TextStyle(
+            style: GoogleFonts.alata(
               fontSize: 18,
               fontWeight: FontWeight.w500,
             ),
@@ -185,8 +277,13 @@ class ConfirmationScreen extends StatelessWidget {
     }
 
     return Material(
+      borderRadius: BorderRadius.circular(20),
+      borderOnForeground: true,
+      color: Colors.grey.shade300,
+      shadowColor: Colors.brown,
+      type: MaterialType.button,
       elevation: 5,
-      color: Colors.white,
+      // color: Colors.white,
       child: Container(
         padding: const EdgeInsets.symmetric(
           vertical: 20,
@@ -196,9 +293,9 @@ class ConfirmationScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
+            Text(
               "Price Details",
-              style: TextStyle(
+              style: GoogleFonts.radley(
                 fontSize: 22,
                 fontWeight: FontWeight.w500,
               ),
@@ -220,8 +317,13 @@ class ConfirmationScreen extends StatelessWidget {
 
   Widget paymentType(Size size) {
     return Material(
+        borderRadius: BorderRadius.circular(20),
+        borderOnForeground: true,
+        color: Colors.grey.shade300,
+        shadowColor: Colors.brown,
+        type: MaterialType.button,
         elevation: 5,
-        color: Colors.white,
+        // color: Colors.white,
         child: Container(
             padding: const EdgeInsets.symmetric(
               vertical: 20,
@@ -235,10 +337,11 @@ class ConfirmationScreen extends StatelessWidget {
                     children: [
                       Text(
                         'Cash on Delivery',
-                        style: TextStyle(
+                        style: GoogleFonts.cambay(
                             fontWeight: FontWeight.bold, fontSize: 18),
                       ),
                       Radio(
+                          activeColor: Colors.green,
                           value: 'CashonDelivery',
                           groupValue: controller.selectPayment.value,
                           onChanged: (value) {
@@ -250,10 +353,11 @@ class ConfirmationScreen extends StatelessWidget {
                     children: [
                       Text(
                         'Razor Payment',
-                        style: TextStyle(
+                        style: GoogleFonts.cambay(
                             fontWeight: FontWeight.bold, fontSize: 18),
                       ),
                       Radio(
+                          activeColor: Colors.green,
                           value: 'Razorpayment',
                           groupValue: controller.selectPayment.value,
                           onChanged: (value) {
@@ -286,7 +390,7 @@ class ConfirmationScreen extends StatelessWidget {
   onPay(double total_price) {
     var options = {
       'key': 'rzp_test_cDZYIPKnedh4R6',
-      'amount': ((total_price) * 100).toString(),
+      'amount': ((total_price + 20) * 100).toString(),
       'name': addressName,
       'description': addressAdd,
       'prefill': {'contact': phoneNo, 'email': 'test@razorpay.com'}
@@ -306,7 +410,7 @@ void placeOrder(List<Cart> cartList, double totalPrice, Address addres) {
         cart: cart,
         address: addres,
         status: 'Pending',
-        totalPrice: getCartTOtalPrice(cart)));
+        totalPrice: getCartTOtalPrice(cart) + 20));
   }
   for (var order in orderList) {
     orderController.createOrder(order);
