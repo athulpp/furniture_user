@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-
 class WishListContent extends StatelessWidget {
   WishListContent(
       {Key? key,
@@ -32,7 +31,7 @@ class WishListContent extends StatelessWidget {
           height: 100,
           margin: EdgeInsets.only(right: 20, bottom: 10, left: 20, top: 10),
           child: Material(
-            color: Colors.grey.shade300,
+            color: Colors.white,
             borderRadius: BorderRadius.circular(5),
             elevation: 3,
             child: GestureDetector(

@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:userapp/controller/bottom_bar_control.dart';
 import 'package:userapp/controller/cart_controller.dart';
@@ -52,6 +54,32 @@ class CartScreen extends StatelessWidget {
             }
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Loader();
+            }
+            if (snapshot.data!.docs.isEmpty) {
+              return SizedBox(
+                height: 600,
+                child: Center(
+                    child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Lottie.asset('assests/images/cart.json'),
+                    Text(
+                      'Add Items',
+                      style: GoogleFonts.bungee(
+                          fontSize: 28,
+                          fontWeight: FontWeight.w100,
+                          color: Color.fromARGB(255, 64, 40, 31)),
+                    ),
+                    TextButton(
+                        onPressed: () {
+                          Get.to(() => BottomNavigation(
+                                currentIndex: 0,
+                              ));
+                        },
+                        child: Text('View All Products'))
+                  ],
+                )),
+              );
             }
             List<Cart>? cartList = convetToCart(snapshot.data!.docs);
 

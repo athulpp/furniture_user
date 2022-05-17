@@ -89,7 +89,7 @@ class AllAddressScreen extends StatelessWidget {
                         phoneNo: documentSnapshot['phoneNumber'],
                         cartList: cartList,
                       ).launch(context,
-                          pageRouteAnimation: PageRouteAnimation.Fade);
+                          pageRouteAnimation: PageRouteAnimation.Slide);
                     },
                     child: Material(
                       borderRadius: BorderRadius.circular(20),
@@ -146,6 +146,29 @@ class AllAddressScreen extends StatelessWidget {
                                       //     },
                                       //   ),
                                       // ),
+                                      PopupMenuButton(
+                                          itemBuilder: ((BuildContext context) {
+                                        return <PopupMenuItem>[
+                                          PopupMenuItem(
+                                              child: GestureDetector(
+                                                  child: Text('Edit Address'),
+                                                  onTap: () {
+                                                    Get.to((EditAddress(
+                                                      id: documentSnapshot.id,
+                                                      name: documentSnapshot[
+                                                          'name'],
+                                                      address: documentSnapshot[
+                                                          'address'],
+                                                      pincode: documentSnapshot[
+                                                          'pincode'],
+                                                      phoneNumber:
+                                                          documentSnapshot[
+                                                              'phoneNumber'],
+                                                    )));
+                                                  })),
+                                                  // PopupMenuItem(child: GestureDetector(child: ,))
+                                        ];
+                                      })),
                                       HoverWidget(
                                           builder: (context, bool isHovering) {
                                         return Container(

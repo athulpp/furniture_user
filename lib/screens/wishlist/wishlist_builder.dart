@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:userapp/product_overview/product_detail.dart';
 import 'package:userapp/screens/wishlist/wishlist.dart';
@@ -16,6 +17,7 @@ class WishList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey.shade300,
       body: StreamBuilder<QuerySnapshot>(
           stream: _favStream,
           builder:
@@ -31,7 +33,13 @@ class WishList extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Lottie.asset('assests/images/66405-swap.json'),
-                    Text('No Items')
+                    Text(
+                      'No Items',
+                      style: GoogleFonts.bungee(
+                          fontSize: 28,
+                          fontWeight: FontWeight.w100,
+                          color: Color.fromARGB(255, 64, 40, 31)),
+                    )
                   ],
                 )),
               );

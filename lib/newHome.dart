@@ -31,7 +31,7 @@ final Stream<QuerySnapshot> _productStream =
 class _SingleProductWidgetState extends State<SingleProductWidget> {
   @override
   Widget build(BuildContext context) {
-    timeDilation = 3.0;
+    timeDilation = 4.0;
     return StreamBuilder<QuerySnapshot>(
         stream: _productStream,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -70,7 +70,7 @@ class _SingleProductWidgetState extends State<SingleProductWidget> {
                 itemBuilder: (context, index) {
                   final DocumentSnapshot documentSnapshot =
                       snapshot.data!.docs[index];
-                  print("hello world${snapshot.data!.docs.isNotEmpty}");
+                  // print("hello world${snapshot.data!.docs.isNotEmpty}");
                   // ignore: unnecessary_null_comparison
                   return GestureDetector(
                     // onTap:Widget.() {,
@@ -89,7 +89,7 @@ class _SingleProductWidgetState extends State<SingleProductWidget> {
                     child: Material(
                       clipBehavior: Clip.hardEdge,
                       type: MaterialType.canvas,
-                      color: Color.fromARGB(255, 255, 247, 247),
+                      color: Colors.white,
                       shadowColor: Colors.black,
                       borderOnForeground: true,
                       borderRadius: BorderRadius.circular(5),
@@ -98,7 +98,7 @@ class _SingleProductWidgetState extends State<SingleProductWidget> {
                         height: 50,
                         margin: EdgeInsets.all(10.0),
                         decoration: BoxDecoration(
-                          color: Colors.grey.shade100,
+                          color: Colors.white,
                           borderRadius: BorderRadius.circular(5),
                         ),
                         child: Column(
