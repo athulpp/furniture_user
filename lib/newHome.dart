@@ -31,7 +31,7 @@ final Stream<QuerySnapshot> _productStream =
 class _SingleProductWidgetState extends State<SingleProductWidget> {
   @override
   Widget build(BuildContext context) {
-    timeDilation = 4.0;
+    // timeDilation = 10.0;
     return StreamBuilder<QuerySnapshot>(
         stream: _productStream,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {

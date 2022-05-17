@@ -12,4 +12,8 @@ const kTextColor = Color(0xFF535353);
 
 const kTextLightColor = Color(0xFFACACAC);
 
+final kthemeColor = Colors.black;
+
+final kthemeSecColor = Colors.grey;
+
 const kDefaultPadding = 20.0;

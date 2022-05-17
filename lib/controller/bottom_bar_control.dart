@@ -16,6 +16,8 @@ import 'package:userapp/screens/search/search.dart';
 
 import 'package:userapp/screens/wishlist/wishlist_builder.dart';
 
+import '../constants/const.dart';
+
 final data_control = Get.put(Controller());
 
 class BottomNavigation extends StatelessWidget {
@@ -48,25 +50,25 @@ class BottomNavigation extends StatelessWidget {
     ];
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-            onPressed: () {
-              // Get.to(() => SeachScreen());
+        // leading: IconButton(
+        //     onPressed: () {
+        // Get.to(() => SeachScreen());
 
-              // Get.to(() => ProductSearch());
-              showSearch(
-                context: context,
-                delegate: ProductSearch(),
-              );
-            },
-            icon: Icon(Icons.search_rounded)),
+        // Get.to(() => ProductSearch());
+        // showSearch(
+        //   context: context,
+        //   delegate: ProductSearch(),
+        // );
+        // },
+        // icon: Icon(Icons.search_rounded)),
         centerTitle: true,
-        backgroundColor: Colors.black,
+        backgroundColor: kthemeColor,
         title: GetBuilder<Controller>(
           id: 'indexchange',
           builder: (controller) {
             return Text(title[data_control.selectedIndex],
                 style: GoogleFonts.lato(
-                  textStyle: TextStyle(color: Colors.brown, letterSpacing: .5),
+                  textStyle: TextStyle(color: Colors.white, letterSpacing: .5),
                 ));
           },
         ),
@@ -74,11 +76,16 @@ class BottomNavigation extends StatelessWidget {
         actions: [
           IconButton(
               onPressed: () {
-                WelcomeScreen().launch(context,
-                    pageRouteAnimation: PageRouteAnimation.Slide);
-                // Get.to(() => WelcomeScreen());
+                showSearch(context: context, delegate: ProductSearch());
               },
-              icon: Icon(Icons.login))
+              icon: Icon(Icons.search_rounded))
+          // IconButton(
+          //     onPressed: () {
+          //       WelcomeScreen().launch(context,
+          //           pageRouteAnimation: PageRouteAnimation.Slide);
+          //       // Get.to(() => WelcomeScreen());
+          //     },
+          //     icon: Icon(Icons.login))
         ],
       ),
       body: GetBuilder<Controller>(
@@ -90,7 +97,7 @@ class BottomNavigation extends StatelessWidget {
       bottomNavigationBar: Theme(
         data: Theme.of(context).copyWith(
             // sets the background color of the `BottomNavigationBar`
-            canvasColor: Colors.black,
+            canvasColor: kthemeColor,
             // sets the active color of the `BottomNavigationBar` if `Brightness` is light
             primaryColor: Colors.red,
             textTheme: Theme.of(context)
@@ -109,31 +116,31 @@ class BottomNavigation extends StatelessWidget {
                       title: Text('Home',
                           style:
                               GoogleFonts.tillana(fontWeight: FontWeight.bold)),
-                      activeColor: Colors.black,
-                      inactiveColor: Colors.grey),
+                      activeColor: kthemeColor,
+                      inactiveColor: kthemeSecColor),
                   BottomNavyBarItem(
                     icon: Icon(Icons.bookmark_border),
                     title: Text('Wishlist',
                         style:
                             GoogleFonts.tillana(fontWeight: FontWeight.bold)),
-                    activeColor: Colors.black,
-                    inactiveColor: Colors.grey,
+                    activeColor: kthemeColor,
+                    inactiveColor: kthemeSecColor,
                   ),
                   BottomNavyBarItem(
                     icon: Icon(Icons.shopping_cart),
                     title: Text('Cart',
                         style:
                             GoogleFonts.tillana(fontWeight: FontWeight.bold)),
-                    activeColor: Colors.black,
-                    inactiveColor: Colors.grey,
+                    activeColor: kthemeColor,
+                    inactiveColor: kthemeSecColor,
                   ),
                   BottomNavyBarItem(
                     icon: Icon(Icons.topic),
                     title: Text('Profile',
                         style:
                             GoogleFonts.tillana(fontWeight: FontWeight.bold)),
-                    activeColor: Colors.black,
-                    inactiveColor: Colors.grey,
+                    activeColor: kthemeColor,
+                    inactiveColor: kthemeSecColor,
                   ),
                 ],
               );

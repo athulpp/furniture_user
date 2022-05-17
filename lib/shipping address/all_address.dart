@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:nb_utils/nb_utils.dart';
+import 'package:userapp/constants/const.dart';
 import 'package:userapp/controller/address-controller.dart';
 import 'package:userapp/model/address.dart';
 import 'package:userapp/model/cart.dart';
@@ -103,9 +104,10 @@ class AllAddressScreen extends StatelessWidget {
                         child: Column(
                           children: [
                             Container(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
+                                child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
                                   Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -146,60 +148,60 @@ class AllAddressScreen extends StatelessWidget {
                                       //     },
                                       //   ),
                                       // ),
-                                      PopupMenuButton(
-                                          itemBuilder: ((BuildContext context) {
-                                        return <PopupMenuItem>[
-                                          PopupMenuItem(
-                                              child: GestureDetector(
-                                                  child: Text('Edit Address'),
-                                                  onTap: () {
-                                                    Get.to((EditAddress(
-                                                      id: documentSnapshot.id,
-                                                      name: documentSnapshot[
-                                                          'name'],
-                                                      address: documentSnapshot[
-                                                          'address'],
-                                                      pincode: documentSnapshot[
-                                                          'pincode'],
-                                                      phoneNumber:
-                                                          documentSnapshot[
-                                                              'phoneNumber'],
-                                                    )));
-                                                  })),
-                                                  // PopupMenuItem(child: GestureDetector(child: ,))
-                                        ];
-                                      })),
-                                      HoverWidget(
-                                          builder: (context, bool isHovering) {
-                                        return Container(
-                                          child: AppButton(
-                                            textColor: Colors.white,
-                                            color:
-                                                Color.fromARGB(255, 41, 40, 40),
-                                            text: "Delete",
-                                            onTap: () {
-                                              showConfirmDialogCustom(
-                                                context,
-                                                title:
-                                                    "Do You Want to Delete this Address?",
-                                                dialogType: DialogType.DELETE,
-                                                onAccept: (context) {
-                                                  addressControl.deleteAddress(
-                                                    Address(
-                                                        name: documentSnapshot[
-                                                            'name']),
-                                                  );
-                                                  snackBar(context,
-                                                      title: 'Deleted');
-                                                },
-                                              );
-                                            },
-                                          ),
-                                          color: isHovering
-                                              ? Colors.red
-                                              : Colors.black,
-                                        );
-                                      }),
+                                      // PopupMenuButton(
+                                      //     itemBuilder: ((BuildContext context) {
+                                      //   return <PopupMenuItem>[
+                                      //     PopupMenuItem(
+                                      //         child: GestureDetector(
+                                      //             child: Text('Edit Address'),
+                                      //             onTap: () {
+                                      //               Get.to((EditAddress(
+                                      //                 id: documentSnapshot.id,
+                                      //                 name: documentSnapshot[
+                                      //                     'name'],
+                                      //                 address: documentSnapshot[
+                                      //                     'address'],
+                                      //                 pincode: documentSnapshot[
+                                      //                     'pincode'],
+                                      //                 phoneNumber:
+                                      //                     documentSnapshot[
+                                      //                         'phoneNumber'],
+                                      //               )));
+                                      //             })),
+                                      //     // PopupMenuItem(child: GestureDetector(child: ,))
+                                      //   ];
+                                      // })),
+                                      // HoverWidget(
+                                      //     builder: (context, bool isHovering) {
+                                      //   return Container(
+                                      //     child: AppButton(
+                                      //       textColor: Colors.white,
+                                      //       color:
+                                      //           Color.fromARGB(255, 41, 40, 40),
+                                      //       text: "Delete",
+                                      //       onTap: () {
+                                      //         showConfirmDialogCustom(
+                                      //           context,
+                                      //           title:
+                                      //               "Do You Want to Delete this Address?",
+                                      //           dialogType: DialogType.DELETE,
+                                      //           onAccept: (context) {
+                                      //             addressControl.deleteAddress(
+                                      //               Address(
+                                      //                   name: documentSnapshot[
+                                      //                       'name']),
+                                      //             );
+                                      //             snackBar(context,
+                                      //                 title: 'Deleted');
+                                      //           },
+                                      //         );
+                                      //       },
+                                      //     ),
+                                      //     color: isHovering
+                                      //         ? Colors.red
+                                      //         : Colors.black,
+                                      //   );
+                                      // }),
                                     ],
                                   ),
                                   TextIcon(
@@ -235,37 +237,76 @@ class AllAddressScreen extends StatelessWidget {
                                   SizedBox(
                                     height: size.height * 0.02,
                                   ),
-                                  Center(
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        Get.to((EditAddress(
-                                          id: documentSnapshot.id,
-                                          name: documentSnapshot['name'],
-                                          address: documentSnapshot['address'],
-                                          pincode: documentSnapshot['pincode'],
-                                          phoneNumber:
-                                              documentSnapshot['phoneNumber'],
-                                        )));
-                                      },
-                                      child: Container(
-                                        height: size.height / 18,
-                                        width: size.width / 1.2,
-                                        color: Colors.black,
-                                        alignment: Alignment.center,
-                                        child: const Text(
-                                          "Edit",
-                                          style: TextStyle(
-                                            fontSize: 16,
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.w500,
+                                  Row(
+                                    children: [
+                                      // SizedBox(
+                                      //   width: 140,
+                                      // ),
+
+                                      GestureDetector(
+                                        onTap: () {
+                                          Get.to((EditAddress(
+                                            id: documentSnapshot.id,
+                                            name: documentSnapshot['name'],
+                                            address:
+                                                documentSnapshot['address'],
+                                            pincode:
+                                                documentSnapshot['pincode'],
+                                            phoneNumber:
+                                                documentSnapshot['phoneNumber'],
+                                          )));
+                                        },
+                                        child: Container(
+                                          height: size.height / 18,
+                                          width: size.width * 0.4,
+                                          color: Colors.green,
+                                          alignment: Alignment.center,
+                                          child: const Text(
+                                            "Edit",
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.w500,
+                                            ),
                                           ),
                                         ),
                                       ),
-                                    ),
+                                      Spacer(),
+                                      HoverWidget(
+                                          builder: (context, bool isHovering) {
+                                        return Container(
+                                          height: size.height / 18,
+                                          width: size.width * 0.4,
+                                          child: AppButton(
+                                            textColor: Colors.white,
+                                            color: Colors.red,
+                                            text: "Delete",
+                                            onTap: () {
+                                              showConfirmDialogCustom(
+                                                context,
+                                                title:
+                                                    "Do You Want to Delete this Address?",
+                                                dialogType: DialogType.DELETE,
+                                                onAccept: (context) {
+                                                  addressControl.deleteAddress(
+                                                    Address(
+                                                        name: documentSnapshot[
+                                                            'name']),
+                                                  );
+                                                  snackBar(context,
+                                                      title: 'Deleted');
+                                                },
+                                              );
+                                            },
+                                          ),
+                                          color: isHovering
+                                              ? Colors.red
+                                              : Colors.black,
+                                        );
+                                      }),
+                                    ],
                                   ),
-                                ],
-                              ),
-                            )
+                                ]))
                           ],
                         ),
                       ),
@@ -295,7 +336,7 @@ class AllAddressScreen extends StatelessWidget {
       //   ),
       // ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.black,
+        backgroundColor: kthemeColor,
         onPressed: () {
           Get.to(() => AddAdressScreen());
         },
