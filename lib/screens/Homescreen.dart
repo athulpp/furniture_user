@@ -1,11 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+
 import 'package:nb_utils/nb_utils.dart';
 
 import 'package:userapp/newHome.dart';
-
-import 'package:userapp/product_overview/product_detail.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({
@@ -21,10 +19,10 @@ class HomeScreen extends StatelessWidget {
         FirebaseFirestore.instance.collection('products').snapshots();
     // print(_productStream);
     return Scaffold(
-        backgroundColor: Colors.grey.shade100,
+        backgroundColor: Colors.grey.shade300,
         body: ListView(children: [
           Container(
-            color: Colors.grey.shade100,
+            color: Colors.grey.shade300,
             // child: StreamBuilder<QuerySnapshot>(
             //     stream: _productStream,
             //     builder: (BuildContext context,

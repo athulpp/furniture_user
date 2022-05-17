@@ -305,7 +305,8 @@ class EditAddressScreen extends StatelessWidget {
                                           onPressed: () {
                                             addressControl.deleteAddress(
                                               Address(
-                                                  name: documentSnapshot['name']),
+                                                  name:
+                                                      documentSnapshot['name']),
                                             );
                                           },
                                           icon: Icon(Icons.delete))
@@ -523,7 +524,7 @@ class EditAddress extends StatelessWidget {
                     width: size.width / 1.1,
                     child: TextField(
                       controller: phoneNumberController,
-                      maxLength: 6,
+                      maxLength: 10,
                       decoration: InputDecoration(
                         hintText: "PhoneNumber",
                         border: OutlineInputBorder(
@@ -543,7 +544,6 @@ class EditAddress extends StatelessWidget {
               // controller.onTap();
               addressControl.updateAddress(
                 Address(
-                 
                     name: nameController.text,
                     address: addressController.text,
                     pincode: pincodeController.text,

@@ -55,7 +55,7 @@ class _SingleProductWidgetState extends State<SingleProductWidget> {
             );
           }
           return Padding(
-            padding: const EdgeInsets.all(10),
+            padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
             child: GridView.builder(
                 shrinkWrap: true,
                 primary: true,
@@ -86,84 +86,87 @@ class _SingleProductWidgetState extends State<SingleProductWidget> {
                     },
                     // },
 
-                    child: Hero(
-                      tag: 'hero',
-                      child: Material(
-                        elevation: 5,
-                        child: Container(
-                          height: 50,
-                          margin: EdgeInsets.all(10.0),
-                          decoration: BoxDecoration(
-                            color: Colors.grey.shade100,
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Expanded(
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 10, right: 10, top: 10),
-                                  child: Container(
-                                    alignment: Alignment.topRight,
-                                    width: double.infinity,
-                                    height: 100,
-                                    decoration: BoxDecoration(
-                                      color: Colors.transparent,
-                                      image: DecorationImage(
-                                        fit: BoxFit.scaleDown,
-                                        scale: 2,
-                                        image: NetworkImage(
-                                          documentSnapshot['productimage'],
-                                        ),
+                    child: Material(
+                      clipBehavior: Clip.hardEdge,
+                      type: MaterialType.canvas,
+                      color: Color.fromARGB(255, 255, 247, 247),
+                      shadowColor: Colors.black,
+                      borderOnForeground: true,
+                      borderRadius: BorderRadius.circular(5),
+                      elevation: 10,
+                      child: Container(
+                        height: 50,
+                        margin: EdgeInsets.all(10.0),
+                        decoration: BoxDecoration(
+                          color: Colors.grey.shade100,
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 10, right: 10, top: 10),
+                                child: Container(
+                                  alignment: Alignment.topRight,
+                                  width: double.infinity,
+                                  height: 100,
+                                  decoration: BoxDecoration(
+                                    color: Colors.transparent,
+                                    image: DecorationImage(
+                                      fit: BoxFit.scaleDown,
+                                      scale: 2,
+                                      image: NetworkImage(
+                                        documentSnapshot['productimage'],
                                       ),
                                     ),
                                   ),
                                 ),
                               ),
-                              Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 5),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    SizedBox(
-                                      height: 5,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 5),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(
+                                    height: 5,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 5),
+                                    child: Text(
+                                      documentSnapshot['productname'],
+                                      overflow: TextOverflow.ellipsis,
+                                      style: GoogleFonts.alice(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 20),
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 5),
-                                      child: Text(
-                                        documentSnapshot['productname'],
-                                        overflow: TextOverflow.ellipsis,
-                                        style: GoogleFonts.alice(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 20),
-                                      ),
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 5),
+                                    child: Text(
+                                      "\₹ ${documentSnapshot['productprice']}",
+                                      overflow: TextOverflow.ellipsis,
+                                      style: GoogleFonts.raleway(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 22),
                                     ),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 5),
-                                      child: Text(
-                                        "\₹ ${documentSnapshot['productprice']}",
-                                        overflow: TextOverflow.ellipsis,
-                                        style: GoogleFonts.raleway(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 22),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: 15,
-                                    ),
-                                    SizedBox(
-                                      height: 10,
-                                    )
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
+                                  ),
+                                  SizedBox(
+                                    width: 15,
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  )
+                                ],
+                              ),
+                            )
+                          ],
                         ),
                       ),
                     ),
