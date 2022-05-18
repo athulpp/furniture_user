@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
 import 'package:userapp/controller/order_control.dart';
@@ -53,7 +54,10 @@ class MyOrderDetailsScreen extends StatelessWidget {
       child: SafeArea(
         child: Scaffold(
           appBar: AppBar(
-            title: Text('Order Summary'),
+            title: Text(
+              'Order Summary',
+              style: GoogleFonts.actor(fontWeight: FontWeight.bold),
+            ),
             backgroundColor: Colors.black,
           ),
           body: SizedBox(
@@ -76,7 +80,7 @@ class MyOrderDetailsScreen extends StatelessWidget {
                   ),
                   // ProductRating(
 
-                  (status == 'cancelled')
+                  (status == 'cancelled' || status == 'Rejected')
                       ? SizedBox()
                       //                   : Alert(
                       //   context: context,
@@ -104,11 +108,30 @@ class MyOrderDetailsScreen extends StatelessWidget {
                       //   )
 
                       : GestureDetector(
-                          child: TextButton(
-                              onPressed: () {
-                                CancelOrd(context);
-                              },
-                              child: Text('Cancel')),
+                          child: Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: Container(
+                              width: 75,
+                              height: 40,
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: Colors.red,
+                                  ),
+                                  borderRadius: BorderRadius.circular(15),
+                                  color: Colors.red),
+                              child: TextButton(
+                                  onPressed: () {
+                                    CancelOrd(context);
+                                  },
+                                  child: Text(
+                                    'Cancel',
+                                    style: GoogleFonts.actor(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white),
+                                  )),
+                            ),
+                          ),
                         )
 
                   // GetBuilder<Controller>(
@@ -138,17 +161,22 @@ class MyOrderDetailsScreen extends StatelessWidget {
                   ),
                   Text(
                     orderName,
-                    style: const TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.w500,
+                    style: GoogleFonts.actor(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                   SizedBox(
                     height: size.height / 30,
                   ),
                   Material(
+                    borderRadius: BorderRadius.circular(20),
+                    borderOnForeground: true,
+                    color: Colors.grey.shade300,
+                    shadowColor: Colors.brown,
+                    type: MaterialType.button,
                     elevation: 5,
-                    color: Colors.white,
+                    // color: Colors.white,
                     child: Container(
                       padding: const EdgeInsets.symmetric(
                         vertical: 20,
@@ -158,11 +186,11 @@ class MyOrderDetailsScreen extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text(
+                          Text(
                             "Order Details",
-                            style: TextStyle(
+                            style: GoogleFonts.actor(
                               fontSize: 24,
-                              fontWeight: FontWeight.w500,
+                              fontWeight: FontWeight.w600,
                             ),
                           ),
                           SizedBox(
@@ -172,8 +200,8 @@ class MyOrderDetailsScreen extends StatelessWidget {
                             children: [
                               Text(
                                 'Order Id :',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 20),
+                                style: GoogleFonts.actor(
+                                    fontWeight: FontWeight.w300, fontSize: 20),
                               ),
                               Text(
                                 orderId.toString().substring(
@@ -181,8 +209,10 @@ class MyOrderDetailsScreen extends StatelessWidget {
                                       20,
                                     ),
                                 overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 18),
+                                style: GoogleFonts.actor(
+                                    fontWeight: FontWeight.w300,
+                                    fontSize: 18,
+                                    letterSpacing: 2),
                               ),
                             ],
                           ),
@@ -193,15 +223,15 @@ class MyOrderDetailsScreen extends StatelessWidget {
                               children: [
                                 Text(
                                   'Total Price : ',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
+                                  style: GoogleFonts.actor(
+                                      fontWeight: FontWeight.w300,
                                       fontSize: 20),
                                 ),
                                 Text(
                                   '₹ ${orderPrice}',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18),
+                                  style: GoogleFonts.actor(
+                                      fontWeight: FontWeight.w300,
+                                      fontSize: 20),
                                 )
                               ],
                             ),
@@ -213,30 +243,38 @@ class MyOrderDetailsScreen extends StatelessWidget {
                                 children: [
                                   Text(
                                     'Status : ',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
+                                    style: GoogleFonts.actor(
+                                        fontWeight: FontWeight.w300,
                                         fontSize: 20),
                                   ),
-                                  Text(
-                                    ' $status',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 18,
-                                        color: Colors.red),
-                                  ),
+                                  (status == 'Rejected')
+                                      ? Text(
+                                          ' $status',
+                                          style: GoogleFonts.adventPro(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 20,
+                                              color: Colors.red),
+                                        )
+                                      : Text(
+                                          ' $status',
+                                          style: GoogleFonts.adventPro(
+                                              fontWeight: FontWeight.w300,
+                                              fontSize: 18,
+                                              color: Colors.green),
+                                        ),
                                 ],
                               )),
                           Row(
                             children: [
                               Text(
                                 'Ordered on :',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 20),
+                                style: GoogleFonts.actor(
+                                    fontWeight: FontWeight.w300, fontSize: 20),
                               ),
                               Text(
                                 '  ${DateTime.fromMicrosecondsSinceEpoch(OrderDate.microsecondsSinceEpoch).toString().substring(0, 10)}',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 18),
+                                style: GoogleFonts.actor(
+                                    fontWeight: FontWeight.w300, fontSize: 18),
                               ),
                             ],
                           )
@@ -248,8 +286,13 @@ class MyOrderDetailsScreen extends StatelessWidget {
                     height: 20,
                   ),
                   Material(
+                    borderRadius: BorderRadius.circular(20),
+                    borderOnForeground: true,
+                    color: Colors.grey.shade300,
+                    shadowColor: Colors.brown,
+                    type: MaterialType.button,
                     elevation: 5,
-                    color: Colors.white,
+                    // color: Colors.white,
                     child: Container(
                       padding: const EdgeInsets.symmetric(
                         vertical: 20,
@@ -259,11 +302,11 @@ class MyOrderDetailsScreen extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text(
+                          Text(
                             "Address Details",
-                            style: TextStyle(
+                            style: GoogleFonts.actor(
                               fontSize: 22,
-                              fontWeight: FontWeight.w500,
+                              fontWeight: FontWeight.w800,
                             ),
                           ),
                           SizedBox(
@@ -273,14 +316,14 @@ class MyOrderDetailsScreen extends StatelessWidget {
                             children: [
                               Text(
                                 'Name :',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 20),
+                                style: GoogleFonts.actor(
+                                    fontWeight: FontWeight.w300, fontSize: 20),
                               ),
                               Text(
                                 ' $username',
                                 overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 20),
+                                style: GoogleFonts.actor(
+                                    fontWeight: FontWeight.w300, fontSize: 20),
                               ),
                             ],
                           ),
@@ -291,8 +334,8 @@ class MyOrderDetailsScreen extends StatelessWidget {
                                 children: [
                                   Text(
                                     'Address :',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
+                                    style: GoogleFonts.actor(
+                                        fontWeight: FontWeight.w300,
                                         fontSize: 20),
                                   ),
                                   Flexible(
@@ -300,8 +343,8 @@ class MyOrderDetailsScreen extends StatelessWidget {
                                       ' $address',
                                       overflow: TextOverflow.visible,
                                       softWrap: true,
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
+                                      style: GoogleFonts.actor(
+                                          fontWeight: FontWeight.w300,
                                           fontSize: 18),
                                     ),
                                   ),
@@ -319,14 +362,15 @@ class MyOrderDetailsScreen extends StatelessWidget {
                                 children: [
                                   Text(
                                     'Phone No : ',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
+                                    style: GoogleFonts.actor(
+                                        fontWeight: FontWeight.w300,
                                         fontSize: 20),
                                   ),
                                   Text(
                                     ' $phonNo',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
+                                    style: GoogleFonts.almarai(
+                                        fontWeight: FontWeight.w500,
+                                        letterSpacing: 2,
                                         fontSize: 18),
                                   ),
                                 ],
@@ -337,14 +381,15 @@ class MyOrderDetailsScreen extends StatelessWidget {
                                 children: [
                                   Text(
                                     'Pincode : ',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
+                                    style: GoogleFonts.actor(
+                                        fontWeight: FontWeight.w300,
                                         fontSize: 20),
                                   ),
                                   Text(
                                     ' ${pin}',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
+                                    style: GoogleFonts.almarai(
+                                        fontWeight: FontWeight.w500,
+                                        letterSpacing: 2,
                                         fontSize: 18),
                                   ),
                                 ],

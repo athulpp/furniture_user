@@ -93,6 +93,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import 'package:userapp/product_overview/product_detail.dart';
 
 class ProductSearch extends SearchDelegate {
@@ -193,7 +194,7 @@ class ProductSearch extends SearchDelegate {
         child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Image.asset('assests/images/Group.png'),
+        Lottie.asset('assests/images/search.json'),
         Text(
           'Search Your Furniture',
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
