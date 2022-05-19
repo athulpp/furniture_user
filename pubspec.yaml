@@ -45,6 +45,7 @@ dependencies:
   # popover: ^0.2.6+3
   rflutter_alert: ^2.0.4
   nb_utils: ^4.5.2
+  awesome_dialog: ^2.2.1
 
 
 

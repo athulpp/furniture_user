@@ -1,7 +1,9 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:nb_utils/nb_utils.dart';
 import 'package:userapp/controller/controller.dart';
 
 import 'package:userapp/screens/my_order/my_order.dart';
@@ -59,7 +61,9 @@ class ProfileBody extends StatelessWidget {
       ProfileMenu(
         text: 'My  Orders',
         press: () {
-          Get.to((MyOrder()));
+          // Get.to((MyOrder()));
+          MyOrder()
+              .launch(context, pageRouteAnimation: PageRouteAnimation.Slide);
         },
         icon: 'assests/images/person-244.svg',
       ),
@@ -101,9 +105,7 @@ class ProfileBody extends StatelessWidget {
 
       ProfileMenu(
         text: 'FAQ',
-        press: () {
-         
-        },
+        press: () {},
         icon: 'assests/images/sign-out-3298.svg',
       ),
       SizedBox(
@@ -112,7 +114,16 @@ class ProfileBody extends StatelessWidget {
       ProfileMenu(
         text: 'Log out',
         press: () {
-          controller.logOut();
+          AwesomeDialog(
+            context: context,
+            animType: AnimType.BOTTOMSLIDE,
+            title: 'Logout',
+            desc: 'Do you want to Logout???',
+            btnCancelOnPress: () {},
+            btnOkOnPress: () {
+              controller.logOut();
+            },
+          )..show();
         },
         icon: 'assests/images/sign-out-3298.svg',
       )
