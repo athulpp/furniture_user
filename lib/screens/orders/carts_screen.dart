@@ -70,13 +70,13 @@ class CartScreen extends StatelessWidget {
                           fontWeight: FontWeight.w100,
                           color: Color.fromARGB(255, 64, 40, 31)),
                     ),
-                    TextButton(
-                        onPressed: () {
-                          Get.to(() => BottomNavigation(
-                                currentIndex: 0,
-                              ));
-                        },
-                        child: Text('View All Products'))
+                    // TextButton(
+                    //     onPressed: () {
+                    //       Get.to(() => BottomNavigation(
+                    //             currentIndex: 0,
+                    //           ));
+                    //     },
+                    //     child: Text('View All Products'))
                   ],
                 )),
               );

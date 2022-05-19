@@ -14,7 +14,6 @@ class HomeScreen extends StatelessWidget {
   ScrollController scrollController = ScrollController();
   @override
   Widget build(BuildContext context) {
-    scrollController.animToTop();
     final Stream<QuerySnapshot> _productStream =
         FirebaseFirestore.instance.collection('products').snapshots();
     // print(_productStream);

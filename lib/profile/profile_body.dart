@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:userapp/controller/controller.dart';
 
 import 'package:userapp/screens/my_order/my_order.dart';
@@ -18,19 +19,21 @@ class ProfileBody extends StatelessWidget {
           fit: StackFit.expand,
           clipBehavior: Clip.hardEdge,
           children: [
-            Container(
-                width: 200,
-                height: 200,
-                child: Image.asset(
-                  'assests/images/main_bottom.png',
-                  width: double.infinity,
-                  height: 100.0,
-                )),
+            // Container(
+            //     width: 200,
+            //     height: 200,
+            //     child: Image.asset(
+            //       'assests/images/main_bottom.png',
+            //       width: double.infinity,
+            //       height: 100.0,
+            //     )),
             Positioned(
                 right: 1,
                 left: 1,
                 top: 20,
-                child: Image.asset('assests/images/Group.png'))
+                child: Image.asset(
+                  'assests/images/Group.png',
+                ))
 
             // CircleAvatar(
             //   backgroundImage: NetworkImage(
@@ -54,7 +57,7 @@ class ProfileBody extends StatelessWidget {
         height: 20,
       ),
       ProfileMenu(
-        text: 'My Orders',
+        text: 'My  Orders',
         press: () {
           Get.to((MyOrder()));
         },
@@ -74,7 +77,7 @@ class ProfileBody extends StatelessWidget {
         height: 20,
       ),
       ProfileMenu(
-        text: 'Privacy Policy',
+        text: 'Privacy  Policy',
         press: () {
           showAboutDialog(
               applicationIcon: Image.asset(
@@ -91,6 +94,17 @@ class ProfileBody extends StatelessWidget {
               ]);
         },
         icon: 'assests/images/user-security-11931.svg',
+      ),
+      SizedBox(
+        height: 20,
+      ),
+
+      ProfileMenu(
+        text: 'FAQ',
+        press: () {
+         
+        },
+        icon: 'assests/images/sign-out-3298.svg',
       ),
       SizedBox(
         height: 20,
@@ -116,12 +130,12 @@ class ProfileMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 20, right: 20),
+      padding: const EdgeInsets.only(left: 15, right: 15),
       child: Container(
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(15),
             color: Colors.grey.shade200),
-        height: 100,
+        height: 80,
         width: double.infinity,
         // color: Colors.grey.shade300,
         child: Material(
@@ -143,7 +157,10 @@ class ProfileMenu extends StatelessWidget {
                   Expanded(
                     child: Text(
                       text,
-                      style: Theme.of(context).textTheme.bodyText1,
+                      style: GoogleFonts.arvo(
+                          fontWeight: FontWeight.w700,
+                          color: Colors.blueAccent,
+                          fontSize: 18),
                     ),
                   ),
                   Icon(

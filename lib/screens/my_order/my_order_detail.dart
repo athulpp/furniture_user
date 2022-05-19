@@ -258,8 +258,8 @@ class MyOrderDetailsScreen extends StatelessWidget {
                                       : Text(
                                           ' $status',
                                           style: GoogleFonts.adventPro(
-                                              fontWeight: FontWeight.w300,
-                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 20,
                                               color: Colors.green),
                                         ),
                                 ],

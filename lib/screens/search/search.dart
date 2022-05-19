@@ -104,7 +104,7 @@ class ProductSearch extends SearchDelegate {
   ThemeData appBarTheme(BuildContext context) {
     return ThemeData(
       appBarTheme: const AppBarTheme(
-        color: Colors.grey, // affects AppBar's background color
+        color: Colors.blueGrey, // affects AppBar's background color
         // hintColor: Colors.grey, // affects the initial 'Search' text
         textTheme: const TextTheme(
             headline6: TextStyle(
