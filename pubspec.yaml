@@ -46,6 +46,7 @@ dependencies:
   rflutter_alert: ^2.0.4
   nb_utils: ^4.5.2
   awesome_dialog: ^2.2.1
+  skeletons: ^0.0.3
 
 
 

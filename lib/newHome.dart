@@ -4,6 +4,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
+import 'package:skeletons/skeletons.dart';
 import 'package:userapp/product_overview/product_detail.dart';
 
 class SingleProductWidget extends StatefulWidget {
@@ -39,8 +40,81 @@ class _SingleProductWidgetState extends State<SingleProductWidget> {
             print("Something went wrong");
           }
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
-                child: Lottie.asset('assests/images/66405-swap.json'));
+            // return Center(
+            // child: Lottie.asset('assests/images/66405-swap.json'));
+
+            return SkeletonItem(
+                child: Column(
+              children: [
+                Row(
+                  children: [
+                    SkeletonAvatar(
+                      style: SkeletonAvatarStyle(
+                          shape: BoxShape.circle, width: 50, height: 50),
+                    ),
+                    SizedBox(width: 8),
+                    Expanded(
+                      child: SkeletonParagraph(
+                        style: SkeletonParagraphStyle(
+                            lines: 3,
+                            spacing: 6,
+                            lineStyle: SkeletonLineStyle(
+                              randomLength: true,
+                              height: 10,
+                              borderRadius: BorderRadius.circular(8),
+                              minLength: MediaQuery.of(context).size.width / 6,
+                              maxLength: MediaQuery.of(context).size.width / 3,
+                            )),
+                      ),
+                    )
+                  ],
+                ),
+                SizedBox(height: 12),
+                SkeletonParagraph(
+                  style: SkeletonParagraphStyle(
+                      lines: 3,
+                      spacing: 6,
+                      lineStyle: SkeletonLineStyle(
+                        randomLength: true,
+                        height: 10,
+                        borderRadius: BorderRadius.circular(8),
+                        minLength: MediaQuery.of(context).size.width / 2,
+                      )),
+                ),
+                SizedBox(height: 12),
+                SkeletonAvatar(
+                  style: SkeletonAvatarStyle(
+                    width: double.infinity,
+                    minHeight: MediaQuery.of(context).size.height / 8,
+                    maxHeight: MediaQuery.of(context).size.height / 3,
+                  ),
+                ),
+                SizedBox(height: 8),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        SkeletonAvatar(
+                            style: SkeletonAvatarStyle(width: 20, height: 20)),
+                        SizedBox(width: 8),
+                        SkeletonAvatar(
+                            style: SkeletonAvatarStyle(width: 20, height: 20)),
+                        SizedBox(width: 8),
+                        SkeletonAvatar(
+                            style: SkeletonAvatarStyle(width: 20, height: 20)),
+                      ],
+                    ),
+                    SkeletonLine(
+                      style: SkeletonLineStyle(
+                          height: 16,
+                          width: 64,
+                          borderRadius: BorderRadius.circular(8)),
+                    )
+                  ],
+                )
+              ],
+            ));
           }
           if (snapshot.data!.docs.isEmpty) {
             return SizedBox(

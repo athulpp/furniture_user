@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:nb_utils/nb_utils.dart';
+import 'package:skeletons/skeletons.dart';
 import 'package:userapp/controller/bottom_bar_control.dart';
 import 'package:userapp/controller/cart_controller.dart';
 
@@ -53,7 +54,84 @@ class CartScreen extends StatelessWidget {
               return Text('no items');
             }
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Loader();
+              // return Loader();
+              return SkeletonItem(
+                  child: Column(
+                children: [
+                  Row(
+                    children: [
+                      SkeletonAvatar(
+                        style: SkeletonAvatarStyle(
+                            shape: BoxShape.circle, width: 50, height: 50),
+                      ),
+                      SizedBox(width: 8),
+                      Expanded(
+                        child: SkeletonParagraph(
+                          style: SkeletonParagraphStyle(
+                              lines: 3,
+                              spacing: 6,
+                              lineStyle: SkeletonLineStyle(
+                                randomLength: true,
+                                height: 10,
+                                borderRadius: BorderRadius.circular(8),
+                                minLength:
+                                    MediaQuery.of(context).size.width / 6,
+                                maxLength:
+                                    MediaQuery.of(context).size.width / 3,
+                              )),
+                        ),
+                      )
+                    ],
+                  ),
+                  SizedBox(height: 12),
+                  SkeletonParagraph(
+                    style: SkeletonParagraphStyle(
+                        lines: 3,
+                        spacing: 6,
+                        lineStyle: SkeletonLineStyle(
+                          randomLength: true,
+                          height: 10,
+                          borderRadius: BorderRadius.circular(8),
+                          minLength: MediaQuery.of(context).size.width / 2,
+                        )),
+                  ),
+                  SizedBox(height: 12),
+                  SkeletonAvatar(
+                    style: SkeletonAvatarStyle(
+                      width: double.infinity,
+                      minHeight: MediaQuery.of(context).size.height / 8,
+                      maxHeight: MediaQuery.of(context).size.height / 3,
+                    ),
+                  ),
+                  SizedBox(height: 8),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          SkeletonAvatar(
+                              style:
+                                  SkeletonAvatarStyle(width: 20, height: 20)),
+                          SizedBox(width: 8),
+                          SkeletonAvatar(
+                              style:
+                                  SkeletonAvatarStyle(width: 20, height: 20)),
+                          SizedBox(width: 8),
+                          SkeletonAvatar(
+                              style:
+                                  SkeletonAvatarStyle(width: 20, height: 20)),
+                        ],
+                      ),
+                      SkeletonLine(
+                        style: SkeletonLineStyle(
+                            height: 16,
+                            width: 64,
+                            borderRadius: BorderRadius.circular(8)),
+                      )
+                    ],
+                  )
+                ],
+              ));
             }
             if (snapshot.data!.docs.isEmpty) {
               return SizedBox(
@@ -62,11 +140,14 @@ class CartScreen extends StatelessWidget {
                     child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Lottie.asset('assests/images/cart.json'),
+                    SizedBox(
+                        width: 200,
+                        height: 200,
+                        child: Lottie.asset('assests/images/cart.json')),
                     Text(
                       'Add Items',
                       style: GoogleFonts.bungee(
-                          fontSize: 28,
+                          fontSize: 18,
                           fontWeight: FontWeight.w100,
                           color: Color.fromARGB(255, 64, 40, 31)),
                     ),
