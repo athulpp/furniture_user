@@ -1,9 +1,18 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+
+import 'package:nb_utils/nb_utils.dart';
+import 'package:userapp/constants/material_button.dart';
+
+import 'package:userapp/controller/user_controller.dart';
+import 'package:userapp/model/usermodel.dart';
 
 class SettingsScreen extends StatelessWidget {
-  const SettingsScreen({Key? key}) : super(key: key);
-
+  SettingsScreen({Key? key}) : super(key: key);
+  final auth = FirebaseAuth.instance;
+  TextEditingController firstNameController = TextEditingController();
+  TextEditingController lastnameController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -12,175 +21,183 @@ class SettingsScreen extends StatelessWidget {
         title: Text('Setting'),
         centerTitle: true,
       ),
-      body: SafeArea(
-          child: Column(
-        children: [
-          SizedBox(
-            height: 10,
-          ),
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.start,
-          //   children: [
-          //     IconButton(
-          //         onPressed: () {
-          //           Get.back();
-          //         },
-          //         icon: Icon(Icons.arrow_back_ios)),
-          //     SizedBox(
-          //       width: 130,
-          //     ),
-          //     Text(
-          //       'Setting',
-          //       style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-          //     ),
-          //   ],
-          // ),
-          SizedBox(
-            height: 10,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 20, right: 20),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text('Personal information',
-                    style:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: 25)),
-                Icon(Icons.edit_attributes_outlined)
-              ],
-            ),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          InkWell(
-            onTap: () {
-              // Get.to(() => ());
-            },
-            child: Padding(
-              padding: const EdgeInsets.only(left: 20, right: 20),
-              child: Card(
-                color: Colors.grey,
-                shadowColor: Colors.grey,
-                child: Container(
-                  padding: EdgeInsets.all(15),
-                  width: 400,
-                  height: 50,
-                  color: Colors.grey.shade100,
-                  child: Text('Name'),
-                ),
+      body: FutureBuilder<UserModel>(
+          future: getUserDetails(),
+          builder: (context, snapshot) {
+            if (snapshot.hasError) {
+              print('Something went Wrong');
+            }
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(child: Text('Loading'));
+            }
+            if (snapshot.data == null) {
+              return Text('No data');
+            }
+
+            firstNameController.text = snapshot.data!.name.toString();
+            lastnameController.text = snapshot.data!.lastName.toString();
+            return SafeArea(
+                child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 10,
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 20, right: 20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Personal information',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 25),
+                        ),
+                        IconButton(
+                            onPressed: () {
+                              showModalBottomSheet(
+                                  backgroundColor: Colors.grey.shade100,
+                                  context: context,
+                                  builder: (context) {
+                                    return Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Form(
+                                          child: Column(
+                                        children: [
+                                          AppTextField(
+                                            controller:
+                                                firstNameController, // Optional
+                                            textFieldType: TextFieldType.NAME,
+                                            decoration: InputDecoration(
+                                                labelText: 'First Name',
+                                                border: OutlineInputBorder()),
+                                          ),
+                                          SizedBox(
+                                            height: 20,
+                                          ),
+                                          AppTextField(
+                                            controller:
+                                                lastnameController, // Optional
+                                            textFieldType: TextFieldType.NAME,
+                                            decoration: InputDecoration(
+                                                labelText: 'Last Name',
+                                                border: OutlineInputBorder()),
+                                          ),
+                                          CustomButton(
+                                            onPressed: () {
+                                              UpdateUser();
+                                            },
+                                            text: 'Save',
+                                            buttonColor: Colors.green,
+                                          )
+                                        ],
+                                      )),
+                                    );
+                                  });
+                            },
+                            icon: Icon(Icons.edit))
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  InkWell(
+                    onTap: () {
+                      // Get.to(() => ());
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 20, right: 20),
+                      child: Card(
+                        color: Colors.grey,
+                        shadowColor: Colors.grey,
+                        child: Container(
+                          padding: EdgeInsets.all(15),
+                          width: 400,
+                          height: 50,
+                          color: Colors.grey.shade100,
+                          child: Text(snapshot.data!.name.toString()),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  InkWell(
+                    onTap: () {
+                      // Get.to(() => ());
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 20, right: 20),
+                      child: Card(
+                        color: Colors.grey,
+                        shadowColor: Colors.grey,
+                        child: Container(
+                          padding: EdgeInsets.all(15),
+                          width: 400,
+                          height: 50,
+                          color: Colors.grey.shade100,
+                          child: Text(snapshot.data!.lastName.toString()),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 50,
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  InkWell(
+                    onTap: () {
+                      // Get.to(() => ());
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 20, right: 20),
+                      child: Card(
+                        color: Colors.grey,
+                        shadowColor: Colors.grey,
+                        child: Container(
+                          padding: EdgeInsets.all(15),
+                          width: 400,
+                          height: 50,
+                          color: Colors.grey.shade100,
+                          child: Text('Privacy & Terms'),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Image.network(
+                    'http://www.downloadclipart.net/medium/45342-personal-details-images.png',
+                    width: 180,
+                  )
+                ],
               ),
-            ),
-          ),
-          SizedBox(
-            height: 15,
-          ),
-          InkWell(
-            onTap: () {
-              // Get.to(() => ());
-            },
-            child: Padding(
-              padding: const EdgeInsets.only(left: 20, right: 20),
-              child: Card(
-                color: Colors.grey,
-                shadowColor: Colors.grey,
-                child: Container(
-                  padding: EdgeInsets.all(15),
-                  width: 400,
-                  height: 50,
-                  color: Colors.grey.shade100,
-                  child: Text('Email'),
-                ),
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 50,
-          ),
-          // Padding(
-          //   padding: const EdgeInsets.only(left: 20, right: 20),
-          //   child: Row(
-          //     mainAxisAlignment: MainAxisAlignment.start,
-          //     children: [
-          //       Text(
-          //         'Help Center',
-          //         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-          //       )
-          //     ],
-          //   ),
-          // ),
-          // SizedBox(
-          //   height: 5,
-          // ),
-          // InkWell(
-          //   onTap: () {
-          //     // Get.to(() => ());
-          //   },
-          //   child: Padding(
-          //     padding: const EdgeInsets.only(left: 20, right: 20),
-          //     child: Card(
-          //       color: Colors.grey,
-          //       shadowColor: Colors.grey,
-          //       child: Container(
-          //         padding: EdgeInsets.all(15),
-          //         width: 400,
-          //         height: 50,
-          //         color: Colors.grey.shade100,
-          //         child: Text('FAQ'),
-          //       ),
-          //     ),
-          //   ),
-          // ),
-          // SizedBox(
-          //   height: 15,
-          // ),
-          // InkWell(
-          //   onTap: () {
-          //     // Get.to(() => ());
-          //   },
-          //   child: Padding(
-          //     padding: const EdgeInsets.only(left: 20, right: 20),
-          //     child: Card(
-          //       color: Colors.grey,
-          //       shadowColor: Colors.grey,
-          //       child: Container(
-          //         padding: EdgeInsets.all(15),
-          //         width: 400,
-          //         height: 50,
-          //         color: Colors.grey.shade100,
-          //         child: Text('Contact Us'),
-          //       ),
-          //     ),
-          //   ),
-          // ),
-          SizedBox(
-            height: 15,
-          ),
-          InkWell(
-            onTap: () {
-              // Get.to(() => ());
-            },
-            child: Padding(
-              padding: const EdgeInsets.only(left: 20, right: 20),
-              child: Card(
-                color: Colors.grey,
-                shadowColor: Colors.grey,
-                child: Container(
-                  padding: EdgeInsets.all(15),
-                  width: 400,
-                  height: 50,
-                  color: Colors.grey.shade100,
-                  child: Text('Privacy & Terms'),
-                ),
-              ),
-            ),
-          ),
-          Image.network(
-            'http://www.downloadclipart.net/medium/45342-personal-details-images.png',
-            width: 180,
-          )
-        ],
-      )),
+            ));
+          }),
     );
+  }
+
+  UpdateUser() async {
+    FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+    User? user = auth.currentUser;
+
+    UserModel userModel = UserModel();
+
+    userModel.name = firstNameController.text;
+    userModel.lastName = lastnameController.text;
+    userModel.uid = user!.uid;
+    userModel.emailId = user.email;
+
+    await firebaseFirestore
+        .collection("users")
+        .doc(user.uid)
+        .update(userModel.toMap());
+
+    Fluttertoast.showToast(msg: "User Name Changed Sucessfully");
   }
 }

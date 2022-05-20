@@ -48,10 +48,10 @@ class Controller extends GetxController {
   //   }
   //   return id;
   // }
-  final firstNameEditingController = new TextEditingController();
-  final secondNameEditingController = new TextEditingController();
-  final emailEditingController = new TextEditingController();
-  final passwordEditingController = new TextEditingController();
+  final firstNameEditingController =  TextEditingController();
+  final secondNameEditingController =  TextEditingController();
+  final emailEditingController =  TextEditingController();
+  final passwordEditingController =  TextEditingController();
   final confirmPasswordEditingController = new TextEditingController();
   @override
   String? errorMessage;
@@ -109,13 +109,13 @@ class Controller extends GetxController {
     await firebaseFirestore
         .collection("users")
         .doc(user.uid)
-        .set(userModel.toJson());
+        .set(userModel.toMap());
 
     Fluttertoast.showToast(msg: "Account Created Sucessfully");
   }
 
   final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
-// get all the products
+
   CollectionReference _collectionRef =
       FirebaseFirestore.instance.collection('collection');
   String productId = '';

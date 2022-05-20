@@ -7,6 +7,7 @@ import 'package:nb_utils/nb_utils.dart';
 import 'package:userapp/controller/controller.dart';
 
 import 'package:userapp/screens/my_order/my_order.dart';
+import 'package:userapp/screens/settings/settings.dart';
 
 class ProfileBody extends StatelessWidget {
   const ProfileBody({Key? key}) : super(key: key);
@@ -67,16 +68,16 @@ class ProfileBody extends StatelessWidget {
         },
         icon: 'assests/images/person-244.svg',
       ),
-      // SizedBox(
-      //   height: 20,
-      // ),
-      // ProfileMenu(
-      //   text: 'Settings',
-      //   press: () {
-      //     Get.to((SettingsScreen()));
-      //   },
-      //   icon: 'assests/images/settings-5670.svg',
-      // ),
+      SizedBox(
+        height: 20,
+      ),
+      ProfileMenu(
+        text: 'Settings',
+        press: () {
+          Get.to((SettingsScreen()));
+        },
+        icon: 'assests/images/settings-5670.svg',
+      ),
       SizedBox(
         height: 20,
       ),
@@ -102,7 +103,6 @@ class ProfileBody extends StatelessWidget {
       SizedBox(
         height: 20,
       ),
-
       ProfileMenu(
         text: 'FAQ',
         press: () {},
@@ -146,7 +146,7 @@ class ProfileMenu extends StatelessWidget {
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
             color: Colors.grey.shade200),
-        height: 80,
+        height: 60,
         width: double.infinity,
         // color: Colors.grey.shade300,
         child: Material(

@@ -147,10 +147,10 @@ class SignupBody extends StatelessWidget {
                       controller.signUp(
                           controller.emailEditingController.text.trim(),
                           controller.passwordEditingController.text.trim());
-                      controller.firstNameEditingController.clear();
-                      controller.secondNameEditingController.clear();
-                      controller.emailEditingController.clear();
-                      controller.passwordEditingController.clear();
+                      // controller.firstNameEditingController.clear();
+                      // controller.secondNameEditingController.clear();
+                      // controller.emailEditingController.clear();
+                      // controller.passwordEditingController.clear();
 
                       Get.to((Login()));
                     } catch (e) {
