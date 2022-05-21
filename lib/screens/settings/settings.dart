@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'package:nb_utils/nb_utils.dart';
+import 'package:status_alert/status_alert.dart';
 import 'package:userapp/constants/material_button.dart';
 
 import 'package:userapp/controller/user_controller.dart';
@@ -53,8 +55,8 @@ class SettingsScreen extends StatelessWidget {
                       children: [
                         Text(
                           'Personal information',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 25),
+                          style: GoogleFonts.adventPro(
+                              fontWeight: FontWeight.bold, fontSize: 26),
                         ),
                         IconButton(
                             onPressed: () {
@@ -105,21 +107,20 @@ class SettingsScreen extends StatelessWidget {
                   SizedBox(
                     height: 10,
                   ),
-                  InkWell(
-                    onTap: () {
-                      // Get.to(() => ());
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 20, right: 20),
-                      child: Card(
-                        color: Colors.grey,
-                        shadowColor: Colors.grey,
-                        child: Container(
-                          padding: EdgeInsets.all(15),
-                          width: 400,
-                          height: 50,
-                          color: Colors.grey.shade100,
-                          child: Text(snapshot.data!.name.toString()),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 20, right: 20),
+                    child: Card(
+                      color: Colors.grey,
+                      shadowColor: Colors.grey,
+                      child: Container(
+                        padding: EdgeInsets.all(15),
+                        width: 400,
+                        height: 80,
+                        color: Colors.grey.shade100,
+                        child: Text(
+                          'Name : ${snapshot.data!.name.toString()}',
+                          style: GoogleFonts.alata(
+                              fontSize: 26, fontWeight: FontWeight.w500),
                         ),
                       ),
                     ),
@@ -127,21 +128,41 @@ class SettingsScreen extends StatelessWidget {
                   SizedBox(
                     height: 15,
                   ),
-                  InkWell(
-                    onTap: () {
-                      // Get.to(() => ());
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 20, right: 20),
-                      child: Card(
-                        color: Colors.grey,
-                        shadowColor: Colors.grey,
-                        child: Container(
-                          padding: EdgeInsets.all(15),
-                          width: 400,
-                          height: 50,
-                          color: Colors.grey.shade100,
-                          child: Text(snapshot.data!.lastName.toString()),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 20, right: 20),
+                    child: Card(
+                      color: Colors.grey,
+                      shadowColor: Colors.grey,
+                      child: Container(
+                        padding: EdgeInsets.all(15),
+                        width: 400,
+                        height: 80,
+                        color: Colors.grey.shade100,
+                        child: Text(
+                          'Last name : ${snapshot.data!.lastName.toString()}',
+                          style: GoogleFonts.alata(
+                              fontSize: 26, fontWeight: FontWeight.w500),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 20, right: 20),
+                    child: Card(
+                      color: Colors.grey,
+                      shadowColor: Colors.grey,
+                      child: Container(
+                        padding: EdgeInsets.all(15),
+                        width: 400,
+                        height: 80,
+                        color: Colors.grey.shade100,
+                        child: Text(
+                          'EmailId : ${snapshot.data!.emailId.toString()}',
+                          style: GoogleFonts.alata(
+                              fontSize: 26, fontWeight: FontWeight.w500),
                         ),
                       ),
                     ),
@@ -149,12 +170,16 @@ class SettingsScreen extends StatelessWidget {
                   SizedBox(
                     height: 50,
                   ),
-                  SizedBox(
-                    height: 15,
-                  ),
                   InkWell(
                     onTap: () {
-                      // Get.to(() => ());
+                      StatusAlert.show(
+                        context,
+                        duration: Duration(seconds: 5),
+                        title: 'About',
+                        subtitle:
+                            'We top Tables Seller in the Online. We are selling high quality tables which trusted by millions of customers',
+                        // configuration: IconConfiguration(icon: Icons.history),
+                      );
                     },
                     child: Padding(
                       padding: const EdgeInsets.only(left: 20, right: 20),
@@ -164,17 +189,21 @@ class SettingsScreen extends StatelessWidget {
                         child: Container(
                           padding: EdgeInsets.all(15),
                           width: 400,
-                          height: 50,
+                          height: 80,
                           color: Colors.grey.shade100,
-                          child: Text('Privacy & Terms'),
+                          child: Text(
+                            'About us',
+                            style: GoogleFonts.alata(
+                                fontSize: 26, fontWeight: FontWeight.w500),
+                          ),
                         ),
                       ),
                     ),
                   ),
-                  Image.network(
-                    'http://www.downloadclipart.net/medium/45342-personal-details-images.png',
-                    width: 180,
-                  )
+                  // Image.network(
+                  //   'http://www.downloadclipart.net/medium/45342-personal-details-images.png',
+                  //   width: 180,
+                  // )
                 ],
               ),
             ));

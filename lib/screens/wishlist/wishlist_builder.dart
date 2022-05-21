@@ -105,12 +105,14 @@ class WishList extends StatelessWidget {
             }
             if (snapshot.data!.docs.isEmpty) {
               return SizedBox(
+                width: 400,
                 height: 600,
                 child: Center(
                     child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Lottie.asset('assests/images/66405-swap.json'),
+                    Lottie.asset('assests/images/66405-swap.json',
+                        fit: BoxFit.cover),
                     Text(
                       'No Items',
                       style: GoogleFonts.bungee(
