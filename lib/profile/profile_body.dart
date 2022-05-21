@@ -7,6 +7,7 @@ import 'package:nb_utils/nb_utils.dart';
 import 'package:userapp/controller/controller.dart';
 
 import 'package:userapp/screens/my_order/my_order.dart';
+import 'package:userapp/screens/settings/faq.dart';
 import 'package:userapp/screens/settings/settings.dart';
 
 class ProfileBody extends StatelessWidget {
@@ -105,7 +106,9 @@ class ProfileBody extends StatelessWidget {
       ),
       ProfileMenu(
         text: 'FAQ',
-        press: () {},
+        press: () {
+          Get.to(() => Faq());
+        },
         icon: 'assests/images/sign-out-3298.svg',
       ),
       SizedBox(

@@ -47,6 +47,7 @@ dependencies:
   nb_utils: ^4.5.2
   awesome_dialog: ^2.2.1
   skeletons: ^0.0.3
+  expansion_tile_card: ^2.0.0
 
 
 
