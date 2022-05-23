@@ -111,12 +111,16 @@ class WishList extends StatelessWidget {
                     child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Lottie.asset('assests/images/66405-swap.json',
-                        fit: BoxFit.cover),
+                    SizedBox(
+                      width: 250,
+                      height: 250,
+                      child: Lottie.asset('assests/images/66405-swap.json',
+                          fit: BoxFit.cover),
+                    ),
                     Text(
                       'No Items',
                       style: GoogleFonts.bungee(
-                          fontSize: 28,
+                          fontSize: 22,
                           fontWeight: FontWeight.w100,
                           color: Color.fromARGB(255, 64, 40, 31)),
                     )
