@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
 
 import 'package:userapp/constants/material_button.dart';
 
@@ -26,11 +28,21 @@ class SignupBody extends StatelessWidget {
           children: [
             Text(
               'SIGN UP',
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: GoogleFonts.adventPro(
+                  fontWeight: FontWeight.bold, fontSize: 24),
             ),
-            Image.asset(
-              'assests/images/20944201.jpg',
-              height: size.height * 0.35,
+            SizedBox(
+              height: 200,
+              child: Center(
+                  child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                      width: 200,
+                      height: 200,
+                      child: Lottie.asset('assests/images/signup.json')),
+                ],
+              )),
             ),
             Form(
                 key: _formKey,
@@ -38,6 +50,7 @@ class SignupBody extends StatelessWidget {
                   children: [
                     TextFormContainer(
                       child: TextFormField(
+                        style: GoogleFonts.actor(fontWeight: FontWeight.w500),
                         controller: controller.firstNameEditingController,
                         onSaved: (value) {
                           controller.firstNameEditingController.text = value!;
@@ -62,6 +75,7 @@ class SignupBody extends StatelessWidget {
                     ),
                     TextFormContainer(
                       child: TextFormField(
+                        style: GoogleFonts.actor(fontWeight: FontWeight.w500),
                         controller: controller.secondNameEditingController,
                         onSaved: (value) {
                           controller.secondNameEditingController.text = value!;
@@ -86,6 +100,7 @@ class SignupBody extends StatelessWidget {
                     ),
                     TextFormContainer(
                       child: TextFormField(
+                        style: GoogleFonts.actor(fontWeight: FontWeight.w500),
                         controller: controller.emailEditingController,
                         onSaved: (value) {
                           controller.emailEditingController.text = value!;
@@ -111,6 +126,7 @@ class SignupBody extends StatelessWidget {
                     ),
                     TextFormContainer(
                       child: TextFormField(
+                        style: GoogleFonts.actor(fontWeight: FontWeight.w500),
                         obscureText: true,
                         controller: controller.passwordEditingController,
                         onSaved: (value) {

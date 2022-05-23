@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:userapp/constants/const.dart';
 
 class CustomButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
-    final buttonColor;
+  final buttonColor;
 
-   CustomButton({Key? key, required this.text, required this.onPressed,required this.buttonColor})
+  CustomButton(
+      {Key? key,
+      required this.text,
+      required this.onPressed,
+      required this.buttonColor})
       : super(key: key);
 
   @override
@@ -17,9 +22,8 @@ class CustomButton extends StatelessWidget {
         onPressed: onPressed,
         child: Text(
           text,
-          style: TextStyle(
-            fontSize: 17,
-          ),
+          style:
+              GoogleFonts.adventPro(fontSize: 22, fontWeight: FontWeight.bold),
         ),
         style: ElevatedButton.styleFrom(
             primary: buttonColor,

@@ -440,13 +440,13 @@ class EditAddress extends StatelessWidget {
           appBar: AppBar(
             backgroundColor: Colors.black,
             title: Text("Edit Address"),
-            actions: [
-              IconButton(
-                  onPressed: () {
-                    Get.to(() => EditAddressScreen());
-                  },
-                  icon: Icon(Icons.login))
-            ],
+            // actions: [
+            //   IconButton(
+            //       onPressed: () {
+            //         Get.to(() => EditAddressScreen());
+            //       },
+            //       icon: Icon(Icons.login))
+            // ],
           ),
           body: SingleChildScrollView(
             child: SizedBox(

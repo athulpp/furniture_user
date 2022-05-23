@@ -13,6 +13,7 @@ import 'package:userapp/model/favorite.dart';
 import 'package:userapp/product_overview/components/product_descripition.dart';
 
 import 'package:userapp/screens/login/login_screen/login..dart';
+import 'package:userapp/shipping%20address/address.dart';
 
 import 'package:uuid/uuid.dart';
 
@@ -49,7 +50,7 @@ class DetailScreen extends StatelessWidget {
               child: Stack(
                 children: [
                   Container(
-                    margin: EdgeInsets.only(top: size.height * 0.55),
+                    margin: EdgeInsets.only(top: size.height * 0.45),
                     height: 500,
                     width: double.infinity,
                     decoration: BoxDecoration(
@@ -76,29 +77,39 @@ class DetailScreen extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(left: 30, top: 30),
+                    padding: const EdgeInsets.only(left: 0, top: 30),
                     child: Column(
                       children: [
-                        Text(productName,
-                            style: GoogleFonts.raleway(
-                                fontSize: 34,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white)),
                         Row(
                           children: [
-                            RichText(
-                              text: TextSpan(children: [
-                                TextSpan(
-                                    text: 'Price\n',
-                                    style: GoogleFonts.raleway(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 20)),
-                                TextSpan(
-                                    text: '₹ ${productPrice}',
-                                    style: GoogleFonts.carme(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 30))
-                              ]),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 15),
+                              child: Text(productName,
+                                  style: GoogleFonts.raleway(
+                                      fontSize: 34,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white)),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 15),
+                              child: RichText(
+                                text: TextSpan(children: [
+                                  TextSpan(
+                                      text: 'Price\n',
+                                      style: GoogleFonts.raleway(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 20)),
+                                  TextSpan(
+                                      text: '₹ ${productPrice}',
+                                      style: GoogleFonts.carme(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 30))
+                                ]),
+                              ),
                             ),
                             SizedBox(
                               height: 20,
@@ -150,6 +161,9 @@ class DetailScreen extends StatelessWidget {
             ),
             Expanded(
               child: CustomButton(size, () {
+                if (favController.hasListeners) {
+                  print('already data');
+                }
                 favController.addToFavourite(Favorite(
                     productId: productId,
                     productName: productName,

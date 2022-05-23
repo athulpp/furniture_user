@@ -177,7 +177,7 @@ class ConfirmationScreen extends StatelessWidget {
               children: [
                 Text(
                   name,
-                  style: GoogleFonts.radley(
+                  style: GoogleFonts.aleo(
                       fontSize: 22, fontWeight: FontWeight.w500),
                 ),
                 IconButton(
@@ -228,7 +228,7 @@ class ConfirmationScreen extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: 10),
               child: Text(
                 address,
-                style: GoogleFonts.alata(
+                style: GoogleFonts.aleo(
                   fontSize: 18,
                   fontWeight: FontWeight.w500,
                 ),
@@ -237,14 +237,14 @@ class ConfirmationScreen extends StatelessWidget {
             Text(
               pincode,
               style:
-                  GoogleFonts.alata(fontSize: 20, fontWeight: FontWeight.w500),
+                  GoogleFonts.aleo(fontSize: 20, fontWeight: FontWeight.w500),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 10),
               child: Text(
                 phoneNo,
-                style: GoogleFonts.alata(
-                    fontSize: 18, fontWeight: FontWeight.w500),
+                style:
+                    GoogleFonts.aleo(fontSize: 18, fontWeight: FontWeight.w500),
               ),
             ),
           ],

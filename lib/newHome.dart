@@ -123,129 +123,135 @@ class _SingleProductWidgetState extends State<SingleProductWidget> {
                   child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Lottie.asset('assests/images/66405-swap.json'),
+                  SizedBox(
+                      width: 200,
+                      height: 200,
+                      child: Lottie.asset('assests/images/66405-swap.json')),
                 ],
               )),
             );
           }
-          return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
-            child: GridView.builder(
-                shrinkWrap: true,
-                primary: true,
-                itemCount: snapshot.data!.docs.length,
-                physics: const NeverScrollableScrollPhysics(),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10,
-                  childAspectRatio: 0.85,
-                ),
-                itemBuilder: (context, index) {
-                  final DocumentSnapshot documentSnapshot =
-                      snapshot.data!.docs[index];
-                  // print("hello world${snapshot.data!.docs.isNotEmpty}");
-                  // ignore: unnecessary_null_comparison
-                  return GestureDetector(
-                    // onTap:Widget.() {,
-                    onTap: () {
-                      Get.to(DetailScreen(
-                          productId: documentSnapshot.id,
-                          productName: documentSnapshot['productname'],
-                          productDesc: documentSnapshot['productdes'],
-                          productPrice: documentSnapshot['productprice'],
-                          productImage: documentSnapshot['productimage'],
-                          productQuantity:
-                              documentSnapshot['productquantity']));
-                    },
-                    // },
+          return Hero(
+            tag: 'tag',
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+              child: GridView.builder(
+                  shrinkWrap: true,
+                  primary: true,
+                  itemCount: snapshot.data!.docs.length,
+                  physics: const NeverScrollableScrollPhysics(),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10,
+                    childAspectRatio: 0.85,
+                  ),
+                  itemBuilder: (context, index) {
+                    final DocumentSnapshot documentSnapshot =
+                        snapshot.data!.docs[index];
+                    // print("hello world${snapshot.data!.docs.isNotEmpty}");
+                    // ignore: unnecessary_null_comparison
+                    return GestureDetector(
+                      // onTap:Widget.() {,
+                      onTap: () {
+                        Get.to(DetailScreen(
+                            productId: documentSnapshot.id,
+                            productName: documentSnapshot['productname'],
+                            productDesc: documentSnapshot['productdes'],
+                            productPrice: documentSnapshot['productprice'],
+                            productImage: documentSnapshot['productimage'],
+                            productQuantity:
+                                documentSnapshot['productquantity']));
+                      },
+                      // },
 
-                    child: Material(
-                      clipBehavior: Clip.hardEdge,
-                      type: MaterialType.canvas,
-                      color: Colors.white,
-                      shadowColor: Colors.black,
-                      borderOnForeground: true,
-                      borderRadius: BorderRadius.circular(5),
-                      elevation: 10,
-                      child: Container(
-                        height: 50,
-                        margin: EdgeInsets.all(10.0),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 10, right: 10, top: 10),
-                                child: Container(
-                                  alignment: Alignment.topRight,
-                                  width: double.infinity,
-                                  height: 100,
-                                  decoration: BoxDecoration(
-                                    color: Colors.transparent,
-                                    image: DecorationImage(
-                                      fit: BoxFit.scaleDown,
-                                      scale: 2,
-                                      image: NetworkImage(
-                                        documentSnapshot['productimage'],
+                      child: Material(
+                        clipBehavior: Clip.hardEdge,
+                        type: MaterialType.canvas,
+                        color: Colors.white,
+                        shadowColor: Colors.black,
+                        borderOnForeground: true,
+                        borderRadius: BorderRadius.circular(5),
+                        elevation: 10,
+                        child: Container(
+                          height: 50,
+                          margin: EdgeInsets.all(10.0),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 10, right: 10, top: 10),
+                                  child: Container(
+                                    alignment: Alignment.topRight,
+                                    width: double.infinity,
+                                    height: 100,
+                                    decoration: BoxDecoration(
+                                      color: Colors.transparent,
+                                      image: DecorationImage(
+                                        fit: BoxFit.scaleDown,
+                                        scale: 2,
+                                        image: NetworkImage(
+                                          documentSnapshot['productimage'],
+                                        ),
                                       ),
                                     ),
                                   ),
                                 ),
                               ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 5),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  SizedBox(
-                                    height: 5,
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 5),
-                                    child: Text(
-                                      documentSnapshot['productname'],
-                                      overflow: TextOverflow.ellipsis,
-                                      style: GoogleFonts.alice(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 20),
+                              Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 5),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SizedBox(
+                                      height: 5,
                                     ),
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 5),
-                                    child: Text(
-                                      "\₹ ${documentSnapshot['productprice']}",
-                                      overflow: TextOverflow.ellipsis,
-                                      style: GoogleFonts.raleway(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 22),
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 5),
+                                      child: Text(
+                                        documentSnapshot['productname'],
+                                        overflow: TextOverflow.ellipsis,
+                                        style: GoogleFonts.alice(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 20),
+                                      ),
                                     ),
-                                  ),
-                                  SizedBox(
-                                    width: 15,
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  )
-                                ],
-                              ),
-                            )
-                          ],
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 5),
+                                      child: Text(
+                                        "\₹ ${documentSnapshot['productprice']}",
+                                        overflow: TextOverflow.ellipsis,
+                                        style: GoogleFonts.raleway(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 22),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 15,
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    )
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  );
-                }),
+                    );
+                  }),
+            ),
           );
         });
   }
