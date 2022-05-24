@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:userapp/model/product.dart';
+
 
 import '../../constants/const.dart';
 import '../../constants/material_button.dart';
@@ -22,7 +22,7 @@ class CheckOutScreen extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            HeightSize,
+            heightSize,
             // Row(
             //   children: [
             //     IconButton(
@@ -41,7 +41,7 @@ class CheckOutScreen extends StatelessWidget {
             //     ),
             //   ],
             // ),
-            HeightSize,
+            heightSize,
             InkWell(
               onTap: () {
                 // Get.to(() => LoginScreen());
@@ -94,7 +94,7 @@ class CheckOutScreen extends StatelessWidget {
             //     ),
             //   ),
             // ),
-            HeightSize,
+            heightSize,
             Padding(
               padding: const EdgeInsets.only(left: 20, right: 20),
               child: Card(
@@ -129,7 +129,7 @@ class CheckOutScreen extends StatelessWidget {
                 ),
               ),
             ),
-            HeightSize,
+            heightSize,
             CustomButton(
               buttonColor: Colors.black,
               onPressed: () {
