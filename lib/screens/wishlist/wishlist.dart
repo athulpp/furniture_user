@@ -25,11 +25,12 @@ class WishListContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        SizedBox(height: 10),
+        const SizedBox(height: 10),
         Container(
           width: double.infinity,
           height: 100,
-          margin: EdgeInsets.only(right: 20, bottom: 10, left: 20, top: 10),
+          margin:
+              const EdgeInsets.only(right: 20, bottom: 10, left: 20, top: 10),
           child: Material(
             color: Colors.white,
             borderRadius: BorderRadius.circular(5),
@@ -37,14 +38,14 @@ class WishListContent extends StatelessWidget {
             child: GestureDetector(
               onTap: onPressed,
               child: Container(
-                padding: EdgeInsets.all(16),
+                padding: const EdgeInsets.all(16),
                 child: Row(
                   children: [
-                    Container(
+                    SizedBox(
                       height: 80,
                       child: Image.network(productImage),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 10,
                     ),
                     Expanded(
@@ -53,15 +54,15 @@ class WishListContent extends StatelessWidget {
                         children: [
                           Text(
                             productName,
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontSize: 16, fontWeight: FontWeight.bold),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 20,
                           ),
                           Text(
-                            productPrice,
-                            style: TextStyle(
+                            '₹${productPrice}',
+                            style: const TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 18),
                           )
                         ],
@@ -76,16 +77,16 @@ class WishListContent extends StatelessWidget {
         Positioned(
           top: 20,
           right: 15,
-          child: Container(
+          child: SizedBox(
             height: 30,
             width: 30,
             child: MaterialButton(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(5),
               ),
-              padding: EdgeInsets.all(0),
+              padding: const EdgeInsets.all(0),
               color: Colors.red,
-              child: Icon(Icons.clear),
+              child: const Icon(Icons.clear),
               onPressed: (() {
                 FirebaseFirestore.instance
                     .collection('FavCollections')
@@ -106,16 +107,16 @@ Widget positionedRemove() {
   return Positioned(
     top: 20,
     right: 15,
-    child: Container(
+    child: SizedBox(
       height: 30,
       width: 30,
       child: MaterialButton(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(5),
         ),
-        padding: EdgeInsets.all(0),
+        padding: const EdgeInsets.all(0),
         color: Colors.red,
-        child: Icon(Icons.clear),
+        child: const Icon(Icons.clear),
         onPressed: (() {}),
       ),
     ),
