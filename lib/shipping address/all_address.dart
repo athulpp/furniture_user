@@ -29,17 +29,17 @@ class AllAddressScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
-        title: Text('Address'),
+        title: const Text('Address'),
       ),
       body: StreamBuilder(
         stream: _addressStream,
         builder:
             ((BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {
-            print("Something went wrong");
+            const SizedBox();
           }
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Text('Loading');
+            return const Text('Loading');
           }
           if (snapshot.data!.docs.isEmpty) {
             return SizedBox(
@@ -48,14 +48,27 @@ class AllAddressScreen extends StatelessWidget {
                   child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Lottie.asset('assests/images/lf30_editor_itvwrc9z.json'),
-                  Text(
-                    'Add Your Address',
-                    style: GoogleFonts.bungee(
-                        fontSize: 28,
-                        fontWeight: FontWeight.w100,
-                        color: Color.fromARGB(255, 64, 40, 31)),
-                  )
+                  SizedBox(
+                    height: 600,
+                    child: Center(
+                        child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                            width: 200,
+                            height: 200,
+                            child: Lottie.asset(
+                                'assests/images/lf30_editor_itvwrc9z.json')),
+                        Text(
+                          'Add Address',
+                          style: GoogleFonts.bungee(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w100,
+                              color: const Color.fromARGB(255, 64, 40, 31)),
+                        ),
+                      ],
+                    )),
+                  ),
                 ],
               )),
             );
@@ -70,17 +83,6 @@ class AllAddressScreen extends StatelessWidget {
                       left: 20, right: 20, top: 15, bottom: 15),
                   child: GestureDetector(
                     onTap: () {
-                      // print(documentSnapshot.id);
-                      // Get.to(() => ConfirmationScreen(
-                      //       total: total,
-                      //       id: documentSnapshot.id,
-                      //       addressName: documentSnapshot['name'],
-                      //       addressAdd: documentSnapshot['address'],
-                      //       AddressPin: documentSnapshot['pincode'],
-                      //       phoneNo: documentSnapshot['phoneNumber'],
-                      //       cartList: cartList,
-                      //     ));
-
                       ConfirmationScreen(
                         total: total,
                         id: documentSnapshot.id,
@@ -103,105 +105,19 @@ class AllAddressScreen extends StatelessWidget {
                         padding: const EdgeInsets.all(10),
                         child: Column(
                           children: [
-                            Container(
-                                child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
+                            Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
                                   Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
                                         documentSnapshot['name'],
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             fontSize: 22,
                                             fontWeight: FontWeight.w500),
                                       ),
-                                      // IconButton(
-                                      //     onPressed: () {
-                                      //       addressControl.deleteAddress(
-                                      //         Address(
-                                      //             name:
-                                      //                 documentSnapshot['name']),
-                                      //       );
-                                      //     },
-                                      //     icon: Icon(Icons.delete))
-                                      // Padding(
-                                      //   padding: const EdgeInsets.all(1),
-                                      //   child: AppButton(
-
-                                      //     onTap: () {
-                                      //       showConfirmDialogCustom(
-                                      //         context,
-                                      //         onAccept: (context) {
-                                      //           snackBar(
-                                      //             context,
-                                      //             title: 'Confirmed',
-                                      //             snackBarAction:
-                                      //                 SnackBarAction(
-                                      //                     label: 'label',
-                                      //                     onPressed: () {}),
-                                      //           );
-                                      //         },
-                                      //       );
-                                      //     },
-                                      //   ),
-                                      // ),
-                                      // PopupMenuButton(
-                                      //     itemBuilder: ((BuildContext context) {
-                                      //   return <PopupMenuItem>[
-                                      //     PopupMenuItem(
-                                      //         child: GestureDetector(
-                                      //             child: Text('Edit Address'),
-                                      //             onTap: () {
-                                      //               Get.to((EditAddress(
-                                      //                 id: documentSnapshot.id,
-                                      //                 name: documentSnapshot[
-                                      //                     'name'],
-                                      //                 address: documentSnapshot[
-                                      //                     'address'],
-                                      //                 pincode: documentSnapshot[
-                                      //                     'pincode'],
-                                      //                 phoneNumber:
-                                      //                     documentSnapshot[
-                                      //                         'phoneNumber'],
-                                      //               )));
-                                      //             })),
-                                      //     // PopupMenuItem(child: GestureDetector(child: ,))
-                                      //   ];
-                                      // })),
-                                      // HoverWidget(
-                                      //     builder: (context, bool isHovering) {
-                                      //   return Container(
-                                      //     child: AppButton(
-                                      //       textColor: Colors.white,
-                                      //       color:
-                                      //           Color.fromARGB(255, 41, 40, 40),
-                                      //       text: "Delete",
-                                      //       onTap: () {
-                                      //         showConfirmDialogCustom(
-                                      //           context,
-                                      //           title:
-                                      //               "Do You Want to Delete this Address?",
-                                      //           dialogType: DialogType.DELETE,
-                                      //           onAccept: (context) {
-                                      //             addressControl.deleteAddress(
-                                      //               Address(
-                                      //                   name: documentSnapshot[
-                                      //                       'name']),
-                                      //             );
-                                      //             snackBar(context,
-                                      //                 title: 'Deleted');
-                                      //           },
-                                      //         );
-                                      //       },
-                                      //     ),
-                                      //     color: isHovering
-                                      //         ? Colors.red
-                                      //         : Colors.black,
-                                      //   );
-                                      // }),
                                     ],
                                   ),
                                   TextIcon(
@@ -211,7 +127,7 @@ class AllAddressScreen extends StatelessWidget {
                                       maxLines: 2,
                                       softWrap: false,
                                       overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           fontSize: 15,
                                           fontWeight: FontWeight.w500),
                                     ), // Optional
@@ -220,7 +136,7 @@ class AllAddressScreen extends StatelessWidget {
                                     text: 'Pin Code: ',
                                     suffix: Text(
                                       documentSnapshot['pincode'],
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.w500),
                                     ), // Optional
@@ -229,7 +145,7 @@ class AllAddressScreen extends StatelessWidget {
                                     text: 'Mobile No: ',
                                     suffix: Text(
                                       documentSnapshot['phoneNumber'],
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.w500),
                                     ), // Optional
@@ -239,10 +155,6 @@ class AllAddressScreen extends StatelessWidget {
                                   ),
                                   Row(
                                     children: [
-                                      // SizedBox(
-                                      //   width: 140,
-                                      // ),
-
                                       GestureDetector(
                                         onTap: () {
                                           Get.to((EditAddress(
@@ -271,7 +183,7 @@ class AllAddressScreen extends StatelessWidget {
                                           ),
                                         ),
                                       ),
-                                      Spacer(),
+                                      const Spacer(),
                                       HoverWidget(
                                           builder: (context, bool isHovering) {
                                         return Container(
@@ -306,7 +218,7 @@ class AllAddressScreen extends StatelessWidget {
                                       }),
                                     ],
                                   ),
-                                ]))
+                                ])
                           ],
                         ),
                       ),
@@ -316,31 +228,12 @@ class AllAddressScreen extends StatelessWidget {
               });
         }),
       ),
-      // bottomNavigationBar: GestureDetector(
-      //   onTap: () {
-      //     // Get.to(() => ConfirmationScreen());
-      //   },
-      //   child: Container(
-      //     height: size.height / 12,
-      //     width: size.width / 1.2,
-      //     color: Colors.black,
-      //     alignment: Alignment.center,
-      //     child: const Text(
-      //       "Proceed",
-      //       style: TextStyle(
-      //         fontSize: 21,
-      //         color: Colors.white,
-      //         fontWeight: FontWeight.w500,
-      //       ),
-      //     ),
-      //   ),
-      // ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: kthemeColor,
         onPressed: () {
           Get.to(() => AddAdressScreen());
         },
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }
