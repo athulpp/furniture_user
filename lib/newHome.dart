@@ -1,58 +1,37 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
+
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:skeletons/skeletons.dart';
 import 'package:userapp/product_overview/product_detail.dart';
 
-class SingleProductWidget extends StatefulWidget {
-  // final String productImage;
-  // final String productName;
-  // final String productModel;
-  // final String productPrice;
+class SingleProductWidget extends StatelessWidget {
+  final Stream<QuerySnapshot> _productStream =
+      FirebaseFirestore.instance.collection('products').snapshots();
 
-  // final VoidCallback onPressed;
-  // SingleProductWidget({
-  // required this.productImage,
-  // required this.productName,
-  // required this.productModel,
-  // required this.productPrice,
-  // required this.onPressed,
-  // });
+  SingleProductWidget({Key? key}) : super(key: key);
 
-  @override
-  _SingleProductWidgetState createState() => _SingleProductWidgetState();
-}
-
-final Stream<QuerySnapshot> _productStream =
-    FirebaseFirestore.instance.collection('products').snapshots();
-
-class _SingleProductWidgetState extends State<SingleProductWidget> {
   @override
   Widget build(BuildContext context) {
-    // timeDilation = 10.0;
     return StreamBuilder<QuerySnapshot>(
         stream: _productStream,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {
-            print("Something went wrong");
+            return const SizedBox();
           }
           if (snapshot.connectionState == ConnectionState.waiting) {
-            // return Center(
-            // child: Lottie.asset('assests/images/66405-swap.json'));
-
             return SkeletonItem(
                 child: Column(
               children: [
                 Row(
                   children: [
-                    SkeletonAvatar(
+                    const SkeletonAvatar(
                       style: SkeletonAvatarStyle(
                           shape: BoxShape.circle, width: 50, height: 50),
                     ),
-                    SizedBox(width: 8),
+                    const SizedBox(width: 8),
                     Expanded(
                       child: SkeletonParagraph(
                         style: SkeletonParagraphStyle(
@@ -69,7 +48,7 @@ class _SingleProductWidgetState extends State<SingleProductWidget> {
                     )
                   ],
                 ),
-                SizedBox(height: 12),
+                const SizedBox(height: 12),
                 SkeletonParagraph(
                   style: SkeletonParagraphStyle(
                       lines: 3,
@@ -81,7 +60,7 @@ class _SingleProductWidgetState extends State<SingleProductWidget> {
                         minLength: MediaQuery.of(context).size.width / 2,
                       )),
                 ),
-                SizedBox(height: 12),
+                const SizedBox(height: 12),
                 SkeletonAvatar(
                   style: SkeletonAvatarStyle(
                     width: double.infinity,
@@ -89,12 +68,12 @@ class _SingleProductWidgetState extends State<SingleProductWidget> {
                     maxHeight: MediaQuery.of(context).size.height / 3,
                   ),
                 ),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Row(
-                      children: [
+                      children: const [
                         SkeletonAvatar(
                             style: SkeletonAvatarStyle(width: 20, height: 20)),
                         SizedBox(width: 8),
@@ -149,10 +128,8 @@ class _SingleProductWidgetState extends State<SingleProductWidget> {
                   itemBuilder: (context, index) {
                     final DocumentSnapshot documentSnapshot =
                         snapshot.data!.docs[index];
-                    // print("hello world${snapshot.data!.docs.isNotEmpty}");
-                    // ignore: unnecessary_null_comparison
+
                     return GestureDetector(
-                      // onTap:Widget.() {,
                       onTap: () {
                         Get.to(DetailScreen(
                             productId: documentSnapshot.id,
@@ -210,7 +187,7 @@ class _SingleProductWidgetState extends State<SingleProductWidget> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 5,
                                     ),
                                     Padding(
@@ -223,7 +200,7 @@ class _SingleProductWidgetState extends State<SingleProductWidget> {
                                             fontSize: 20),
                                       ),
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 10,
                                     ),
                                     Padding(
@@ -236,10 +213,10 @@ class _SingleProductWidgetState extends State<SingleProductWidget> {
                                             fontSize: 22),
                                       ),
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       width: 15,
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 10,
                                     )
                                   ],
