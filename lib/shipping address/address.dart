@@ -1,18 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:userapp/controller/address-controller.dart';
-import 'package:userapp/controller/controller.dart';
+
 import 'package:userapp/model/address.dart';
-import 'package:userapp/screens/checkout/confirmation_screen.dart';
-import 'package:userapp/shipping%20address/address_controller.dart';
-import 'package:userapp/shipping%20address/all_address.dart';
+
 import 'package:uuid/uuid.dart';
 
-// import 'package:userapp/constants/const.dart';
 var address_id = Uuid();
 
 class AddressScreen extends StatelessWidget {
@@ -42,14 +39,7 @@ class AddAdressScreen extends StatelessWidget {
         child: Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.black,
-            title: Text("Address"),
-            // actions: [
-            //   IconButton(
-            //       onPressed: () {
-            //         Get.to(() => AllAddressScreen());
-            //       },
-            //       icon: Icon(Icons.login))
-            // ],
+            title: const Text("Address"),
           ),
           body: SingleChildScrollView(
             child: SizedBox(
@@ -66,7 +56,6 @@ class AddAdressScreen extends StatelessWidget {
                         height: size.height / 30,
                       ),
                       SizedBox(
-                        // height: size.height / 5,
                         width: size.width / 1.1,
                         child: TextFormField(
                           onSaved: (value) {
@@ -77,11 +66,9 @@ class AddAdressScreen extends StatelessWidget {
                               return "Please Enter Name";
                             }
                           },
-                          // controller: controller.nameController,
-
                           controller: addressControl.nameController,
                           maxLength: 15,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             hintText: "Full Name",
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.all(
@@ -106,10 +93,9 @@ class AddAdressScreen extends StatelessWidget {
                               return 'Please Enter the Address';
                             }
                           },
-                          // controller: controller.addressController,
                           controller: addressControl.addressController,
                           maxLines: 5,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             hintText: "Address",
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.all(
@@ -135,10 +121,9 @@ class AddAdressScreen extends StatelessWidget {
                             }
                           },
                           keyboardType: TextInputType.number,
-                          // controller: controller.pincodeController,
                           controller: addressControl.pincodeController,
                           maxLength: 6,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             hintText: "Pincode",
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.all(
@@ -164,10 +149,9 @@ class AddAdressScreen extends StatelessWidget {
                             }
                           },
                           keyboardType: TextInputType.phone,
-                          // controller: controller.pincodeController,
                           controller: addressControl.phoneController,
                           maxLength: 10,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             hintText: "Phone Number",
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.all(
@@ -185,13 +169,11 @@ class AddAdressScreen extends StatelessWidget {
           ),
           bottomNavigationBar: GestureDetector(
             onTap: () {
-              // controller.onTap();
               if (_formKey.currentState!.validate()) {
                 {
                   try {
                     addressControl.addAddress(
                       Address(
-                          // id: address_id.v4(),
                           name: addressControl.nameController.text,
                           address: addressControl.addressController.text,
                           pincode: addressControl.pincodeController.text,
@@ -244,29 +226,19 @@ class EditAddressScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.black,
         title: const Text("All Address"),
-        actions: [
-          IconButton(
-              onPressed: () {
-                // Get.to(() => AllAddressScreen());
-              },
-              icon: Icon(Icons.new_label))
-        ],
+        actions: [IconButton(onPressed: () {}, icon: Icon(Icons.new_label))],
       ),
       body: ListView(
-        //  mainAxisSize: MainAxisSize.min,
         children: [
-          // SizedBox(
-          //   height: size.height / 30,
-          // ),
           StreamBuilder<QuerySnapshot>(
               stream: _addressStream,
               builder: (BuildContext context,
                   AsyncSnapshot<QuerySnapshot> snapshot) {
                 if (snapshot.hasError) {
-                  print("Something went wrong");
+                  const SizedBox();
                 }
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Text('Loading');
+                  return const Text('Loading');
                 }
                 return Padding(
                   padding: const EdgeInsets.only(left: 40, right: 40),
@@ -297,7 +269,7 @@ class EditAddressScreen extends StatelessWidget {
                                     children: [
                                       Text(
                                         documentSnapshot['name'],
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             fontSize: 22,
                                             fontWeight: FontWeight.w500),
                                       ),
@@ -309,14 +281,15 @@ class EditAddressScreen extends StatelessWidget {
                                                       documentSnapshot['name']),
                                             );
                                           },
-                                          icon: Icon(Icons.delete))
+                                          icon: const Icon(Icons.delete))
                                     ],
                                   ),
                                   Padding(
-                                    padding: EdgeInsets.symmetric(vertical: 10),
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 10),
                                     child: Text(
                                       documentSnapshot['address'],
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         fontSize: 18,
                                         fontWeight: FontWeight.w500,
                                       ),
@@ -324,7 +297,7 @@ class EditAddressScreen extends StatelessWidget {
                                   ),
                                   Text(
                                     documentSnapshot['phoneNumber'],
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         fontSize: 18,
                                         fontWeight: FontWeight.w500),
                                   ),
@@ -333,8 +306,6 @@ class EditAddressScreen extends StatelessWidget {
                                   ),
                                   GestureDetector(
                                     onTap: () {
-                                      // controller.onEdit();
-                                      // addressScreenController.onEdit();
                                       Get.to(() => EditAddress(
                                             id: documentSnapshot.id,
                                             name: documentSnapshot['name'],
@@ -371,32 +342,8 @@ class EditAddressScreen extends StatelessWidget {
               })
         ],
       ),
-      bottomNavigationBar: GestureDetector(
-        onTap: () {
-          // Get.to(() => ConfirmationScreen());
-        },
-        child: Container(
-          height: size.height / 12,
-          width: size.width / 1.2,
-          color: Colors.black,
-          alignment: Alignment.center,
-          child: const Text(
-            "Proceed",
-            style: TextStyle(
-              fontSize: 21,
-              color: Colors.white,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-        ),
-      ),
     );
   }
-
-  // Widget addressCard(Size size) {
-  //   return
-  // }
-
 }
 
 class EditAddress extends StatelessWidget {
@@ -439,14 +386,7 @@ class EditAddress extends StatelessWidget {
         child: Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.black,
-            title: Text("Edit Address"),
-            // actions: [
-            //   IconButton(
-            //       onPressed: () {
-            //         Get.to(() => EditAddressScreen());
-            //       },
-            //       icon: Icon(Icons.login))
-            // ],
+            title: const Text("Edit Address"),
           ),
           body: SingleChildScrollView(
             child: SizedBox(
@@ -461,12 +401,9 @@ class EditAddress extends StatelessWidget {
                     height: size.height / 10,
                     width: size.width / 1.1,
                     child: TextField(
-                      // controller: controller.nameController,
-
-                      // controller: addressControl.nameController,
                       controller: nameController,
                       maxLength: 15,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         hintText: "Full Name",
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.all(
@@ -483,11 +420,9 @@ class EditAddress extends StatelessWidget {
                     height: size.height / 5,
                     width: size.width / 1.1,
                     child: TextField(
-                      // controller: controller.addressController,
-                      // controller: addressControl.addressController,
                       controller: addressController,
                       maxLines: 5,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         hintText: "Address",
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.all(
@@ -506,7 +441,7 @@ class EditAddress extends StatelessWidget {
                     child: TextField(
                       controller: pincodeController,
                       maxLength: 6,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         hintText: "Pincode",
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.all(
@@ -525,7 +460,7 @@ class EditAddress extends StatelessWidget {
                     child: TextField(
                       controller: phoneNumberController,
                       maxLength: 10,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         hintText: "PhoneNumber",
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.all(
@@ -541,7 +476,6 @@ class EditAddress extends StatelessWidget {
           ),
           bottomNavigationBar: GestureDetector(
             onTap: () {
-              // controller.onTap();
               addressControl.updateAddress(
                 Address(
                     name: nameController.text,
