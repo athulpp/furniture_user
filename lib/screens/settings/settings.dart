@@ -141,7 +141,7 @@ class SettingsScreen extends StatelessWidget {
                         child: Text(
                           'Last name : ${snapshot.data!.lastName.toString()}',
                           style: GoogleFonts.alata(
-                              fontSize: 26, fontWeight: FontWeight.w500),
+                              fontSize: 20, fontWeight: FontWeight.w500),
                         ),
                       ),
                     ),
@@ -155,14 +155,16 @@ class SettingsScreen extends StatelessWidget {
                       color: Colors.grey,
                       shadowColor: Colors.grey,
                       child: Container(
-                        padding: EdgeInsets.all(15),
+                        padding: EdgeInsets.all(10),
                         width: 400,
                         height: 80,
                         color: Colors.grey.shade100,
-                        child: Text(
-                          'EmailId : ${snapshot.data!.emailId.toString()}',
-                          style: GoogleFonts.alata(
-                              fontSize: 26, fontWeight: FontWeight.w500),
+                        child: Center(
+                          child: Text(
+                            'EmailId : ${snapshot.data!.emailId.toString()}',
+                            style: GoogleFonts.alata(
+                                fontSize: 20, fontWeight: FontWeight.w500),
+                          ),
                         ),
                       ),
                     ),

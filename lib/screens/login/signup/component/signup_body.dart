@@ -18,6 +18,7 @@ class SignupBody extends StatelessWidget {
   // TextEditingController _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   // final storage = new FlutterSecureStorage();
+  ValueNotifier<bool> toggle = ValueNotifier<bool>(true);
 
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -124,32 +125,46 @@ class SignupBody extends StatelessWidget {
                             )),
                       ),
                     ),
-                    TextFormContainer(
-                      child: TextFormField(
-                        style: GoogleFonts.actor(fontWeight: FontWeight.w500),
-                        obscureText: true,
-                        controller: controller.passwordEditingController,
-                        onSaved: (value) {
-                          controller.passwordEditingController.text = value!;
-                        },
-                        validator: ((value) {
-                          RegExp regex = new RegExp(r'^.{6,}$');
-                          if (value!.isEmpty) {
-                            return ("Password is required for login");
-                          }
-                          if (!regex.hasMatch(value)) {
-                            return ("Enter Valid Password(Min. 6 Character)");
-                          }
-                        }),
-                        decoration: InputDecoration(
-                            border: InputBorder.none,
-                            hintText: 'Password',
-                            prefixIcon: Icon(
-                              Icons.lock,
-                              color: Colors.brown,
-                            )),
-                      ),
-                    ),
+                    ValueListenableBuilder(
+                        valueListenable: toggle,
+                        builder: (context, value, child) {
+                          return TextFormContainer(
+                            child: TextFormField(
+                              style: GoogleFonts.actor(
+                                  fontWeight: FontWeight.w500),
+                              obscureText: toggle.value,
+                              controller: controller.passwordEditingController,
+                              onSaved: (value) {
+                                controller.passwordEditingController.text =
+                                    value!;
+                              },
+                              validator: ((value) {
+                                RegExp regex = new RegExp(r'^.{6,}$');
+                                if (value!.isEmpty) {
+                                  return ("Password is required for login");
+                                }
+                                if (!regex.hasMatch(value)) {
+                                  return ("Enter Valid Password(Min. 6 Character)");
+                                }
+                              }),
+                              decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                  hintText: 'Password',
+                                  prefixIcon: Icon(
+                                    Icons.lock,
+                                    color: Colors.brown,
+                                  ),
+                                  suffix: InkWell(
+                                    onTap: () {
+                                      toggle.value = !toggle.value;
+                                    },
+                                    child: Icon(toggle.value
+                                        ? Icons.visibility_off_outlined
+                                        : Icons.visibility),
+                                  )),
+                            ),
+                          );
+                        })
                   ],
                 )),
             Container(
@@ -163,10 +178,10 @@ class SignupBody extends StatelessWidget {
                       controller.signUp(
                           controller.emailEditingController.text.trim(),
                           controller.passwordEditingController.text.trim());
-                      // controller.firstNameEditingController.clear();
-                      // controller.secondNameEditingController.clear();
-                      // controller.emailEditingController.clear();
-                      // controller.passwordEditingController.clear();
+                      controller.firstNameEditingController.clear();
+                      controller.secondNameEditingController.clear();
+                      controller.emailEditingController.clear();
+                      controller.passwordEditingController.clear();
 
                       Get.to((Login()));
                     } catch (e) {

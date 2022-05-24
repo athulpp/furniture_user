@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'package:userapp/constants/material_button.dart';
 import 'package:userapp/controller/bottom_bar_control.dart';
@@ -25,10 +26,11 @@ class LoginBody extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(
-            'LOGIN',
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
+          Text('LOGIN',
+              style: GoogleFonts.adventPro(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 24,
+                  color: Colors.brown)),
           Image.asset(
             'assests/images/—Pngtree—hand drawn cartoon furniture table_4396870.png',
             height: size.height * 0.35,
