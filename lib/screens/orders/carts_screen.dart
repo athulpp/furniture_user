@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
@@ -24,24 +23,6 @@ class CartScreen extends StatelessWidget {
       .doc(FirebaseAuth.instance.currentUser!.uid)
       .collection('cart')
       .snapshots();
-  // List<Cart> convertToCart(AsyncSnapshot<QuerySnapshot<Object?>> snap) {
-  //   List<Cart> cartList = [];
-  //   for (var element in snap) {
-  //     cartList.add(Cart.fromJson(element));
-  //   }
-  //   return cartList;
-  // }
-
-  // void placeOrder(
-  //   List<Cart> cartList,
-  //   double totalPrice,
-  //   Address addres,
-  // ) {
-  //  List<Order> orderList = [];
-  //   for (var cart in cartList) {
-  //     orderList.add(Order(createdDate: Timestamp.now(), cart: cart, address: addres, status: 'delivered', totalPrice: totalPrice));
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +32,7 @@ class CartScreen extends StatelessWidget {
           builder:
               (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
             if (snapshot == null) {
-              return Text('no items');
+              return const Text('no items');
             }
             if (snapshot.connectionState == ConnectionState.waiting) {
               // return Loader();
@@ -60,11 +41,11 @@ class CartScreen extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      SkeletonAvatar(
+                      const SkeletonAvatar(
                         style: SkeletonAvatarStyle(
                             shape: BoxShape.circle, width: 50, height: 50),
                       ),
-                      SizedBox(width: 8),
+                      const SizedBox(width: 8),
                       Expanded(
                         child: SkeletonParagraph(
                           style: SkeletonParagraphStyle(
@@ -83,7 +64,7 @@ class CartScreen extends StatelessWidget {
                       )
                     ],
                   ),
-                  SizedBox(height: 12),
+                  const SizedBox(height: 12),
                   SkeletonParagraph(
                     style: SkeletonParagraphStyle(
                         lines: 3,
@@ -95,7 +76,7 @@ class CartScreen extends StatelessWidget {
                           minLength: MediaQuery.of(context).size.width / 2,
                         )),
                   ),
-                  SizedBox(height: 12),
+                  const SizedBox(height: 12),
                   SkeletonAvatar(
                     style: SkeletonAvatarStyle(
                       width: double.infinity,
@@ -103,12 +84,12 @@ class CartScreen extends StatelessWidget {
                       maxHeight: MediaQuery.of(context).size.height / 3,
                     ),
                   ),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Row(
-                        children: [
+                        children: const [
                           SkeletonAvatar(
                               style:
                                   SkeletonAvatarStyle(width: 20, height: 20)),
@@ -137,29 +118,23 @@ class CartScreen extends StatelessWidget {
               return SizedBox(
                 height: 600,
                 child: Center(
-                    child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                        width: 200,
-                        height: 200,
-                        child: Lottie.asset('assests/images/cart.json')),
-                    Text(
-                      'Add Items',
-                      style: GoogleFonts.bungee(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w100,
-                          color: Color.fromARGB(255, 64, 40, 31)),
-                    ),
-                    // TextButton(
-                    //     onPressed: () {
-                    //       Get.to(() => BottomNavigation(
-                    //             currentIndex: 0,
-                    //           ));
-                    //     },
-                    //     child: Text('View All Products'))
-                  ],
-                )),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                          width: 200,
+                          height: 200,
+                          child: Lottie.asset('assests/images/cart.json')),
+                      Text(
+                        'Add Items',
+                        style: GoogleFonts.bungee(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w100,
+                            color: Color.fromARGB(255, 64, 40, 31)),
+                      ),
+                    ],
+                  ),
+                ),
               );
             }
             List<Cart>? cartList = convetToCart(snapshot.data!.docs);
@@ -175,10 +150,7 @@ class CartScreen extends StatelessWidget {
                       itemBuilder: (context, index) {
                         final DocumentSnapshot documentSnapshot =
                             snapshot.data!.docs[index];
-                        print(documentSnapshot);
-                        // if (documentSnapshot == null) {
-                        //   return CircularProgressIndicator();
-                        // } else
+
                         return InkWell(
                           onTap: (() {
                             Get.to(
@@ -203,13 +175,13 @@ class CartScreen extends StatelessWidget {
                                       width: 100,
                                       height: 100,
                                       decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.all(
+                                          borderRadius: const BorderRadius.all(
                                               Radius.elliptical(20, 20)),
                                           image: DecorationImage(
                                               image: NetworkImage(
                                                   documentSnapshot['image']))),
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       width: 10,
                                     ),
                                     Expanded(
@@ -273,7 +245,7 @@ class CartScreen extends StatelessWidget {
                                                                 'price']));
                                                   }
                                                 },
-                                                icon: Icon(
+                                                icon: const Icon(
                                                   Icons.remove_circle,
                                                   color: Colors.brown,
                                                 ),
@@ -309,20 +281,20 @@ class CartScreen extends StatelessWidget {
                                                           documentSnapshot[
                                                               'price']));
                                                 },
-                                                icon: Icon(
+                                                icon: const Icon(
                                                   Icons.add_circle,
                                                   color: Colors.brown,
                                                 ),
                                               ),
                                             ],
                                           ),
-                                          SizedBox(
+                                          const SizedBox(
                                             height: 30,
                                           ),
                                         ],
                                       ),
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       width: 10,
                                     ),
                                   ],
@@ -333,41 +305,12 @@ class CartScreen extends StatelessWidget {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
+                                      const Padding(
+                                        padding: EdgeInsets.all(8.0),
                                         child: Text('Remove from the Cart',
                                             style: TextStyle(
                                                 fontWeight: FontWeight.w500)),
                                       ),
-                                      // IconButton(
-                                      //     onPressed: () {
-                                      //       AppButton(
-                                      //         text: "Delete",
-                                      //         onTap: () {
-                                      //           showConfirmDialogCustom(
-                                      //             context,
-                                      //             title:
-                                      //                 "Delete 89 files permanent?",
-                                      //             dialogType: DialogType.DELETE,
-                                      //             onAccept: (context) {
-                                      //               snackBar(context,
-                                      //                   title: 'Deleted');
-                                      //             },
-                                      //           );
-                                      //         },
-                                      //       );
-                                      //       // FirebaseFirestore.instance
-                                      //       //     .collection('cartCollection')
-                                      //       //     .doc(FirebaseAuth
-                                      //       //         .instance.currentUser!.uid)
-                                      //       //     .collection('cart')
-                                      //       //     .doc(documentSnapshot.id)
-                                      //       //     .delete();
-                                      //     },
-                                      //     icon: Icon(
-                                      //       Icons.delete,
-                                      //       color: Colors.red,
-                                      //     )),
                                       AppButton(
                                         padding: EdgeInsets.all(1),
                                         shapeBorder:
@@ -399,7 +342,7 @@ class CartScreen extends StatelessWidget {
                                     ],
                                   ),
                                 ),
-                                Divider(
+                                const Divider(
                                   thickness: 2,
                                 ),
                               ],
@@ -449,7 +392,7 @@ class CartScreen extends StatelessWidget {
                               child: Center(
                                 child: Text(
                                   '₹ ${sum(cartList)}',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       color: Colors.black,
                                       fontWeight: FontWeight.bold,
                                       fontSize: 22),
@@ -476,7 +419,7 @@ class CartScreen extends StatelessWidget {
                                         cartList: cartList,
                                       ));
                               },
-                              child: Text(
+                              child: const Text(
                                 'Place Order',
                                 style: TextStyle(color: Colors.white),
                               ),
@@ -495,7 +438,6 @@ class CartScreen extends StatelessWidget {
     List<Cart> cartList = [];
     for (var element in docs) {
       cartList.add(Cart.fromMap(element));
-      print('$cartList  the product lsit');
     }
     return cartList;
   }
@@ -506,12 +448,8 @@ sum(List<Cart> cartList) {
   for (var cart in cartList) {
     sumProd +=
         int.parse(cart.ProductQuantity) * double.parse(cart.productPrice);
-
-    print(sumProd);
-
-    // print(cartList);
   }
-  print(sumProd);
+
   return sumProd;
 }
 
@@ -521,61 +459,4 @@ quantity(List<Cart> cartList) {
     quantity = double.parse(cart.ProductQuantity);
   }
   return quantity;
-}
-
-class CartProductCard extends StatelessWidget {
-  CartProductCard({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Container(
-          width: 100,
-          height: 100,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.elliptical(20, 20)),
-              image: DecorationImage(image: NetworkImage(''))),
-        ),
-        SizedBox(
-          width: 10,
-        ),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Text(
-              //   productname,
-              //   style: Theme.of(context).textTheme.headline6,
-              // ),
-              // Text(productPrice, style: Theme.of(context).textTheme.headline6),
-            ],
-          ),
-        ),
-        SizedBox(
-          width: 10,
-        ),
-        // Row(
-        //   children: [IconButton(onPressed: () {
-        //     // FirebaseFirestore.instance.collection('cartCollection').doc(FirebaseAuth.instance.currentUser!.uid).collection('cart').doc(docume)
-        //   }, icon: Icon(Icons.remove))],
-        // ),
-        Row(
-          children: [
-            IconButton(
-              onPressed: () {},
-              icon: Icon(Icons.remove_circle),
-            ),
-            Text('1'),
-            IconButton(
-              onPressed: () {},
-              icon: Icon(Icons.add_circle),
-            ),
-          ],
-        )
-      ],
-    );
-  }
 }
