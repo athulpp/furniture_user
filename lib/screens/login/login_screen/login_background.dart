@@ -7,7 +7,7 @@ class BackgroundLogin extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return SingleChildScrollView(
-      child: Container(
+      child: SizedBox(
         width: double.infinity,
         height: size.height,
         child: Stack(alignment: Alignment.center, children: [

@@ -55,7 +55,7 @@ class SignupBody extends StatelessWidget {
                         controller.firstNameEditingController.text = value!;
                       },
                       validator: ((value) {
-                        RegExp regex =  RegExp(r'^.{3,}$');
+                        RegExp regex = RegExp(r'^.{3,}$');
                         if (value!.isEmpty) {
                           return ("Please Enter First Name");
                         }
@@ -80,7 +80,7 @@ class SignupBody extends StatelessWidget {
                         controller.secondNameEditingController.text = value!;
                       },
                       validator: ((value) {
-                        RegExp regex =  RegExp(r'^.{1,}$');
+                        RegExp regex = RegExp(r'^.{1,}$');
                         if (value!.isEmpty) {
                           return ("Please Enter Last name");
                         }
@@ -130,13 +130,14 @@ class SignupBody extends StatelessWidget {
                             controller.passwordEditingController.text = value!;
                           },
                           validator: ((value) {
-                            RegExp regex =  RegExp(r'^.{6,}$');
+                            RegExp regex = RegExp(r'^.{6,}$');
                             if (value!.isEmpty) {
                               return ("Password is required for login");
                             }
                             if (!regex.hasMatch(value)) {
                               return ("Enter Valid Password(Min. 6 Character)");
                             }
+                            
                           }),
                           decoration: InputDecoration(
                             border: InputBorder.none,

@@ -15,10 +15,10 @@ class LoginBody extends StatelessWidget {
     Key? key,
   }) : super(key: key);
   final auth = FirebaseAuth.instance;
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  // final storage = new FlutterSecureStorage();
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -29,7 +29,7 @@ class LoginBody extends StatelessWidget {
           Text('LOGIN',
               style: GoogleFonts.adventPro(
                   fontWeight: FontWeight.bold,
-                  fontSize: 24,
+                  fontSize: 30,
                   color: Colors.brown)),
           Image.asset(
             'assests/images/—Pngtree—hand drawn cartoon furniture table_4396870.png',
@@ -41,6 +41,8 @@ class LoginBody extends StatelessWidget {
               children: [
                 TextFormContainer(
                   child: TextFormField(
+                    style: GoogleFonts.allan(
+                        fontSize: 18, fontWeight: FontWeight.w500),
                     controller: _emailController,
                     onSaved: (value) {
                       _emailController.text = value!;
@@ -55,7 +57,7 @@ class LoginBody extends StatelessWidget {
                       }
                       return null;
                     },
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                         border: InputBorder.none,
                         hintText: 'Your Email',
                         prefixIcon: Icon(
@@ -66,12 +68,14 @@ class LoginBody extends StatelessWidget {
                 ),
                 TextFormContainer(
                   child: TextFormField(
+                    style: GoogleFonts.allan(
+                        fontSize: 18, fontWeight: FontWeight.w500),
                     controller: _passwordController,
                     onSaved: (value) {
                       _passwordController.text = value!;
                     },
                     validator: (value) {
-                      RegExp regex = new RegExp(r'^.{6,}$');
+                      RegExp regex = RegExp(r'^.{6,}$');
                       if (value!.isEmpty) {
                         return "Password is required for login";
                       }
@@ -80,7 +84,7 @@ class LoginBody extends StatelessWidget {
                       }
                     },
                     obscureText: true,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                         border: InputBorder.none,
                         hintText: 'Password',
                         prefixIcon: Icon(
@@ -92,14 +96,12 @@ class LoginBody extends StatelessWidget {
               ],
             ),
           ),
-          Container(
+          SizedBox(
             width: 330,
             child: CustomButton(
               onPressed: () {
                 signIn(
                     context, _emailController.text, _passwordController.text);
-                // Get.to(() => signIn(
-                //     context, _emailController.text, _passwordController.text));
               },
               text: "Login",
               buttonColor: Colors.brown,
@@ -110,13 +112,22 @@ class LoginBody extends StatelessWidget {
             children: [
               Text(
                 "Don't have an Account ?",
-                style: TextStyle(color: Colors.grey),
+                style: GoogleFonts.bubblerOne(
+                    color: Colors.grey,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18),
+              ),
+              const SizedBox(
+                width: 10,
               ),
               GestureDetector(
                   onTap: () {
-                    Get.to(() => SignUp());
+                    Get.to(() => const SignUp());
                   },
-                  child: Text("Sign Up"))
+                  child: Text(
+                    "Sign Up",
+                    style: GoogleFonts.carterOne(fontSize: 16),
+                  ))
             ],
           ),
         ],
@@ -130,7 +141,6 @@ class LoginBody extends StatelessWidget {
         try {
           UserCredential userCredential = await auth.signInWithEmailAndPassword(
               email: email, password: password);
-          print(userCredential.user?.uid);
 
           Fluttertoast.showToast(msg: "Login Successful");
           Navigator.push(context,
@@ -140,7 +150,6 @@ class LoginBody extends StatelessWidget {
         }
       }
     }
-    // }
   }
 }
 
@@ -152,10 +161,10 @@ class TextFormContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Container(
-      margin: EdgeInsets.symmetric(
+      margin: const EdgeInsets.symmetric(
         vertical: 10,
       ),
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
       width: size.width * 0.8,
       decoration: BoxDecoration(
         color: Colors.brown.shade200,
