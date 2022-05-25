@@ -1,17 +1,14 @@
-
 import 'package:flutter/material.dart';
 
 class background_signup extends StatelessWidget {
-  const background_signup({
-    Key? key,required this.child
-  }) : super(key: key);
+  const background_signup({Key? key, required this.child}) : super(key: key);
 
   final Widget child;
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Container(
+    return SizedBox(
       height: size.height,
       width: double.infinity,
       child: Stack(

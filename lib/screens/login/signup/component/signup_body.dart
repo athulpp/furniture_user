@@ -13,11 +13,9 @@ import 'package:userapp/screens/login/signup/component/background_signup.dart';
 
 class SignupBody extends StatelessWidget {
   SignupBody({Key? key}) : super(key: key);
-  // final auth = FirebaseAuth.instance;
-  // TextEditingController _emailController = TextEditingController();
-  // TextEditingController _passwordController = TextEditingController();
+
   final _formKey = GlobalKey<FormState>();
-  // final storage = new FlutterSecureStorage();
+
   ValueNotifier<bool> toggle = ValueNotifier<bool>(true);
 
   Widget build(BuildContext context) {
@@ -46,133 +44,127 @@ class SignupBody extends StatelessWidget {
               )),
             ),
             Form(
-                key: _formKey,
-                child: Column(
-                  children: [
-                    TextFormContainer(
-                      child: TextFormField(
-                        style: GoogleFonts.actor(fontWeight: FontWeight.w500),
-                        controller: controller.firstNameEditingController,
-                        onSaved: (value) {
-                          controller.firstNameEditingController.text = value!;
-                        },
-                        validator: ((value) {
-                          RegExp regex = new RegExp(r'^.{3,}$');
-                          if (value!.isEmpty) {
-                            return ("Please Enter First Name");
-                          }
-                          if (!regex.hasMatch(value)) {
-                            return ("Min. 3 Character is required");
-                          }
-                        }),
-                        decoration: InputDecoration(
-                            border: InputBorder.none,
-                            hintText: 'First Name',
-                            prefixIcon: Icon(
-                              Icons.person,
-                              color: Colors.brown,
-                            )),
-                      ),
+              key: _formKey,
+              child: Column(
+                children: [
+                  TextFormContainer(
+                    child: TextFormField(
+                      style: GoogleFonts.actor(fontWeight: FontWeight.w500),
+                      controller: controller.firstNameEditingController,
+                      onSaved: (value) {
+                        controller.firstNameEditingController.text = value!;
+                      },
+                      validator: ((value) {
+                        RegExp regex =  RegExp(r'^.{3,}$');
+                        if (value!.isEmpty) {
+                          return ("Please Enter First Name");
+                        }
+                        if (!regex.hasMatch(value)) {
+                          return ("Min. 3 Character is required");
+                        }
+                      }),
+                      decoration: const InputDecoration(
+                          border: InputBorder.none,
+                          hintText: 'First Name',
+                          prefixIcon: Icon(
+                            Icons.person,
+                            color: Colors.brown,
+                          )),
                     ),
-                    TextFormContainer(
-                      child: TextFormField(
-                        style: GoogleFonts.actor(fontWeight: FontWeight.w500),
-                        controller: controller.secondNameEditingController,
-                        onSaved: (value) {
-                          controller.secondNameEditingController.text = value!;
-                        },
-                        validator: ((value) {
-                          RegExp regex = new RegExp(r'^.{1,}$');
-                          if (value!.isEmpty) {
-                            return ("Please Enter Last name");
-                          }
-                          if (!regex.hasMatch(value)) {
-                            return ("Min. 1 Character is required");
-                          }
-                        }),
-                        decoration: InputDecoration(
-                            border: InputBorder.none,
-                            hintText: 'Last Name',
-                            prefixIcon: Icon(
-                              Icons.person,
-                              color: Colors.brown,
-                            )),
-                      ),
+                  ),
+                  TextFormContainer(
+                    child: TextFormField(
+                      style: GoogleFonts.actor(fontWeight: FontWeight.w500),
+                      controller: controller.secondNameEditingController,
+                      onSaved: (value) {
+                        controller.secondNameEditingController.text = value!;
+                      },
+                      validator: ((value) {
+                        RegExp regex =  RegExp(r'^.{1,}$');
+                        if (value!.isEmpty) {
+                          return ("Please Enter Last name");
+                        }
+                        if (!regex.hasMatch(value)) {
+                          return ("Min. 1 Character is required");
+                        }
+                      }),
+                      decoration: const InputDecoration(
+                          border: InputBorder.none,
+                          hintText: 'Last Name',
+                          prefixIcon: Icon(
+                            Icons.person,
+                            color: Colors.brown,
+                          )),
                     ),
-                    TextFormContainer(
-                      child: TextFormField(
-                        style: GoogleFonts.actor(fontWeight: FontWeight.w500),
-                        controller: controller.emailEditingController,
-                        onSaved: (value) {
-                          controller.emailEditingController.text = value!;
-                        },
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return ('Please Enter Email');
-                          }
-                          // if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
-                          //     .hasMatch(value)) {
-                          //   return ("Please Enter a valid email");
-                          // }
-                          // return null;
-                        },
-                        decoration: InputDecoration(
-                            border: InputBorder.none,
-                            hintText: 'Email Address',
-                            prefixIcon: Icon(
-                              Icons.email,
-                              color: Colors.brown,
-                            )),
-                      ),
+                  ),
+                  TextFormContainer(
+                    child: TextFormField(
+                      style: GoogleFonts.actor(fontWeight: FontWeight.w500),
+                      controller: controller.emailEditingController,
+                      onSaved: (value) {
+                        controller.emailEditingController.text = value!;
+                      },
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return ('Please Enter Email');
+                        }
+                      },
+                      decoration: const InputDecoration(
+                          border: InputBorder.none,
+                          hintText: 'Email Address',
+                          prefixIcon: Icon(
+                            Icons.email,
+                            color: Colors.brown,
+                          )),
                     ),
-                    ValueListenableBuilder(
-                        valueListenable: toggle,
-                        builder: (context, value, child) {
-                          return TextFormContainer(
-                            child: TextFormField(
-                              style: GoogleFonts.actor(
-                                  fontWeight: FontWeight.w500),
-                              obscureText: toggle.value,
-                              controller: controller.passwordEditingController,
-                              onSaved: (value) {
-                                controller.passwordEditingController.text =
-                                    value!;
-                              },
-                              validator: ((value) {
-                                RegExp regex = new RegExp(r'^.{6,}$');
-                                if (value!.isEmpty) {
-                                  return ("Password is required for login");
-                                }
-                                if (!regex.hasMatch(value)) {
-                                  return ("Enter Valid Password(Min. 6 Character)");
-                                }
-                              }),
-                              decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  hintText: 'Password',
-                                  prefixIcon: Icon(
-                                    Icons.lock,
-                                    color: Colors.brown,
-                                  ),
-                                  suffix: InkWell(
-                                    onTap: () {
-                                      toggle.value = !toggle.value;
-                                    },
-                                    child: Icon(toggle.value
-                                        ? Icons.visibility_off_outlined
-                                        : Icons.visibility),
-                                  )),
+                  ),
+                  ValueListenableBuilder(
+                    valueListenable: toggle,
+                    builder: (context, value, child) {
+                      return TextFormContainer(
+                        child: TextFormField(
+                          style: GoogleFonts.actor(fontWeight: FontWeight.w500),
+                          obscureText: toggle.value,
+                          controller: controller.passwordEditingController,
+                          onSaved: (value) {
+                            controller.passwordEditingController.text = value!;
+                          },
+                          validator: ((value) {
+                            RegExp regex =  RegExp(r'^.{6,}$');
+                            if (value!.isEmpty) {
+                              return ("Password is required for login");
+                            }
+                            if (!regex.hasMatch(value)) {
+                              return ("Enter Valid Password(Min. 6 Character)");
+                            }
+                          }),
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: 'Password',
+                            prefixIcon: const Icon(
+                              Icons.lock,
+                              color: Colors.brown,
                             ),
-                          );
-                        })
-                  ],
-                )),
-            Container(
+                            suffix: InkWell(
+                              onTap: () {
+                                toggle.value = !toggle.value;
+                              },
+                              child: Icon(toggle.value
+                                  ? Icons.visibility_off_outlined
+                                  : Icons.visibility),
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  )
+                ],
+              ),
+            ),
+            SizedBox(
               width: 330,
               child: CustomButton(
                 onPressed: () {
-                  // Get.to(() => signIn(
-                  //     context, _emailController.text, _passwordController.text));
                   if (_formKey.currentState!.validate()) {
                     try {
                       controller.signUp(
@@ -183,9 +175,9 @@ class SignupBody extends StatelessWidget {
                       controller.emailEditingController.clear();
                       controller.passwordEditingController.clear();
 
-                      Get.to((Login()));
+                      Get.to((const Login()));
                     } catch (e) {
-                      print(e);
+                      debugPrint(e.toString());
                     }
                   }
                 },
@@ -198,24 +190,4 @@ class SignupBody extends StatelessWidget {
       ),
     );
   }
-
-  // void signIn(context, String email, String password) async {
-  //   if (_formKey.currentState!.validate()) {
-  //     {
-  //       try {
-  //         UserCredential userCredential = await auth.signInWithEmailAndPassword(
-  //             email: email, password: password);
-  //         print(userCredential.user?.uid);
-
-  //         await storage.write(key: "uid", value: userCredential.user?.uid);
-
-  //         Fluttertoast.showToast(msg: "Login Successful");
-  //         Navigator.push(context,
-  //             MaterialPageRoute(builder: (context) => BottomNavigation()));
-  //       } catch (e) {
-  //         return null;
-  //       }
-  //     }
-  //   }
-  // }
 }
