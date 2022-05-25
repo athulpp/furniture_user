@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:userapp/controller/bottom_bar_control.dart';
 import 'package:userapp/screens/login/home_to.dart';
 
 class SplashScreen extends StatelessWidget {
@@ -12,7 +11,7 @@ class SplashScreen extends StatelessWidget {
       Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
-            builder: (context) => HomeTo(),
+            builder: (context) =>const HomeTo(),
           ),
           (route) => false);
     });
@@ -23,7 +22,7 @@ class SplashScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Image.asset('assests/images/Group.png'),
-          Text(
+       const   Text(
             'Furnidesk ',
             style: TextStyle(
                 fontSize: 30, fontWeight: FontWeight.bold, color: Colors.grey),

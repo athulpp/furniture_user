@@ -16,8 +16,8 @@ class WelcomeScreen extends StatelessWidget {
                   onPressed: () {
                     finish(context);
                   },
-                  icon: Icon(Icons.home)),
-              WelcomeBody(),
+                  icon:const Icon(Icons.home)),
+             const WelcomeBody(),
             ],
           ),
         ),
