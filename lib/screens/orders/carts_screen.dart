@@ -130,7 +130,7 @@ class CartScreen extends StatelessWidget {
                         style: GoogleFonts.bungee(
                             fontSize: 18,
                             fontWeight: FontWeight.w100,
-                            color: Color.fromARGB(255, 64, 40, 31)),
+                            color: const Color.fromARGB(255, 64, 40, 31)),
                       ),
                     ],
                   ),
@@ -262,7 +262,7 @@ class CartScreen extends StatelessWidget {
                                                       documentSnapshot[
                                                           'quantity']);
                                                   x = x + 1;
-                                                  print('$x ghfdfhgf');
+                                               
                                                   cartController.quantity(Cart(
                                                       cartId: documentSnapshot[
                                                           'id'],
@@ -312,7 +312,7 @@ class CartScreen extends StatelessWidget {
                                                 fontWeight: FontWeight.w500)),
                                       ),
                                       AppButton(
-                                        padding: EdgeInsets.all(1),
+                                        padding:const EdgeInsets.all(1),
                                         shapeBorder:
                                             Border.all(color: Colors.black),
                                         color: Colors.redAccent,

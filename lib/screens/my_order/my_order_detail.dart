@@ -78,35 +78,10 @@ class MyOrderDetailsScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  // ProductRating(
+              
 
                   (status == 'cancelled' || status == 'Rejected')
-                      ? SizedBox()
-                      //                   : Alert(
-                      //   context: context,
-                      //   type: AlertType.error,
-                      //   title: "RFLUTTER ALERT",
-                      //   desc: "Flutter is more awesome with RFlutter Alert.",
-                      //   buttons: [
-                      //     DialogButton(
-                      //       child: Text(
-                      //         "COOL",
-                      //         style: TextStyle(color: Colors.white, fontSize: 20),
-                      //       ),
-                      //       onPressed: () => Navigator.pop(context),
-                      //       width: 120,
-                      //     )
-                      //   ],
-                      // )
-
-                      // : GestureDetector(
-                      //     child: TextButton(
-                      //         onPressed: () {
-                      //           cancelOrderDialog(context);
-                      //         },
-                      //         child: Text('Cancel')),
-                      //   )
-
+                      ? const SizedBox()
                       : GestureDetector(
                           child: Padding(
                             padding: const EdgeInsets.all(10),
@@ -120,42 +95,20 @@ class MyOrderDetailsScreen extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(15),
                                   color: Colors.red),
                               child: TextButton(
-                                  onPressed: () {
-                                    CancelOrd(context);
-                                  },
-                                  child: Text(
-                                    'Cancel',
-                                    style: GoogleFonts.actor(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white),
-                                  )),
+                                onPressed: () {
+                                  CancelOrd(context);
+                                },
+                                child: Text(
+                                  'Cancel',
+                                  style: GoogleFonts.actor(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white),
+                                ),
+                              ),
                             ),
                           ),
-                        )
-
-                  // GetBuilder<Controller>(
-                  //     id: productId,
-                  //     builder: (context) {
-                  //       return ProductRating(
-                  //         productId: productId,
-                  //         orderId: orderId,
-                  //         address: address,
-                  //         createdDate: OrderDate,
-                  //         name: orderName,
-                  //         phoneNo: phonNo,
-                  //         pincode: pin,
-                  //         productDes: orderDes,
-                  //         productImage: orderImage,
-                  //         productPrice: orderPrice.toString(),
-                  //         productQuantity: Quantity,
-                  //         productname: orderName,
-                  //         status: status,
-                  //         totalPrice: orderPrice,
-                  //       );
-                  //     }),
-
-                  ,
+                        ),
                   SizedBox(
                     height: size.height / 30,
                   ),
@@ -176,7 +129,6 @@ class MyOrderDetailsScreen extends StatelessWidget {
                     shadowColor: Colors.brown,
                     type: MaterialType.button,
                     elevation: 5,
-                    // color: Colors.white,
                     child: Container(
                       padding: const EdgeInsets.symmetric(
                         vertical: 20,
@@ -216,7 +168,6 @@ class MyOrderDetailsScreen extends StatelessWidget {
                               ),
                             ],
                           ),
-
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 12),
                             child: Row(
@@ -236,7 +187,6 @@ class MyOrderDetailsScreen extends StatelessWidget {
                               ],
                             ),
                           ),
-                          // Text('Paid amount :'),
                           Padding(
                               padding: const EdgeInsets.symmetric(vertical: 12),
                               child: Row(
@@ -282,7 +232,7 @@ class MyOrderDetailsScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Material(
@@ -292,7 +242,6 @@ class MyOrderDetailsScreen extends StatelessWidget {
                     shadowColor: Colors.brown,
                     type: MaterialType.button,
                     elevation: 5,
-                    // color: Colors.white,
                     child: Container(
                       padding: const EdgeInsets.symmetric(
                         vertical: 20,
@@ -327,35 +276,29 @@ class MyOrderDetailsScreen extends StatelessWidget {
                               ),
                             ],
                           ),
-
                           Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 10),
-                              child: Row(
-                                children: [
-                                  Text(
-                                    'Address :',
+                            padding: const EdgeInsets.symmetric(vertical: 10),
+                            child: Row(
+                              children: [
+                                Text(
+                                  'Address :',
+                                  style: GoogleFonts.actor(
+                                      fontWeight: FontWeight.w300,
+                                      fontSize: 20),
+                                ),
+                                Flexible(
+                                  child: Text(
+                                    ' $address',
+                                    overflow: TextOverflow.visible,
+                                    softWrap: true,
                                     style: GoogleFonts.actor(
                                         fontWeight: FontWeight.w300,
-                                        fontSize: 20),
+                                        fontSize: 18),
                                   ),
-                                  Flexible(
-                                    child: Text(
-                                      ' $address',
-                                      overflow: TextOverflow.visible,
-                                      softWrap: true,
-                                      style: GoogleFonts.actor(
-                                          fontWeight: FontWeight.w300,
-                                          fontSize: 18),
-                                    ),
-                                  ),
-                                ],
-                              )),
-                          // Text('Paid amount :'),
-                          // Padding(
-                          //   padding:
-                          //       const EdgeInsets.symmetric(vertical: 12),
-                          //   // child:Row(children: [Text('Status')],) Text('Status : $status'),
-                          // ),
+                                ),
+                              ],
+                            ),
+                          ),
                           Padding(
                               padding: const EdgeInsets.symmetric(vertical: 12),
                               child: Row(
@@ -376,28 +319,25 @@ class MyOrderDetailsScreen extends StatelessWidget {
                                 ],
                               )),
                           Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 10),
-                              child: Row(
-                                children: [
-                                  Text(
-                                    'Pincode : ',
-                                    style: GoogleFonts.actor(
-                                        fontWeight: FontWeight.w300,
-                                        fontSize: 20),
-                                  ),
-                                  Text(
-                                    ' ${pin}',
-                                    style: GoogleFonts.almarai(
-                                        fontWeight: FontWeight.w500,
-                                        letterSpacing: 2,
-                                        fontSize: 18),
-                                  ),
-                                ],
-                              )),
-                          // Padding(
-                          //   padding: const EdgeInsets.symmetric(vertical: 12),
-                          //   child: text('Delivered on :', '28-10-2021'),
-                          // ),
+                            padding: const EdgeInsets.symmetric(vertical: 10),
+                            child: Row(
+                              children: [
+                                Text(
+                                  'Pincode : ',
+                                  style: GoogleFonts.actor(
+                                      fontWeight: FontWeight.w300,
+                                      fontSize: 20),
+                                ),
+                                Text(
+                                  ' ${pin}',
+                                  style: GoogleFonts.almarai(
+                                      fontWeight: FontWeight.w500,
+                                      letterSpacing: 2,
+                                      fontSize: 18),
+                                ),
+                              ],
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -472,7 +412,7 @@ class MyOrderDetailsScreen extends StatelessWidget {
       desc: "Do You Want to Cancel this order",
       buttons: [
         DialogButton(
-          child: Text(
+          child: const Text(
             "Yes",
             style: TextStyle(color: Colors.white, fontSize: 20),
           ),
@@ -487,15 +427,15 @@ class MyOrderDetailsScreen extends StatelessWidget {
                     pincode: pin));
             Get.off(() => MyOrder());
           },
-          color: Color.fromRGBO(0, 179, 134, 1.0),
+          color: const Color.fromRGBO(0, 179, 134, 1.0),
         ),
         DialogButton(
-          child: Text(
+          child: const Text(
             "No",
             style: TextStyle(color: Colors.white, fontSize: 20),
           ),
           onPressed: () => Navigator.pop(context),
-          gradient: LinearGradient(colors: [
+          gradient: const LinearGradient(colors: [
             Color.fromRGBO(116, 116, 191, 1.0),
             Color.fromRGBO(52, 138, 199, 1.0)
           ]),
