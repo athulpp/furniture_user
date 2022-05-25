@@ -20,20 +20,20 @@ class SettingsScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
-        title: Text('Setting'),
+        title: const Text('Setting'),
         centerTitle: true,
       ),
       body: FutureBuilder<UserModel>(
           future: getUserDetails(),
           builder: (context, snapshot) {
             if (snapshot.hasError) {
-              print('Something went Wrong');
+              return const SizedBox();
             }
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(child: Text('Loading'));
+              return const Center(child: Text('Loading'));
             }
             if (snapshot.data == null) {
-              return Text('No data');
+              return const Text('No data');
             }
 
             firstNameController.text = snapshot.data!.name.toString();
@@ -42,10 +42,10 @@ class SettingsScreen extends StatelessWidget {
                 child: SingleChildScrollView(
               child: Column(
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Padding(
@@ -73,24 +73,24 @@ class SettingsScreen extends StatelessWidget {
                                             controller:
                                                 firstNameController, // Optional
                                             textFieldType: TextFieldType.NAME,
-                                            decoration: InputDecoration(
+                                            decoration: const InputDecoration(
                                                 labelText: 'First Name',
                                                 border: OutlineInputBorder()),
                                           ),
-                                          SizedBox(
+                                          const SizedBox(
                                             height: 20,
                                           ),
                                           AppTextField(
                                             controller:
                                                 lastnameController, // Optional
                                             textFieldType: TextFieldType.NAME,
-                                            decoration: InputDecoration(
+                                            decoration: const InputDecoration(
                                                 labelText: 'Last Name',
                                                 border: OutlineInputBorder()),
                                           ),
                                           CustomButton(
                                             onPressed: () {
-                                              UpdateUser();
+                                              updateUser();
                                             },
                                             text: 'Save',
                                             buttonColor: Colors.green,
@@ -100,11 +100,11 @@ class SettingsScreen extends StatelessWidget {
                                     );
                                   });
                             },
-                            icon: Icon(Icons.edit))
+                            icon: const Icon(Icons.edit))
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Padding(
@@ -113,7 +113,7 @@ class SettingsScreen extends StatelessWidget {
                       color: Colors.grey,
                       shadowColor: Colors.grey,
                       child: Container(
-                        padding: EdgeInsets.all(15),
+                        padding: const EdgeInsets.all(15),
                         width: 400,
                         height: 80,
                         color: Colors.grey.shade100,
@@ -125,7 +125,7 @@ class SettingsScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 15,
                   ),
                   Padding(
@@ -134,7 +134,7 @@ class SettingsScreen extends StatelessWidget {
                       color: Colors.grey,
                       shadowColor: Colors.grey,
                       child: Container(
-                        padding: EdgeInsets.all(15),
+                        padding: const EdgeInsets.all(15),
                         width: 400,
                         height: 80,
                         color: Colors.grey.shade100,
@@ -146,7 +146,7 @@ class SettingsScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 15,
                   ),
                   Padding(
@@ -155,7 +155,7 @@ class SettingsScreen extends StatelessWidget {
                       color: Colors.grey,
                       shadowColor: Colors.grey,
                       child: Container(
-                        padding: EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(10),
                         width: 400,
                         height: 80,
                         color: Colors.grey.shade100,
@@ -169,18 +169,17 @@ class SettingsScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 50,
                   ),
                   InkWell(
                     onTap: () {
                       StatusAlert.show(
                         context,
-                        duration: Duration(seconds: 5),
+                        duration: const Duration(seconds: 5),
                         title: 'About',
                         subtitle:
                             'We top Tables Seller in the Online. We are selling high quality tables which trusted by millions of customers',
-                        // configuration: IconConfiguration(icon: Icons.history),
                       );
                     },
                     child: Padding(
@@ -189,7 +188,7 @@ class SettingsScreen extends StatelessWidget {
                         color: Colors.grey,
                         shadowColor: Colors.grey,
                         child: Container(
-                          padding: EdgeInsets.all(15),
+                          padding: const EdgeInsets.all(15),
                           width: 400,
                           height: 80,
                           color: Colors.grey.shade100,
@@ -202,10 +201,6 @@ class SettingsScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  // Image.network(
-                  //   'http://www.downloadclipart.net/medium/45342-personal-details-images.png',
-                  //   width: 180,
-                  // )
                 ],
               ),
             ));
@@ -213,7 +208,7 @@ class SettingsScreen extends StatelessWidget {
     );
   }
 
-  UpdateUser() async {
+  updateUser() async {
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
     User? user = auth.currentUser;
 
