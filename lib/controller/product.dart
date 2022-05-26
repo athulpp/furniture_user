@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 
 import 'package:get/get.dart';
 import 'package:userapp/model/product.dart';
@@ -33,7 +34,7 @@ class ProductController extends GetxController {
         update();
       });
     } catch (e) {
-      print(e);
+      debugPrint(e.toString());
     }
   }
 
@@ -60,7 +61,7 @@ class ProductController extends GetxController {
           update();
         });
       } catch (e) {
-        print(e);
+        debugPrint(e.toString());
       }
     }
   }

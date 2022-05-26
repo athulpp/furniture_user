@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
+
 import 'package:get/get.dart';
 import 'package:userapp/model/favorite.dart';
 
@@ -10,6 +10,7 @@ class AddFavController extends GetxController {
   Future addToFavourite(Favorite item) async {
     String res = 'Some error occured';
     try {
+      // ignore: non_constant_identifier_names
       DocumentReference<Map<String, dynamic>> Favuser = FirebaseFirestore
           .instance
           .collection('FavCollections')
@@ -20,7 +21,7 @@ class AddFavController extends GetxController {
           .then((value) {});
       res = 'success';
     } catch (err) {
-      print('...........$err');
+    
     }
     return res;
   }

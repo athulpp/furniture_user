@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:userapp/model/cart.dart';
 
@@ -11,8 +12,6 @@ class CartController extends GetxController {
   bool isLoading = true, isAlreadyAvailable = false;
 
   Future<String> addToCart(Cart item) async {
-    // isLoading = true;
-    // update();
     String res = 'Some error occured';
     try {
       DocumentReference<Map<String, dynamic>> cartUser = FirebaseFirestore
@@ -23,12 +22,10 @@ class CartController extends GetxController {
           .collection('cart')
           .doc(item.cartId)
           .set(item.toJson())
-          .then((value) {
-        // checkIfAlreadyInCart();
-      });
+          .then((value) {});
       res = 'success';
     } catch (err) {
-      print('...........$err');
+      debugPrint(err.toString());
     }
     return res;
   }
@@ -50,7 +47,7 @@ class CartController extends GetxController {
         update();
       });
     } catch (e) {
-      print(e);
+      debugPrint(e.toString());
     }
     return res;
   }
@@ -72,7 +69,7 @@ class CartController extends GetxController {
       });
       res = 'success';
     } catch (err) {
-      print('...........$err');
+      debugPrint(err.toString());
     }
     return res;
   }
@@ -83,20 +80,15 @@ class CartController extends GetxController {
       sumProd +=
           int.parse(cart.ProductQuantity) * double.parse(cart.productPrice);
 
-      print(sumProd);
+   
 
-      // print(cartList);
+
     }
-    print(sumProd);
+
     return sumProd;
   }
 
-  // Stream<List<Cart>> getAllCartItems() => FirebaseFirestore.instance
-  //     .collection('cartCollection')
-  //     .doc(FirebaseAuth.instance.currentUser!.uid)
-  //     .collection('cart')
-  //     .snapshots()
-  //     .map((event) => event.docs.map((e) => Cart.fromJson(e.data())).toList());
+
 
   Future cartDelete(Cart cart) async {
     String res = 'error';

@@ -18,46 +18,15 @@ class Controller extends GetxController {
     update(["indexchange"]);
   }
 
-  // final quantity = 0.obs;
-  // void increment() => quantity.value++;
-  // void decrement() => quantity.value--;
-  // void reset() => quantity.value = 0;
-
-// creating new user
-
-  // Future<String> createUser({
-  //   required  id,
-  //   String? name,
-  //   String? lastname,
-  //   String? emailid,
-  // }) async {
-  //   final firestore = FirebaseFirestore.instance;
-
-  //   try {
-  //     if (id.isNotEmpty ||
-  //         name!.isNotEmpty ||
-  //         lastname!.isNotEmpty ||
-  //         emailid!.isNotEmpty) ;
-
-  //     // UserModel user =
-  //     //     UserModel(id: id, name: name, lastName: lastname, emailId: emailid);
-  //     // firestore.collection('Users').doc(id).set(user.toJson());
-
-  //   } catch (e) {
-  //     print(e);
-  //   }
-  //   return id;
-  // }
-  final firstNameEditingController =  TextEditingController();
-  final secondNameEditingController =  TextEditingController();
-  final emailEditingController =  TextEditingController();
-  final passwordEditingController =  TextEditingController();
+  final firstNameEditingController = TextEditingController();
+  final secondNameEditingController = TextEditingController();
+  final emailEditingController = TextEditingController();
+  final passwordEditingController = TextEditingController();
   final confirmPasswordEditingController = new TextEditingController();
   @override
   String? errorMessage;
   final auth = FirebaseAuth.instance;
   final fireStore = FirebaseFirestore.instance;
-  // signup function
 
   signUp(String email, String password) async {
     try {
@@ -91,7 +60,8 @@ class Controller extends GetxController {
           errorMessage = "An undefined Error happened.";
       }
       Fluttertoast.showToast(msg: errorMessage!);
-      print(error.code);
+
+      debugPrint(error.code);
     }
   }
 
@@ -116,7 +86,7 @@ class Controller extends GetxController {
 
   final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
 
-  CollectionReference _collectionRef =
+  final CollectionReference _collectionRef =
       FirebaseFirestore.instance.collection('collection');
   String productId = '';
   List<Product> productData = [];
@@ -126,7 +96,7 @@ class Controller extends GetxController {
 
     // Get data from docs and convert map to List
     final allData = querySnapshot.docs.map((doc) => doc.data()).toList();
-    print(allData);
+    debugPrint(allData.toString());
   }
 
   ///search screen control
@@ -140,15 +110,12 @@ class Controller extends GetxController {
           .where('productname', isGreaterThanOrEqualTo: query)
           .get();
 
-      // searchResults =
-      //     value.docs.map((e) => Product.fromJson(e.data())).toList();
-
-      // });
       searchResults.addAll(data.docs);
       update(['search']);
-      print(data.docs);
+
+      debugPrint(data.docs.toString());
     } catch (e) {
-      print(e);
+      debugPrint(e.toString());
     }
     return searchResults;
   }
@@ -156,8 +123,7 @@ class Controller extends GetxController {
   logOut() async {
     await FirebaseAuth.instance.signOut();
 
-    // Get.to(() => Login());
-    Get.offAll(() => Login());
+    Get.offAll(() => const Login());
   }
 
   Future queryData(String queryString) async {
@@ -167,7 +133,6 @@ class Controller extends GetxController {
         .get();
   }
 
-  /// payment controller
   var selectPayment = "".obs;
 
   onChangePayment(var payment) {
@@ -184,7 +149,7 @@ class Controller extends GetxController {
 
       res = 'success';
     } catch (err) {
-      print('...........$err');
+      debugPrint(err.toString());
     }
     return res;
   }

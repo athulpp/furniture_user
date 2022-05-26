@@ -44,6 +44,6 @@ Future<UserModel> getUserDetails() async {
       .collection('users')
       .doc(FirebaseAuth.instance.currentUser!.uid)
       .get();
-  print('${snapshot['name']} is555555');
+
   return UserModel.fromMap(snapshot);
 }

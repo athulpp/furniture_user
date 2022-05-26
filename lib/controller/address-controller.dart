@@ -26,7 +26,7 @@ class AddressControl extends GetxController {
           .then((value) {});
       res = 'success';
     } catch (err) {
-      print('...........$err');
+      debugPrint(err.toString());
     }
     return res;
   }
@@ -44,7 +44,7 @@ class AddressControl extends GetxController {
           .update(address.toJson())
           .then((value) {});
     } catch (e) {
-      print(e);
+      debugPrint(e.toString());
     }
     return res;
   }

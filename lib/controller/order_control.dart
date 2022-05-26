@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:userapp/model/order.dart';
-import 'package:uuid/uuid.dart';
 
 OrderController orderController = OrderController();
 
@@ -19,11 +19,10 @@ class OrderController extends GetxController {
           .set(order.toMap());
       res = 'success';
     } catch (err) {
-      print('...........$err');
+      debugPrint(err.toString());
     }
     return res;
   }
-
 
   Future<String> cancelOrder(Order order) async {
     String res = 'Some error occured';
@@ -37,9 +36,8 @@ class OrderController extends GetxController {
           .update(order.toMap());
       res = 'success';
     } catch (err) {
-      print('...........$err');
+      debugPrint(err.toString());
     }
     return res;
   }
-
 }
