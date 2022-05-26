@@ -14,8 +14,4 @@ class ProductDescripition extends StatelessWidget {
       ),
     );
   }
-
-  prod() {
-    print(productDesc);
-  }
 }

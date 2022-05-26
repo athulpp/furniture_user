@@ -13,10 +13,10 @@ import 'package:userapp/model/favorite.dart';
 import 'package:userapp/product_overview/components/product_descripition.dart';
 
 import 'package:userapp/screens/login/login_screen/login..dart';
-import 'package:userapp/shipping%20address/address.dart';
 
 import 'package:uuid/uuid.dart';
 
+// ignore: must_be_immutable
 class DetailScreen extends StatelessWidget {
   DetailScreen(
       {Key? key,
@@ -27,6 +27,7 @@ class DetailScreen extends StatelessWidget {
       required this.productImage,
       required this.productQuantity})
       : super(key: key);
+  // ignore: prefer_typing_uninitialized_variables
   final productId;
   String productName;
   String productDesc;
@@ -34,7 +35,7 @@ class DetailScreen extends StatelessWidget {
   String productQuantity;
 
   String productImage;
-  var uuid = Uuid();
+  var uuid = const Uuid();
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -46,7 +47,6 @@ class DetailScreen extends StatelessWidget {
           children: [
             SizedBox(
               height: size.height,
-              // width: size.width,
               child: Stack(
                 children: [
                   Container(
@@ -55,22 +55,22 @@ class DetailScreen extends StatelessWidget {
                     width: double.infinity,
                     decoration: BoxDecoration(
                       color: Colors.grey.shade100,
-                      borderRadius: BorderRadius.only(
+                      borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(24),
                           topRight: Radius.circular(24)),
                     ),
                     child: Column(
                       children: [
-                        SizedBox(
+                        const SizedBox(
                           height: 20,
                         ),
                         ProductDescripition(
                           productDesc: productDesc,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 100,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 20,
                         ),
                       ],
@@ -104,17 +104,17 @@ class DetailScreen extends StatelessWidget {
                                           fontWeight: FontWeight.bold,
                                           fontSize: 20)),
                                   TextSpan(
-                                      text: '₹ ${productPrice}',
+                                      text: '₹ $productPrice',
                                       style: GoogleFonts.carme(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 30))
                                 ]),
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 20,
                             ),
-                            Container(
+                            SizedBox(
                               height: 350,
                               width: 260,
                               child: FittedBox(
@@ -139,9 +139,10 @@ class DetailScreen extends StatelessWidget {
           children: [
             Expanded(
               child: CustomButton(size, () {
+                // ignore: unnecessary_null_comparison
                 if (FirebaseAuth.instance.currentUser!.uid == null) {
-                  Get.to(() => Login());
-                } else
+                  Get.to(() => const Login());
+                } else {
                   cartController.addToCart(Cart(
                       cartId: productId,
                       productName: productName,
@@ -149,11 +150,8 @@ class DetailScreen extends StatelessWidget {
                       productPrice: productPrice,
                       ProductQuantity: 1.toString(),
                       productImage: productImage));
-                // Get.to(
-                //   (BottomNavigation(
-                //     currentIndex: 2,
-                //   )),
-                // );
+                }
+
                 BottomNavigation(
                   currentIndex: 2,
                 ).launch(context, pageRouteAnimation: PageRouteAnimation.Fade);
@@ -161,9 +159,7 @@ class DetailScreen extends StatelessWidget {
             ),
             Expanded(
               child: CustomButton(size, () {
-                if (favController.hasListeners) {
-                  print('already data');
-                }
+                if (favController.hasListeners) {}
                 favController.addToFavourite(Favorite(
                     productId: productId,
                     productName: productName,
@@ -171,9 +167,6 @@ class DetailScreen extends StatelessWidget {
                     productDes: productDesc,
                     productPrice: productPrice,
                     ProductQuantity: productQuantity));
-                // Get.to(() => BottomNavigation(
-                //       currentIndex: 1,
-                //     ));
 
                 toast('Added to Your WishList');
               }, Colors.white, "Add to Favorite"),
