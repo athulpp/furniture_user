@@ -23,41 +23,18 @@ class ProfileBody extends StatelessWidget {
           fit: StackFit.expand,
           clipBehavior: Clip.hardEdge,
           children: [
-            // Container(
-            //     width: 200,
-            //     height: 200,
-            //     child: Image.asset(
-            //       'assests/images/main_bottom.png',
-            //       width: double.infinity,
-            //       height: 100.0,
-            //     )),
             Positioned(
-                right: 1,
-                left: 1,
-                top: 20,
-                child: Image.asset(
-                  'assests/images/Group.png',
-                ))
-
-            // CircleAvatar(
-            //   backgroundImage: NetworkImage(
-            //       'https://image.shutterstock.com/image-photo/closeup-photo-amazing-short-hairdo-260nw-1617540484.jpg'),
-            // ),
-            // Positioned(
-            //   right: -12,
-            //   bottom: 0,
-            //   child: SizedBox(
-            //     height: 46,
-            //     width: 46,
-            //     child: TextButton(
-            //         onPressed: () {},
-            //         child: SvgPicture.asset('assests/images/1298735.svg')),
-            //   ),
-            // ),
+              right: 1,
+              left: 1,
+              top: 20,
+              child: Image.asset(
+                'assests/images/Group.png',
+              ),
+            ),
           ],
         ),
       ),
-      SizedBox(
+      const SizedBox(
         height: 20,
       ),
       ProfileMenu(
@@ -69,7 +46,7 @@ class ProfileBody extends StatelessWidget {
         },
         icon: 'assests/images/person-244.svg',
       ),
-      SizedBox(
+      const SizedBox(
         height: 20,
       ),
       ProfileMenu(
@@ -79,7 +56,7 @@ class ProfileBody extends StatelessWidget {
         },
         icon: 'assests/images/settings-5670.svg',
       ),
-      SizedBox(
+      const SizedBox(
         height: 20,
       ),
       ProfileMenu(
@@ -101,17 +78,17 @@ class ProfileBody extends StatelessWidget {
         },
         icon: 'assests/images/user-security-11931.svg',
       ),
-      SizedBox(
+      const SizedBox(
         height: 20,
       ),
       ProfileMenu(
         text: 'FAQ',
         press: () {
-          Get.to(() => Faq());
+          Get.to(() => const Faq());
         },
         icon: 'assests/images/sign-out-3298.svg',
       ),
-      SizedBox(
+      const SizedBox(
         height: 20,
       ),
       ProfileMenu(
@@ -126,7 +103,7 @@ class ProfileBody extends StatelessWidget {
             btnOkOnPress: () {
               controller.logOut();
             },
-          )..show();
+          ).show();
         },
         icon: 'assests/images/sign-out-3298.svg',
       )
@@ -151,7 +128,7 @@ class ProfileMenu extends StatelessWidget {
             color: Colors.grey.shade200),
         height: 60,
         width: double.infinity,
-        // color: Colors.grey.shade300,
+     
         child: Material(
           elevation: 2,
           shape:
@@ -165,7 +142,7 @@ class ProfileMenu extends StatelessWidget {
                     icon,
                     width: 32,
                   ),
-                  SizedBox(
+                const  SizedBox(
                     width: 22,
                   ),
                   Expanded(
@@ -177,7 +154,7 @@ class ProfileMenu extends StatelessWidget {
                           fontSize: 18),
                     ),
                   ),
-                  Icon(
+                const  Icon(
                     Icons.arrow_forward_ios,
                     color: Colors.brown,
                   )

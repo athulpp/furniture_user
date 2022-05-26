@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:nb_utils/nb_utils.dart';
+
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:userapp/controller/cart_controller.dart';
@@ -59,13 +59,6 @@ class ConfirmationScreen extends StatelessWidget {
               style: GoogleFonts.raleway(
                   fontWeight: FontWeight.bold, fontSize: 24),
             ),
-            // actions: [
-            //   IconButton(
-            //       onPressed: () {
-            //         print('this is my cart list .......${cartList}');
-            //       },
-            //       icon: Icon(Icons.abc))
-            // ],
           ),
           body: SizedBox(
             height: size.height,
@@ -93,10 +86,7 @@ class ConfirmationScreen extends StatelessWidget {
               //  ?controller.selectPayment.value = 'Razorpayment':controller.selectPayment.value='CashonDelivery';
               if (controller.selectPayment.value == 'Razorpayment') {
                 onPay(total);
-                print('hello');
-                // placeOrder();
               } else {
-                print('cash on delivery');
                 Alert(
                   context: context,
                   type: AlertType.none,
@@ -104,7 +94,7 @@ class ConfirmationScreen extends StatelessWidget {
                   desc: "Do You want to Place this Order",
                   buttons: [
                     DialogButton(
-                      child: Text(
+                      child: const Text(
                         "Yes",
                         style: TextStyle(color: Colors.white, fontSize: 20),
                       ),
@@ -117,18 +107,18 @@ class ConfirmationScreen extends StatelessWidget {
                                 name: addressName,
                                 pincode: AddressPin,
                                 PhoneNumber: phoneNo));
-                        Get.to(() => SucessScreen());
+                        Get.to(() => const SucessScreen());
                         cartRemove(cartList);
                       },
-                      color: Color.fromRGBO(0, 179, 134, 1.0),
+                      color: const Color.fromRGBO(0, 179, 134, 1.0),
                     ),
                     DialogButton(
-                      child: Text(
+                      child: const Text(
                         "No",
                         style: TextStyle(color: Colors.white, fontSize: 20),
                       ),
                       onPressed: () => Navigator.pop(context),
-                      gradient: LinearGradient(
+                      gradient: const LinearGradient(
                           colors: [Colors.red, Colors.redAccent]),
                     )
                   ],
@@ -189,7 +179,7 @@ class ConfirmationScreen extends StatelessWidget {
                         desc: "Do You want to change the address",
                         buttons: [
                           DialogButton(
-                            child: Text(
+                            child: const Text(
                               "Yes",
                               style:
                                   TextStyle(color: Colors.white, fontSize: 20),
@@ -203,29 +193,29 @@ class ConfirmationScreen extends StatelessWidget {
                                     phoneNumber: phoneNo,
                                   ));
                             },
-                            color: Color.fromRGBO(0, 179, 134, 1.0),
+                            color: const Color.fromRGBO(0, 179, 134, 1.0),
                           ),
                           DialogButton(
-                            child: Text(
+                            child: const Text(
                               "No",
                               style:
                                   TextStyle(color: Colors.white, fontSize: 20),
                             ),
                             onPressed: () => Navigator.pop(context),
-                            gradient: LinearGradient(
+                            gradient: const LinearGradient(
                                 colors: [Colors.red, Colors.redAccent]),
                           )
                         ],
                       ).show();
                     },
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.edit,
                       color: Colors.green,
                     ))
               ],
             ),
             Padding(
-              padding: EdgeInsets.symmetric(vertical: 10),
+              padding: const EdgeInsets.symmetric(vertical: 10),
               child: Text(
                 address,
                 style: GoogleFonts.aleo(
@@ -317,57 +307,60 @@ class ConfirmationScreen extends StatelessWidget {
 
   Widget paymentType(Size size) {
     return Material(
-        borderRadius: BorderRadius.circular(20),
-        borderOnForeground: true,
-        color: Colors.grey.shade300,
-        shadowColor: Colors.brown,
-        type: MaterialType.button,
-        elevation: 5,
-        // color: Colors.white,
-        child: Container(
-            padding: const EdgeInsets.symmetric(
-              vertical: 20,
-              horizontal: 15,
-            ),
-            width: size.width / 1.1,
-            child: Obx(() {
-              return Column(
-                children: [
-                  Row(
-                    children: [
-                      Text(
-                        'Cash on Delivery',
-                        style: GoogleFonts.cambay(
-                            fontWeight: FontWeight.bold, fontSize: 18),
-                      ),
-                      Radio(
-                          activeColor: Colors.green,
-                          value: 'CashonDelivery',
-                          groupValue: controller.selectPayment.value,
-                          onChanged: (value) {
-                            controller.onChangePayment(value);
-                          }),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        'Razor Payment',
-                        style: GoogleFonts.cambay(
-                            fontWeight: FontWeight.bold, fontSize: 18),
-                      ),
-                      Radio(
-                          activeColor: Colors.green,
-                          value: 'Razorpayment',
-                          groupValue: controller.selectPayment.value,
-                          onChanged: (value) {
-                            controller.onChangePayment(value);
-                          }),
-                    ],
-                  )
-                ],
-              );
-            })));
+      borderRadius: BorderRadius.circular(20),
+      borderOnForeground: true,
+      color: Colors.grey.shade300,
+      shadowColor: Colors.brown,
+      type: MaterialType.button,
+      elevation: 5,
+      child: Container(
+        padding: const EdgeInsets.symmetric(
+          vertical: 20,
+          horizontal: 15,
+        ),
+        width: size.width / 1.1,
+        child: Obx(
+          () {
+            return Column(
+              children: [
+                Row(
+                  children: [
+                    Text(
+                      'Cash on Delivery',
+                      style: GoogleFonts.cambay(
+                          fontWeight: FontWeight.bold, fontSize: 18),
+                    ),
+                    Radio(
+                        activeColor: Colors.green,
+                        value: 'CashonDelivery',
+                        groupValue: controller.selectPayment.value,
+                        onChanged: (value) {
+                          controller.onChangePayment(value);
+                        }),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Text(
+                      'Razor Payment',
+                      style: GoogleFonts.cambay(
+                          fontWeight: FontWeight.bold, fontSize: 18),
+                    ),
+                    Radio(
+                        activeColor: Colors.green,
+                        value: 'Razorpayment',
+                        groupValue: controller.selectPayment.value,
+                        onChanged: (value) {
+                          controller.onChangePayment(value);
+                        }),
+                  ],
+                )
+              ],
+            );
+          },
+        ),
+      ),
+    );
   }
 
   void _handlePaymentSuccess(PaymentSuccessResponse response) async {
@@ -379,12 +372,12 @@ class ConfirmationScreen extends StatelessWidget {
             name: addressName,
             pincode: AddressPin,
             PhoneNumber: phoneNo));
-    Get.to(() => SucessScreen());
+    Get.to(() =>const SucessScreen());
     cartRemove(cartList);
   }
 
   void _handlePaymentError(PaymentFailureResponse response) {
-    Get.off(() => FailedPage());
+    Get.off(() =>const FailedPage());
   }
 
   onPay(double total_price) {

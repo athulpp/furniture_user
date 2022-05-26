@@ -1,8 +1,5 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:userapp/product_overview/components/body.dart';
+
 import 'package:userapp/profile/profile_body.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -11,21 +8,15 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.grey.shade300,
-        // appBar: AppBar(
-        //   backgroundColor: Colors.grey.shade100,
-        //   elevation: 0,
-        //   centerTitle: true,
-        //   title: Text(
-        //     'Profile',
-        //     style: TextStyle(color: Colors.black),
-        //   ),
-        // ),
-        body: Column(children: [
+      backgroundColor: Colors.grey.shade300,
+      body: Column(
+        children: const [
           ProfileBody(),
           SizedBox(
             height: 20,
           ),
-        ]));
+        ],
+      ),
+    );
   }
 }
