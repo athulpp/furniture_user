@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:userapp/constants/const.dart';
+
 
 class CustomButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
+  // ignore: prefer_typing_uninitialized_variables
   final buttonColor;
 
-  CustomButton(
+  const CustomButton(
       {Key? key,
       required this.text,
       required this.onPressed,
@@ -27,7 +28,7 @@ class CustomButton extends StatelessWidget {
         ),
         style: ElevatedButton.styleFrom(
             primary: buttonColor,
-            minimumSize: Size(double.infinity, 50),
+            minimumSize:const Size(double.infinity, 50),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(30),
             )),

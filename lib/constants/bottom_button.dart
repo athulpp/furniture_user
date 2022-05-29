@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter/material.dart';
+
 
 class BottomButton extends StatelessWidget {
   final String text;

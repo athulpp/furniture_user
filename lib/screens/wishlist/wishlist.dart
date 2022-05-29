@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class WishListContent extends StatelessWidget {
   WishListContent(
       {Key? key,
@@ -61,7 +62,7 @@ class WishListContent extends StatelessWidget {
                             height: 20,
                           ),
                           Text(
-                            '₹${productPrice}',
+                            '₹$productPrice',
                             style: const TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 18),
                           )

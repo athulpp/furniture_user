@@ -10,6 +10,7 @@ import 'package:userapp/constants/material_button.dart';
 import 'package:userapp/controller/user_controller.dart';
 import 'package:userapp/model/usermodel.dart';
 
+// ignore: must_be_immutable
 class SettingsScreen extends StatelessWidget {
   SettingsScreen({Key? key}) : super(key: key);
   final auth = FirebaseAuth.instance;

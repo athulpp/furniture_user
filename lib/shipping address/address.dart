@@ -10,7 +10,8 @@ import 'package:userapp/model/address.dart';
 
 import 'package:uuid/uuid.dart';
 
-var address_id = Uuid();
+// ignore: non_constant_identifier_names
+var address_id =const Uuid();
 
 class AddressScreen extends StatelessWidget {
   AddressScreen({Key? key}) : super(key: key);
@@ -147,6 +148,7 @@ class AddAdressScreen extends StatelessWidget {
                             if (value!.isEmpty) {
                               return "Please Enter the phoneNumber";
                             }
+                          
                           },
                           keyboardType: TextInputType.phone,
                           controller: addressControl.phoneController,
@@ -185,7 +187,7 @@ class AddAdressScreen extends StatelessWidget {
                     addressControl.pincodeController.clear();
                     addressControl.phoneController.clear();
                   } catch (e) {
-                    print(e);
+                    debugPrint(e.toString());
                   }
                 }
               }
@@ -226,7 +228,9 @@ class EditAddressScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.black,
         title: const Text("All Address"),
-        actions: [IconButton(onPressed: () {}, icon: Icon(Icons.new_label))],
+        actions: [
+          IconButton(onPressed: () {}, icon: const Icon(Icons.new_label))
+        ],
       ),
       body: ListView(
         children: [

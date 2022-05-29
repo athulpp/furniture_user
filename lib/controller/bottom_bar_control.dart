@@ -19,6 +19,7 @@ import '../constants/const.dart';
 // ignore: non_constant_identifier_names
 final data_control = Get.put(Controller());
 
+// ignore: must_be_immutable
 class BottomNavigation extends StatelessWidget {
   BottomNavigation({
     this.currentIndex,

@@ -64,6 +64,7 @@ class Faq extends StatelessWidget {
   }
 }
 
+// ignore: non_constant_identifier_names
 ExpansionTileCard ExpansionTile(title, subTitle, isExpand) {
   return ExpansionTileCard(
     elevation: 1,

@@ -12,6 +12,7 @@ import 'package:userapp/model/cart.dart';
 import 'package:userapp/screens/checkout/confirmation_screen.dart';
 import 'package:userapp/shipping%20address/address.dart';
 
+// ignore: must_be_immutable
 class AllAddressScreen extends StatelessWidget {
   AllAddressScreen({Key? key, required this.total, required this.cartList})
       : super(key: key);
@@ -20,6 +21,7 @@ class AllAddressScreen extends StatelessWidget {
       .doc(FirebaseAuth.instance.currentUser!.uid)
       .collection('address')
       .snapshots();
+  // ignore: prefer_typing_uninitialized_variables
   var total;
   List<Cart> cartList;
 

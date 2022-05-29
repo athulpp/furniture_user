@@ -6,7 +6,7 @@ import 'package:lottie/lottie.dart';
 import 'package:userapp/product_overview/product_detail.dart';
 
 class ProductSearch extends SearchDelegate {
-  CollectionReference _firebaseFireStore =
+ final  CollectionReference _firebaseFireStore =
       FirebaseFirestore.instance.collection('products');
 
   @override
@@ -15,6 +15,7 @@ class ProductSearch extends SearchDelegate {
       appBarTheme: const AppBarTheme(
         color: Colors.blueGrey, // affects AppBar's background color
         // hintColor: Colors.grey, // affects the initial 'Search' text
+        // ignore: deprecated_member_use
         textTheme: TextTheme(
             headline6: TextStyle(
                 // headline 6 affects the query text
@@ -32,7 +33,7 @@ class ProductSearch extends SearchDelegate {
           onPressed: () {
             query = '';
           },
-          icon: Icon(Icons.close))
+          icon: const Icon(Icons.close))
     ];
   }
 

@@ -22,7 +22,7 @@ class Controller extends GetxController {
   final secondNameEditingController = TextEditingController();
   final emailEditingController = TextEditingController();
   final passwordEditingController = TextEditingController();
-  final confirmPasswordEditingController = new TextEditingController();
+  final confirmPasswordEditingController = TextEditingController();
   @override
   String? errorMessage;
   final auth = FirebaseAuth.instance;
@@ -103,7 +103,6 @@ class Controller extends GetxController {
   List<QueryDocumentSnapshot<Map<String, dynamic>>> searchResults = [];
   Future<List<QueryDocumentSnapshot<Map<String, dynamic>>>> searchProducts(
       String query) async {
-    print('search');
     try {
       final data = await fireStore
           .collection('products')
